@@ -21,7 +21,7 @@
                         </div>
                         <div class="mt-3 sm:mt-0 sm:ml-3">
                             <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium leading-6 text-indigo-700 transition duration-150 ease-in-out bg-indigo-100 border-2 border-transparent rounded-md hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-300 md:py-4 md:text-lg md:px-10">
-                                Learn More
+                                Pelajari lebih lanjut
                             </a>
                         </div>
                     </div>
@@ -61,10 +61,10 @@
         </div>
 
         <div class="relative z-20 flex flex-col items-start justify-start px-8 mx-auto sm:items-center max-w-7xl xl:px-5">
-            <h2 class="text-4xl font-medium leading-9 text-white">Awesome Features</h2>
-            <p class="mt-4 leading-6 sm:text-center text-wave-200">Wave has some cool features to help you rapidly build your Software as a Service.<br class="hidden md:block"> Here are a few awesome features you're going to love!</p>
+            <h2 class="text-4xl font-medium leading-9 text-white">Universitas Wahidiyah</h2>
+            <p class="mt-4 leading-6 sm:text-center text-wave-200">Keterangan<br class="hidden md:block"> Deskripsi</p>
 
-            <div class="grid mt-16 gap-y-10 sm:grid-cols-2 sm:gap-x-8 md:gap-x-12 lg:grid-cols-3 xl:grid-cols-4 lg:gap-20">
+            {{-- <div class="grid mt-16 gap-y-10 sm:grid-cols-2 sm:gap-x-8 md:gap-x-12 lg:grid-cols-3 xl:grid-cols-4 lg:gap-20">
                 @foreach(config('features') as $feature)
                     <div>
                         <img src="{{ $feature->image }}" class="w-16 rounded sm:mx-auto">
@@ -72,7 +72,7 @@
                         <p class="mt-2 text-sm leading-5 sm:text-center text-wave-200">{{ $feature->description }}</p>
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
 
         </div>
     </section>
@@ -90,7 +90,7 @@
         </g>
     </svg>
 
-    <!-- BEGINNING OF TESTIMONIALS SECTION -->
+    {{-- <!-- BEGINNING OF TESTIMONIALS SECTION -->
     <div id="testimonials">
         <div class="relative flex items-center justify-center pt-32 pb-12 bg-gray-100 md:pb-32 lg:pb-64 min-w-screen">
             <div class="max-w-6xl px-10 pb-20 mx-auto bg-gray-100">
@@ -185,9 +185,9 @@
 
         </div>
     </div>
-    <!-- END OF TESTIMONIALS SECTION -->
+    <!-- END OF TESTIMONIALS SECTION --> --}}
 
-    <!-- BEGINNING OF PRICING SECTION -->
+    {{-- <!-- BEGINNING OF PRICING SECTION -->
     <div id="pricing" class="relative">
 
         <div class="relative z-20 px-8 pb-8 mx-auto max-w-7xl xl:px-5">
@@ -201,6 +201,6 @@
             <p class="w-full my-8 text-left text-gray-500 sm:my-10 sm:text-center">All plans are fully configurable in the Admin Area.</p>
         </div>
     </div>
-    <!-- END OF PRICING SECTION -->
+    <!-- END OF PRICING SECTION --> --}}
 
 @endsection

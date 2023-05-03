@@ -14,21 +14,21 @@
 		</div>
 		<div class="w-full lg:w-9/12 xl:w-4/5">
 			<div>
-				<label for="name" class="block text-sm font-medium leading-5 text-gray-700">Name</label>
+				<label for="name" class="block text-sm font-medium leading-5 text-gray-700">Nama</label>
 				<div class="mt-1 rounded-md shadow-sm">
 					<input id="name" type="text" name="name" placeholder="Name" value="{{ Auth::user()->name }}" required class="w-full form-input">
 				</div>
 			</div>
 
 			<div class="mt-5">
-				<label for="email" class="block text-sm font-medium leading-5 text-gray-700">Email Address</label>
+				<label for="email" class="block text-sm font-medium leading-5 text-gray-700">Alamat Email</label>
 				<div class="mt-1 rounded-md shadow-sm">
 					<input id="email" type="text" name="email" placeholder="Email Address" value="{{ Auth::user()->email }}" required class="w-full form-input">
 				</div>
 			</div>
 
 			<div class="mt-5">
-				<label for="about" class="block text-sm font-medium leading-5 text-gray-700">About</label>
+				<label for="about" class="block text-sm font-medium leading-5 text-gray-700">Tentang</label>
 				<div class="mt-1 rounded-md">
 					{!! profile_field('text_area', 'about') !!}
 				</div>
@@ -61,7 +61,7 @@
             <div>
                 <div class="mt-3 text-center sm:mt-5">
                     <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
-						Position and resize your photo
+						Posisikan dan ubah ukuran foto Anda
                     </h3>
                     <div class="mt-2">
 						<div id="upload-crop-container" class="relative flex items-center justify-center h-56 mt-5">
@@ -78,8 +78,8 @@
             </div>
             <div class="mt-5 sm:mt-6">
                 <span class="flex w-full rounded-md shadow-sm">
-					<button @click="$store.uploadModal.open = false;" class="inline-flex justify-center w-full px-4 py-2 mr-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-transparent border-gray-300 rounded-md shadow-sm hover:text-gray-500 active:text-gray-800 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" type="button">Cancel</button>
-            		<button @click="$store.uploadModal.open = false; window.applyImageCrop()" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-wave-600 hover:bg-wave-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave sm:text-sm sm:leading-5" id="apply-crop" type="button">Apply</button>
+					<button @click="$store.uploadModal.open = false;" class="inline-flex justify-center w-full px-4 py-2 mr-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-transparent border-gray-300 rounded-md shadow-sm hover:text-gray-500 active:text-gray-800 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5" type="button">Batalkan</button>
+            		<button @click="$store.uploadModal.open = false; window.applyImageCrop()" class="inline-flex justify-center w-full px-4 py-2 ml-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow-sm bg-wave-600 hover:bg-wave-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave sm:text-sm sm:leading-5" id="apply-crop" type="button">Terapkan</button>
                 </span>
             </div>
         </div>
