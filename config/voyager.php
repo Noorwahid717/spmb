@@ -12,7 +12,7 @@ return [
 
     'user' => [
         'add_default_role_on_register' => true,
-        'default_role'                 => 'trial',
+        'default_role'                 => 'basic',
         'namespace'                    => \App\Models\User::class,
         'default_avatar'               => 'users/default.png',
     ],
@@ -124,7 +124,7 @@ return [
         /*
          * Set whether or not the multilingual is supported by the BREAD input.
          */
-        'enabled' => false,
+        'enabled' => true,
 
         /*
          * Select default language
@@ -136,7 +136,8 @@ return [
          */
         'locales' => [
             'en',
-            //'pt',
+            'pt',
+            'de',
         ],
     ],
 

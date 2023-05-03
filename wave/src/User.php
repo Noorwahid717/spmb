@@ -23,10 +23,14 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
+        'nik',
         'name',
         'email',
         'username',
+        'no_hp_camaba',
+        'no_hp_ortu',
         'password',
+        'bukti_pembayaran',
         'verification_code',
         'verified',
         'trial_ends_at',
@@ -154,6 +158,10 @@ class User extends Authenticatable implements JWTSubject
 
     public function avatar(){
         return Storage::url($this->avatar);
+    }
+
+    public function bukti_pembayaran(){
+        return Storage::url($this->bukti_pembayaran);
     }
 
     /**
