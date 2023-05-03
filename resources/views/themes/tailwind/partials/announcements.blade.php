@@ -9,7 +9,7 @@
 			</span>
 			<h4 class="text-sm font-medium leading-5 text-gray-900">{{ $announcement->title }}</h4>
 			<p class="mt-2 text-sm leading-5 text-gray-500">{{ $announcement->description }}</p>
-			<div id="announcement_footer" class="mt-1"><a href="{{ route('wave.announcement', $announcement->id) }}" class="text-sm font-medium leading-5 text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">Belajarlah lagi</a></div>
+			<div id="announcement_footer" class="mt-1"><a href="{{ route('wave.announcement', $announcement->id) }}" class="text-sm font-medium leading-5 text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">Pelajari lebih lanjut</a></div>
 		</div>
 	</div>
 </div>

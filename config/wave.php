@@ -3,7 +3,8 @@
 return [
 
 	'profile_fields' => [
-		'about'
+		'about',
+		'bukti'
 	],
 
 	'api' => [
