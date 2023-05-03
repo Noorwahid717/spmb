@@ -45,7 +45,7 @@ Pertama, Anda harus memastikan bahwa server web Anda memiliki ekstensi PHP yang 
 
 Setelah itu, kita perlu menginstal semua dependensi komposer melalui perintah berikut:
 ```PHP
-instalasi komposer
+composer install
 ```
 
 ### 4. Jalankan migrasi dan seeds
