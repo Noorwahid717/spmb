@@ -237,7 +237,7 @@
     </a> --}}
     <a href="{{ route('wave.blog') }}"
         class="text-base font-medium leading-6 text-gray-500 transition duration-150 ease-in-out hover:text-wave-600 focus:outline-none focus:text-wave-600">
-        Blog
+        Berita
     </a>
 
     {{-- <div @mouseenter="dropdown = true" @mouseleave="dropdown=false" @click.away="dropdown=false"
