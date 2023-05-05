@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use TCG\Voyager\Models\Role;
 use Wave\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\Storage;
+
 
 class RegisterController extends Controller
 {
@@ -44,9 +46,9 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' =>
-            [
-                'complete'
-            ]]);
+        [
+            'complete'
+        ]]);
     }
 
     /**
@@ -57,19 +59,29 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        if(setting('auth.username_in_registration') && setting('auth.username_in_registration') == 'yes'){
+        if (setting('auth.username_in_registration') && setting('auth.username_in_registration') == 'yes') {
             return Validator::make($data, [
+                'nik' => 'required|string|max:255',
                 'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
                 'username' => 'required|string|max:20|unique:users',
-                'password' => 'required|string|min:6|confirmed'
+                'email' => 'required|string|email|max:255|unique:users',
+                'no_hp_camaba' => 'required|string|max:255',
+                'no_hp_ortu' => 'required|string|max:255',
+                'password' => 'required|string|min:6|confirmed',
+                'bukti_pembayaran' => 'image'
+
             ]);
         }
 
         return Validator::make($data, [
+            'nik' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed'
+            'no_hp_camaba' => 'required|string|max:255',
+            'no_hp_ortu' => 'required|string|max:255',
+            'password' => 'required|string|min:6|confirmed',
+            'bukti_pembayaran' => 'image'
+
         ]);
     }
 
@@ -86,14 +98,14 @@ class RegisterController extends Controller
         $verification_code = NULL;
         $verified = 1;
 
-        if(setting('auth.verify_email', false)){
+        if (setting('auth.verify_email', false)) {
             $verification_code = Str::random(30);
             $verified = 0;
         }
 
-        if(isset($data['username']) && !empty($data['username'])){
+        if (isset($data['username']) && !empty($data['username'])) {
             $username = $data['username'];
-        } elseif(isset($data['name']) && !empty($data['name'])) {
+        } elseif (isset($data['name']) && !empty($data['name'])) {
             $username = Str::slug($data['name']);
         } else {
             $username = $this->getUniqueUsernameFromEmail($data['email']);
@@ -102,7 +114,7 @@ class RegisterController extends Controller
         $username_original = $username;
         $counter = 1;
 
-        while(User::where('username', '=', $username)->first()){
+        while (User::where('username', '=', $username)->first()) {
             $username = $username_original . (string)$counter;
             $counter += 1;
         }
@@ -110,27 +122,40 @@ class RegisterController extends Controller
         $trial_days = setting('billing.trial_days', 14);
         $trial_ends_at = null;
         // if trial days is not zero we will set trial_ends_at to ending date
-        if(intval($trial_days) > 0){
+        if (intval($trial_days) > 0) {
             $trial_ends_at = now()->addDays(setting('billing.trial_days', 14));
         }
 
+        if (request()->hasfile('bukti_pembayaran')) {
+            $namaBuktiPembayaran = time() . '.' . request()->bukti_pembayaran->getClientOriginalExtension();
+            request()->bukti_pembayaran->move(public_path('storage/tempat_bukti_pembayaran'), $namaBuktiPembayaran);
+        }
+
         $user = User::create([
+
+            'nik' => $data['nik'],
             'name' => $data['name'],
             'email' => $data['email'],
+            'email' => $data['email'],
             'username' => $username,
+            'no_hp_camaba' => $data['no_hp_camaba'],
+            'no_hp_ortu' => $data['no_hp_ortu'],
             'password' => bcrypt($data['password']),
+            'bukti_pembayaran' => $namaBuktiPembayaran ?? NULL,
             'role_id' => $role->id,
             'verification_code' => $verification_code,
             'verified' => $verified,
             'trial_ends_at' => $trial_ends_at
         ]);
 
-        if(setting('auth.verify_email', false)){
+        if (setting('auth.verify_email', false)) {
             $this->sendVerificationEmail($user);
         }
 
         return $user;
     }
+
+    
 
     /**
      * Complete a new user registration after they have purchased
@@ -138,9 +163,10 @@ class RegisterController extends Controller
      * @param  Request  $request
      * @return redirect
      */
-    public function complete(Request $request){
+    public function complete(Request $request)
+    {
 
-        if(setting('auth.username_in_registration') && setting('auth.username_in_registration') == 'yes'){
+        if (setting('auth.username_in_registration') && setting('auth.username_in_registration') == 'yes') {
             $request->validate([
                 'name' => 'required|string|min:3|max:255',
                 'username' => 'required|string|max:20|unique:users,username,' . auth()->user()->id,
@@ -162,22 +188,23 @@ class RegisterController extends Controller
 
 
         return redirect()->route('wave.dashboard')->with(['message' => 'Successfully updated your profile information.', 'message_type' => 'success']);
-
     }
 
-    private function sendVerificationEmail($user){
+    private function sendVerificationEmail($user)
+    {
         Notification::route('mail', $user->email)->notify(new VerifyEmail($user));
     }
 
     public function showRegistrationForm()
     {
-        if(setting('billing.card_upfront')){
+        if (setting('billing.card_upfront')) {
             return redirect()->route('wave.pricing');
         }
         return view('theme::auth.register');
     }
 
-    public function verify(Request $request, $verification_code){
+    public function verify(Request $request, $verification_code)
+    {
         $user = User::where('verification_code', '=', $verification_code)->first();
 
         $user->verification_code = NULL;
@@ -200,14 +227,14 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-        if(setting('auth.verify_email')){
+        if (setting('auth.verify_email')) {
             // send email verification
             return redirect()->route('login')->with(['message' => 'Thanks for signing up! Please check your email to verify your account.', 'message_type' => 'success']);
         } else {
             $this->guard()->login($user);
 
             return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath())->with(['message' => 'Thanks for signing up!', 'message_type' => 'success']);
+                ?: redirect($this->redirectPath())->with(['message' => 'Thanks for signing up!', 'message_type' => 'success']);
         }
     }
 
@@ -219,7 +246,7 @@ class RegisterController extends Controller
 
         $user_exists = \Wave\User::where('username', '=', $username)->first();
         $counter = 1;
-        while (isset($user_exists->id) ) {
+        while (isset($user_exists->id)) {
             $new_username = $username . $counter;
             $counter += 1;
             $user_exists = \Wave\User::where('username', '=', $new_username)->first();
@@ -227,7 +254,7 @@ class RegisterController extends Controller
 
         $username = $new_username;
 
-        if(strlen($username) < 4){
+        if (strlen($username) < 4) {
             $username = $username . uniqid();
         }
 

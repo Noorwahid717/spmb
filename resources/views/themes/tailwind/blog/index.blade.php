@@ -10,10 +10,10 @@
     <div class="relative mx-auto max-w-7xl">
 		<div class="flex flex-col justify-start">
 			<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-				Our Awesome Blog
+				Blog kami yang luar biasa
 			</h1>
 			<p class="mt-3 text-xl leading-7 text-gray-500 sm:mt-4">
-				Check out some of our latest blog posts below.
+				Lihatlah beberapa posting blog terbaru kami di bawah ini.
 			</p>
 			<ul class="flex self-start inline w-auto px-3 py-1 mt-3 text-xs font-medium text-gray-600 bg-blue-100 rounded-md">
 				<li class="mr-4 font-bold text-blue-600 uppercase">Categories:</li>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="ml-3">
                             <p class="text-sm font-medium leading-5 text-gray-900">
-                                Written by <a href="#" class="hover:underline">{{ $post->user->name }}</a>
+                                Ditulis oleh <a href="#" class="hover:underline">{{ $post->user->name }}</a>
                             </p>
                             <div class="flex text-sm leading-5 text-gray-500">
 								on <time datetime="{{ Carbon\Carbon::parse($post->created_at)->toIso8601String() }}" class="ml-1">{{ Carbon\Carbon::parse($post->created_at)->toFormattedDateString() }}</time>

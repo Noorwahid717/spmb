@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Wave\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -15,13 +17,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'nik',
         'name',
         'email',
         'username',
+        'no_hp_camaba',
+        'no_hp_ortu',
         'password',
+        'bukti_pembayaran',
         'verification_code',
         'verified',
         'trial_ends_at',
+        'administrasi'
     ];
 
     /**
@@ -41,5 +48,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'trial_ends_at' => 'datetime',
+        
     ];
 }

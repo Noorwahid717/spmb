@@ -15,53 +15,53 @@
             </a>
             <div class="grid w-full grid-cols-2 pt-2 mt-20 sm:grid-cols-4 gap-y-16 lg:gap-x-8 md:w-5/6 md:mt-0 md:pr-6">
                 <div class="md:justify-self-end">
-                    <h3 class="font-semibold text-black">Product</h3>
+                    <h3 class="font-semibold text-black">Fakultas</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Features</span>
+                                <span>Ekonomi</span>
                             </a>
                         </li>
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Integrations</span>
+                                <span>Kesehatan</span>
                             </a>
                         </li>
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Documentation</span>
+                                <span>PAUD</span>
                             </a>
                         </li>
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Pricing</span>
+                                <span>Teknik</span>
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="md:justify-self-end">
-                    <h3 class="font-semibold text-black">About</h3>
+                    <h3 class="font-semibold text-black">Tentang</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Our Story</span>
+                                <span>Riwayat</span>
                             </a>
                         </li>
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Company</span>
+                                <span>Alamat</span>
                             </a>
                         </li>
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Our Team</span>
+                                <span>Kantor</span>
                             </a>
                         </li>
                         <li>
@@ -73,7 +73,7 @@
                     </ul>
                 </div>
                 <div class="md:justify-self-end">
-                    <h3 class="font-semibold text-black">Resources</h3>
+                    <h3 class="font-semibold text-black">Informasi</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
@@ -108,18 +108,18 @@
                     </ul>
                 </div>
                 <div class="md:justify-self-end">
-                    <h3 class="font-semibold text-black">Contact</h3>
+                    <h3 class="font-semibold text-black">Hubungi</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Advertising</span>
+                                <span>Telepon</span>
                             </a>
                         </li>
                         <li>
                             <a href="#_" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Press</span>
+                                <span>Fax</span>
                             </a>
                         </li>
                         <li>
