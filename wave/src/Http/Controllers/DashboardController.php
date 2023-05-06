@@ -3,6 +3,9 @@
 namespace Wave\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\SpmbConfig;
+// use Wave\SpmbConfig;
+
 
 class DashboardController extends Controller
 {
@@ -23,6 +26,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('theme::dashboard.index');
+        $spmb_config = SpmbConfig::where('id',1)->first();
+        // dd($spmb_config);
+        return view('theme::dashboard.index',array(
+            "spmb_config"=>$spmb_config
+        ));
     }
 }
