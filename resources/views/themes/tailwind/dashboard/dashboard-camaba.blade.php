@@ -97,7 +97,8 @@
         <div class="pb-8 ">
             <p class="mb-2 text-xl font-bold text-gray-600">Isi Kelengkapan Biodata Calon Mahasiswa Baru Kamu!</p>
             <p class="text-gray-700">
-                Isi seluruh data yang dibutuhkan dalam menu biodata sesuai dengan data pendukung (baik KTP, KK, Ijasah
+                Isi seluruh data yang dibutuhkan dalam menu <b>Biodata</b> sesuai dengan data pendukung (baik KTP,
+                KK, Ijasah
                 dan data pendukung lainnya), sehingga proses verifikasi data
                 administrasi kamu akan lebih cepat!
             </p>
@@ -129,7 +130,7 @@
         <div class="pb-8 ">
             <p class="mb-2 text-xl font-bold text-gray-600">Kamu Berminat Mengajukan KIP Kuliah?</p>
             <p class="text-gray-700">
-                Jika kamu berminat untuk mengajukan KIP Kuliah, silahkan mengisi menu ajuan kip!
+                Jika kamu berminat untuk mengajukan KIP Kuliah, silahkan mengisi menu <b>Ajuan KIP</b>!
             </p>
         </div>
     </div>
@@ -191,9 +192,43 @@
             <div class="w-px h-full bg-gray-700" style="border-left: 6px solid gray;"></div>
         </div>
         <div class="pb-8 ">
+            <p class="mb-2 text-xl font-bold text-gray-600">Verifikasi Surat Pernyataan Calon Mahasiswa Baru</p>
+            <p class="text-gray-700">
+                Format surat pernyataan calon mahasiswa baru dapat diunduh pada menu <b>Biodata</b>, cetak dan isi surat
+                pernyataan untuk dimohonkan tanda tangan pengesahan oleh Pengasuh Perjuangan Wahidiyah dan Pondok
+                Pesantren Kedunglo Al-Munahdhdoroh. Verifikasi surat pernyataan ini akan menjadi salah satu syarat
+                dikeluarkannya nomer BRI Virtual Akun untuk keperluan registrasi ulang kamu nanti.
+            </p>
+        </div>
+    </div>
+    <div class="flex">
+        <div class="flex flex-col items-center mr-4">
+            <div>
+                <div class="flex items-center justify-center w-10 h-10 border rounded-full">
+                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 64 64"
+                        id="checkout-time">
+                        <circle cx="29" cy="29" r="27" fill="#e3fcfd"></circle>
+                        <path fill="#42eaf5"
+                            d="M51.88346,42.34912C56.73515,39.98637,57.8,32,57.8,32H40.2s1.06485,7.98637,5.91654,10.34912a.7248.7248,0,0,1,0,1.30176C41.26485,46.01363,40.2,54,40.2,54H57.8s-1.06485-7.98637-5.91654-10.34912A.7248.7248,0,0,1,51.88346,42.34912Z">
+                        </path>
+                        <rect width="26" height="8" x="36" y="24" fill="#e3fcfd" rx="2"></rect>
+                        <rect width="26" height="8" x="36" y="54" fill="#e3fcfd" rx="2"></rect>
+                        <path fill="#007da1"
+                            d="M59.44334,34a4.07713,4.07713,0,0,0,4.55658-4V26a4.00427,4.00427,0,0,0-4-4H38a4.00427,4.00427,0,0,0-4,4v4a4.07716,4.07716,0,0,0,4.55664,4c.55591,2.34955,1.91406,6.51984,4.91308,9-2.999,2.47986-4.35723,6.65033-4.91314,9a4.231,4.231,0,0,0-3.43084,1.22986A24.767,24.767,0,0,1,29,54,25,25,0,1,1,51.82317,18.814a2.00025,2.00025,0,0,0,3.6543-1.62792A29.03742,29.03742,0,1,0,34,57.555V60a4.00427,4.00427,0,0,0,4,4h22a4.00427,4.00427,0,0,0,4-4V56a4.07714,4.07714,0,0,0-4.55658-4c-.55591-2.34955-1.91412-6.51984-4.91314-9C57.52922,40.52014,58.88743,36.34967,59.44334,34ZM38,26h22l.00293,4H38Zm22.0029,34H38V56h22Zm-4.68359-8H42.68158c.67676-2.35937,2.03027-5.44043,4.30957-6.55078a2.72437,2.72437,0,0,0,.001-4.89795C44.71088,39.44043,43.35834,36.35791,42.68061,34H55.31829c-.67676,2.35889-2.0293,5.43994-4.30957,6.55078a2.72437,2.72437,0,0,0-.001,4.89795C53.289,46.55957,54.64153,49.64209,55.31926,52Z">
+                        </path>
+                        <path fill="#007da1" d="M31,13a2,2,0,0,0-4,0V27H20a2,2,0,0,0,0,4h9a2.0001,2.0001,0,0,0,2-2Z">
+                        </path>
+                        <circle cx="10" cy="29" r="2" fill="#007da1"></circle>
+                        <circle cx="29" cy="48" r="2" fill="#007da1"></circle>
+                    </svg>
+                </div>
+            </div>
+            <div class="w-px h-full bg-gray-700" style="border-left: 6px solid gray;"></div>
+        </div>
+        <div class="pb-8 ">
             <p class="mb-2 text-xl font-bold text-gray-600">Ujian Seleksi</p>
             <p class="text-gray-700">
-                Menu ujian seleksi akan dapat diakses sesuai jadwal, klik <a href="#" class="text-wave-500">disini</a>
+                Menu <b>Seleksi</b> akan dapat diakses sesuai jadwal, klik <a href="#" class="text-wave-500">disini</a>
                 untuk
                 melihat jadwal.
             </p>
@@ -259,9 +294,10 @@
         <div class="pb-8 ">
             <p class="mb-2 text-xl font-bold text-gray-600">Registrasi Ulang</p>
             <p class="text-gray-700">
-                Setelah ditetapkan lolos seleksi, bagian bendahara akan mengeluarkan nomer briva sesuai dengan program
+                Setelah ditetapkan lolos seleksi, bagian bendahara akan mengeluarkan nomer BRI Virtual Akun sesuai
+                dengan program
                 studi yang kamu pilih, silahkan melakukan pendaftaran/registrasi ulang dengan membayar biaya yang dapat
-                dilihat lebih detail pada menu tagihan.
+                dilihat lebih detail pada menu <b>Tagihan</b>.
             </p>
         </div>
     </div>
@@ -343,8 +379,13 @@
                 </div>
             </div>
         </div>
-        <div class="pt-1">
-            <p class="mb-2 text-lg font-bold text-gray-600">KRS</p>
+        <div class="pb-8 ">
+            <p class="mb-2 text-xl font-bold text-gray-600">KRS</p>
+            <p class="text-gray-700">
+                Kamu dapat menyusun rencana studi dan mencetak KRS (Kartu Rencana Studi) pada aplikasi feedermate pada
+                link berikut <a class="text-wave-600" href="http://feedermate.uniwa.ac.id"
+                    target="_blank">feedermate.uniwa.ac.id</a>.
+            </p>
         </div>
     </div>
 </div>
