@@ -104,7 +104,7 @@
             </p>
         </div>
     </div>
-    @if($spmb_config->kip_enable=="true")
+    @if(\App\Models\SpmbConfig::where('id',1)->first()->kip_enabled=="true")
     <div class="flex">
         <div class="flex flex-col items-center mr-4">
             <div>
