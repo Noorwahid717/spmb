@@ -29,8 +29,8 @@
             <div class="w-px h-full bg-gray-700" style="border-left: 6px solid gray;"></div>
         </div>
         <div class="pb-8 ">
-            <p class="mb-2 text-xl font-bold text-gray-600">Daftar dan unggah bukti pembayaran formulir pendaftaran
-                online</p>
+            <p class="mb-2 text-xl font-bold text-gray-600">Daftar dan Unggah Bukti Pembayaran Formulir Pendaftaran
+                Online</p>
             <p class="text-gray-700">
                 Kamu telah berhasil melakukan pendaftaran dan juga mengunggah bukti pembayaran formulir pendaftaran
                 online.
@@ -62,9 +62,10 @@
             <div class="w-px h-full bg-gray-700" style="border-left: 6px solid gray;"></div>
         </div>
         <div class="pb-8 ">
-            <p class="mb-2 text-xl font-bold text-gray-600">Verifikasi Pembayaran Formulir Pendaftaran</p>
+            <p class="mb-2 text-xl font-bold text-gray-600">Verifikasi Pembayaran Formulir Pendaftaran Online</p>
             <p class="text-gray-700">
-                Pembayaran formulir pendaftaran akan diverifikasi oleh bagian bendahara PMB, jika pembayaran kamu valid,
+                Pembayaran formulir pendaftaran online akan diverifikasi oleh bagian bendahara PMB, jika pembayaran kamu
+                valid,
                 kamu dapat melanjutkan untuk mengisi kelengkapan biodata.
             </p>
         </div>
