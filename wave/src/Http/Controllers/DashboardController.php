@@ -26,10 +26,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $spmb_config = SpmbConfig::where('id',1)->first();
+        // $spmb_config = SpmbConfig::where('id',1)->first();
         // dd($spmb_config);
         return view('theme::dashboard.index',array(
-            "spmb_config"=>$spmb_config
+            // "spmb_config"=>$spmb_config
         ));
     }
 }
