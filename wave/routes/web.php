@@ -35,6 +35,7 @@ Route::get('test', '\Wave\Http\Controllers\SubscriptionController@test');
 
 Route::group(['middleware' => 'wave'], function () {
 	Route::get('dashboard', '\Wave\Http\Controllers\DashboardController@index')->name('wave.dashboard');
+	Route::get('biodata', '\Wave\Http\Controllers\BiodataController@index')->name('wave.biodata');
 });
 
 Route::group(['middleware' => 'auth'], function(){

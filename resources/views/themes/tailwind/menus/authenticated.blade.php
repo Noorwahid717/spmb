@@ -52,11 +52,10 @@
             </div>
         </div> --}}
         @if( !auth()->guest() && auth()->user()->role_id==3 )
-        <a href="#"
-            class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
-            Biodata
-        </a>
-        @if(\App\Models\SpmbConfig::where('id',1)->first()->kip_enabled=="true")
+        <a href="{{ route('wave.biodata') }}"
+            class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none border-b-2 border-transparent @if(Request::is('biodata')){{ 'border-b-2 border-indigo-500 text-gray-900 focus:border-indigo-700' }}@else{{ 'text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:text-gray-700 focus:border-gray-300' }}@endif">Biodata</a>
+
+        @if(\App\Models\SpmbConfig::where('id',1)->first()->kip_enable=="true")
         <a href="#"
             class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
             Ajuan KIP
