@@ -24,23 +24,53 @@
 
             <!-- Tab links -->
             <div class="tab">
-                <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-                <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                <button class="tablinks" onclick="openCity(event, 'dapok')">Data Pokok</button>
+                <button class="tablinks" onclick="openCity(event, 'alkon')">Alamat & Kontak</button>
+                <button class="tablinks" onclick="openCity(event, 'ortu')">Orang Tua</button>
+                <button class="tablinks" onclick="openCity(event, 'persos')">Perlindungan Sosial</button>
+                <button class="tablinks" onclick="openCity(event, 'ripen')">Riwayat Pendidikan</button>
+                <button class="tablinks" onclick="openCity(event, 'propil')">Prodi Dipilih</button>
+                <button class="tablinks" onclick="openCity(event, 'dok')">Dokumen</button>
+                <button class="tablinks" onclick="openCity(event, 'nyata')">Pernyataan</button>
             </div>
 
             <!-- Tab content -->
-            <div id="London" class="tabcontent">
+            <div id="dapok" class="tabcontent">
                 <h3>London</h3>
                 <p>London is the capital city of England.</p>
             </div>
 
-            <div id="Paris" class="tabcontent">
+            <div id="alkon" class="tabcontent">
                 <h3>Paris</h3>
                 <p>Paris is the capital of France.</p>
             </div>
 
-            <div id="Tokyo" class="tabcontent">
+            <div id="ortu" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+            </div>
+
+            <div id="persos" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+            </div>
+
+            <div id="ripen" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+            </div>
+
+            <div id="propil" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+            </div>
+
+            <div id="dok" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+            </div>
+
+            <div id="nyata" class="tabcontent">
                 <h3>Tokyo</h3>
                 <p>Tokyo is the capital of Japan.</p>
             </div>
