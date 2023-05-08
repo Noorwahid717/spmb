@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
 
     @if(isset($seo->title))
-        <title>{{ $seo->title }}</title>
+    <title>{{ $seo->title }}</title>
     @else
-        <title>{{ setting('site.title', 'Laravel Wave') . ' - ' . setting('site.description', 'The Software as a Service Starter Kit built on Laravel & Voyager') }}</title>
+    <title>{{ setting('site.title', 'Laravel Wave') . ' - ' . setting('site.description', 'The Software as a Service
+        Starter Kit built on Laravel & Voyager') }}</title>
     @endif
 
     <meta charset="utf-8">
@@ -18,37 +20,102 @@
 
     {{-- Social Share Open Graph Meta Tags --}}
     @if(isset($seo->title) && isset($seo->description) && isset($seo->image))
-        <meta property="og:title" content="{{ $seo->title }}">
-        <meta property="og:url" content="{{ Request::url() }}">
-        <meta property="og:image" content="{{ $seo->image }}">
-        <meta property="og:type" content="@if(isset($seo->type)){{ $seo->type }}@else{{ 'article' }}@endif">
-        <meta property="og:description" content="{{ $seo->description }}">
-        <meta property="og:site_name" content="{{ setting('site.title') }}">
+    <meta property="og:title" content="{{ $seo->title }}">
+    <meta property="og:url" content="{{ Request::url() }}">
+    <meta property="og:image" content="{{ $seo->image }}">
+    <meta property="og:type" content="@if(isset($seo->type)){{ $seo->type }}@else{{ 'article' }}@endif">
+    <meta property="og:description" content="{{ $seo->description }}">
+    <meta property="og:site_name" content="{{ setting('site.title') }}">
 
-        <meta itemprop="name" content="{{ $seo->title }}">
-        <meta itemprop="description" content="{{ $seo->description }}">
-        <meta itemprop="image" content="{{ $seo->image }}">
+    <meta itemprop="name" content="{{ $seo->title }}">
+    <meta itemprop="description" content="{{ $seo->description }}">
+    <meta itemprop="image" content="{{ $seo->image }}">
 
-        @if(isset($seo->image_w) && isset($seo->image_h))
-            <meta property="og:image:width" content="{{ $seo->image_w }}">
-            <meta property="og:image:height" content="{{ $seo->image_h }}">
-        @endif
+    @if(isset($seo->image_w) && isset($seo->image_h))
+    <meta property="og:image:width" content="{{ $seo->image_w }}">
+    <meta property="og:image:height" content="{{ $seo->image_h }}">
+    @endif
     @endif
 
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
 
     @if(isset($seo->description))
-        <meta name="description" content="{{ $seo->description }}">
+    <meta name="description" content="{{ $seo->description }}">
     @endif
 
+    {{--
+    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet"> --}}
+    {{--
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css"> --}}
     <!-- Styles -->
     <link href="{{ asset('themes/' . $theme->folder . '/css/app.css') }}" rel="stylesheet">
+    <style>
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        /* Fade in tabs */
+        @-webkit-keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
-<body class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif @if(config('wave.dev_bar')){{ 'pb-10' }}@endif">
+
+<body
+    class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif @if(config('wave.dev_bar')){{ 'pb-10' }}@endif">
 
     @if(config('wave.demo') && Request::is('/'))
-        @include('theme::partials.demo-header')
+    @include('theme::partials.demo-header')
     @endif
 
     @include('theme::partials.header')
@@ -62,14 +129,18 @@
     @include('theme::partials.footer')
 
     @if(config('wave.dev_bar'))
-        @include('theme::partials.dev_bar')
+    @include('theme::partials.dev_bar')
     @endif
 
     <!-- Full Screen Loader -->
-    <div id="fullscreenLoader" class="fixed inset-0 top-0 left-0 z-50 flex flex-col items-center justify-center hidden w-full h-full bg-gray-900 opacity-50">
-        <svg class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    <div id="fullscreenLoader"
+        class="fixed inset-0 top-0 left-0 z-50 flex flex-col items-center justify-center hidden w-full h-full bg-gray-900 opacity-50">
+        <svg class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
         </svg>
         <p id="fullscreenLoaderMessage" class="mt-4 text-sm font-medium text-white uppercase"></p>
     </div>
@@ -78,9 +149,12 @@
 
     @include('theme::partials.toast')
     @if(session('message'))
-        <script>setTimeout(function(){ popToast("{{ session('message_type') }}", "{{ session('message') }}"); }, 10);</script>
+    <script>
+        setTimeout(function(){ popToast("{{ session('message_type') }}", "{{ session('message') }}"); }, 10);
+    </script>
     @endif
     @waveCheckout
 
 </body>
+
 </html>
