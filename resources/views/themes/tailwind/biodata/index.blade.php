@@ -24,64 +24,48 @@
 
             <!-- Tab links -->
             <div class="tab">
-                <button class="tablinks" onclick="openCity(event, 'dapok')">Data Pokok</button>
-                <button class="tablinks" onclick="openCity(event, 'alkon')">Alamat & Kontak</button>
-                <button class="tablinks" onclick="openCity(event, 'ortu')">Orang Tua</button>
-                <button class="tablinks" onclick="openCity(event, 'persos')">Perlindungan Sosial</button>
-                <button class="tablinks" onclick="openCity(event, 'ripen')">Riwayat Pendidikan</button>
-                <button class="tablinks" onclick="openCity(event, 'propil')">Prodi Dipilih</button>
-                <button class="tablinks" onclick="openCity(event, 'dok')">Dokumen</button>
-                <button class="tablinks" onclick="openCity(event, 'nyata')">Pernyataan</button>
+                <button class="tablinks" id="tablinks1" onclick="openTabs(event, 'step1')">Data Pokok</button>
+                <button class="tablinks" id="tablinks2" onclick="openTabs(event, 'step2')">Alamat & Kontak</button>
+                <button class="tablinks" id="tablinks3" onclick="openTabs(event, 'step3')">Orang Tua</button>
+                <button class="tablinks" id="tablinks4" onclick="openTabs(event, 'step4')">Perlindungan Sosial</button>
+                <button class="tablinks" id="tablinks5" onclick="openTabs(event, 'step5')">Riwayat Pendidikan</button>
+                <button class="tablinks" id="tablinks6" onclick="openTabs(event, 'step6')">Prodi Dipilih</button>
+                <button class="tablinks" id="tablinks7" onclick="openTabs(event, 'step7')">Dokumen</button>
+                <button class="tablinks" id="tablinks8" onclick="openTabs(event, 'step8')">Pernyataan</button>
             </div>
 
             <!-- Tab content -->
-            <div id="dapok" class="tabcontent">
-                <h3>London</h3>
-                <p>London is the capital city of England.</p>
+            <div id="step1" class="tabcontent">
+                @include('theme::biodata.include.step1')
             </div>
-
-            <div id="alkon" class="tabcontent">
-                <h3>Paris</h3>
-                <p>Paris is the capital of France.</p>
+            <div id="step2" class="tabcontent">
+                @include('theme::biodata.include.step2')
             </div>
-
-            <div id="ortu" class="tabcontent">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
+            <div id="step3" class="tabcontent">
+                @include('theme::biodata.include.step3')
             </div>
-
-            <div id="persos" class="tabcontent">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
+            <div id="step4" class="tabcontent">
+                @include('theme::biodata.include.step4')
             </div>
-
-            <div id="ripen" class="tabcontent">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
+            <div id="step5" class="tabcontent">
+                @include('theme::biodata.include.step5')
             </div>
-
-            <div id="propil" class="tabcontent">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
+            <div id="step6" class="tabcontent">
+                @include('theme::biodata.include.step6')
             </div>
-
-            <div id="dok" class="tabcontent">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
+            <div id="step7" class="tabcontent">
+                @include('theme::biodata.include.step7')
             </div>
-
-            <div id="nyata" class="tabcontent">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
+            <div id="step8" class="tabcontent">
+                @include('theme::biodata.include.step8')
             </div>
-
         </div>
     </div>
 </div>
 
 
 <script>
-    function openCity(evt, cityName) {
+    function openTabs(evt, cityName) {
         // Declare all variables
         var i, tabcontent, tablinks;
 
@@ -96,20 +80,41 @@
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
+        console.log(evt);
 
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     } 
 </script>
-@endsection
-@section('script')
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script>
-    $( function() {
-  $( "#tabs" ).tabs();
-} );
-</script> --}}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var route = $('#citizenshipurl').val();
+        $('#citizenship').typeahead({
+            source: function (query, result) {
+                $.ajax({
+                    url:route,
+                    method:"GET",
+                    data:{query:query},
+                    dataType: "json",
+                    success:function(data){
+                        result($.map(data, function(item) {
+                            return item.id_negara+" - "+item.nama_negara;
+                        }));
+                    }
+                })
+            },
+            updater:function (item) {
+                //do your stuff.
+                id_negara = item.split(" - ");
+                $('#id_negara').val(id_negara[0]);
+                return item;
+            }
+        }); 
+    });
+
+</script>
 @endsection
