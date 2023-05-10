@@ -4,6 +4,7 @@ namespace Wave\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserSpmbStep;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -151,7 +152,12 @@ class RegisterController extends Controller
         if (setting('auth.verify_email', false)) {
             $this->sendVerificationEmail($user);
         }
-
+        
+        $userStep = new UserSpmbStep();
+        $userStep->user_id = $user->id;
+        $userStep->step_1 = 1;
+        $userStep->save();
+        
         return $user;
     }
 
