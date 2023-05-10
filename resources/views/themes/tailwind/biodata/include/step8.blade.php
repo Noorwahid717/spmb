@@ -1,9 +1,42 @@
 <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="sanggup_mondok">Sanggup Tinggal Dipondok? <span class="text-red">*</span></label>
+            <select name="sanggup_mondok" id="sanggup_mondok" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Jawaban--</option>
+                <option value="1">Ya</option>
+                <option value="0">Tidak</option>
+            </select>
+        </div>
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="sanggup_tidak_menikah">Sanggup Tidak Menikah Selama Kuliah? <span
+                    class="text-red">*</span></label>
+            <select name="sanggup_tidak_menikah" id="sanggup_tidak_menikah" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Jawaban--</option>
+                <option value="1">Ya</option>
+                <option value="0">Tidak</option>
+            </select>
+        </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs">
+            <label for="format_pernyataan">Format Surat Pernyataan</label>
+            <button style="width: 100%"
+                class="mt-1 justify-center inline-flex self-start items-center px-4 py-2 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
+                </svg>
+                Unduh
+            </button>
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="dok_pernyataan">Surat Pernyataan yang telah ditandatangani Pengasuh Perjuangan Wahidiyah <span
+                    class="text-red">*</span></label>
+            <input type="file" name="dok_pernyataan" id="dok_pernyataan" class="form-control mt-1" value=""
+                accept=".pdf">
+        </div>
     </div>
 </div>
 

@@ -4,6 +4,7 @@ namespace Wave\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\SpmbConfig;
+use App\Models\ProdiFakultas;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,7 @@ class BiodataController extends Controller
     public function index()
     {
         $ta = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
+        $ta = self::left($ta,4)."/".((int)self::left($ta,4)+1).(self::right($ta,1)=="1"?" Ganjil":" Genap");
         $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-agama');
         $agama = $response->json();
         $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-pendidikan');
@@ -21,6 +23,7 @@ class BiodataController extends Controller
         $pekerjaan = $response->json();
         $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-penghasilan');
         $penghasilan = $response->json();
+        $prodi = ProdiFakultas::all();
         if(!auth()->guest() && auth()->user()->role_id==3){
             return view('theme::biodata.index',array(
                 'tahun_ajaran'=>$ta,
@@ -28,6 +31,7 @@ class BiodataController extends Controller
                 'pendidikan'=>$pendidikan,
                 'pekerjaan'=>$pekerjaan,
                 'penghasilan'=>$penghasilan,
+                'prodi'=>$prodi,
             ));
         }else{
             return abort(404);
@@ -56,5 +60,13 @@ class BiodataController extends Controller
             $wilayah = $response->json();
             return response()->json($wilayah);
         }
+    }
+
+    static function left($str, $length) {
+        return substr($str, 0, $length);
+    }
+    
+    static function right($str, $length) {
+        return substr($str, -$length);
     }
 }

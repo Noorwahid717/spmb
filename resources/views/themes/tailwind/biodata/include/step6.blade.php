@@ -1,8 +1,30 @@
 <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs">
+            <label for="ta">Tahun Akademik <span class="text-red">*</span></label>
+            <input type="text" name="ta" id="ta" class="form-control mt-1" value="{{$tahun_ajaran}}"
+                placeholder="Tahun Akademik" readonly>
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="prodi_1">Pilihan Program Studi (1) <span class="text-red">*</span></label>
+            <select name="prodi_1" id="prodi_1" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Program Studi--</option>
+                @foreach ($prodi as $item)
+                <option value="{{$item->id_prodi}}">{{$item->nama_program_studi}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="prodi_2">Pilihan Program Studi (2) <span class="text-red">*</span></label>
+            <select name="prodi_2" id="prodi_2" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Program Studi--</option>
+                @foreach ($prodi as $item)
+                <option value="{{$item->id_prodi}}">{{$item->nama_program_studi}}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
 
     </div>
 </div>
