@@ -1,9 +1,48 @@
 <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs">
+            <label for="alumni_smawa">Alumni SMA Wahidiyah Daerah/Pusat? <span class="text-red">*</span></label>
+            <select name="alumni_smawa" id="alumni_smawa" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Jawaban--</option>
+                <option value="1">Ya</option>
+                <option value="0">Tidak</option>
+            </select>
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="pendidikan_asal">Pendidikan Asal <span class="text-red">*</span></label>
+            <select name="pendidikan_asal" id="pendidikan_asal" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Jawaban--</option>
+                <option value="sma">SMA</option>
+                <option value="smk">SMK</option>
+                <option value="ma">MA</option>
+                <option value="lainnya">Lainnya</option>
+            </select>
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="jenis_pendidikan_asal">Jenis Pendidikan Asal <span class="text-red">*</span></label>
+            <select name="jenis_pendidikan_asal" id="jenis_pendidikan_asal" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Jawaban--</option>
+                <option value="negeri">Negeri</option>
+                <option value="swasta">Swasta</option>
+            </select>
+        </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs">
+            <label for="nama_pendidikan_asal">Nama Pendidikan Asal <span class="text-red">*</span></label>
+            <input type="text" name="nama_pendidikan_asal" id="nama_pendidikan_asal" class="form-control mt-1" value=""
+                placeholder="Nama Pendidikan Asal">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="nisn">NISN <span class="text-red">*</span></label>
+            <input type="text" name="nisn" id="nisn" class="form-control mt-1" value="" placeholder="NISN">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="alamat_pendidikan_asal">Alamat Pengiriman Surat Pendidikan Asal <span
+                    class="text-red">*</span></label>
+            <input type="text" name="alamat_pendidikan_asal" id="alamat_pendidikan_asal" class="form-control mt-1"
+                value="" placeholder="Alamat Pengiriman Surat Pendidikan Asal">
+        </div>
     </div>
 </div>
 

@@ -1,9 +1,20 @@
 <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="penerima_kps">Penerima KPS <span class="text-red">*</span></label>
+            <select name="penerima_kps" id="penerima_kps" class="form-control mt-1 penerima_kps">
+                <option value="-1" selected>--Pilih Jawaban--</option>
+                <option value="1">Ya</option>
+                <option value="0">Tidak</option>
+            </select>
+        </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs" id="div_nokps">
+            <label for="nomor_kps">Nomor KPS</label>
+            <input type="text" name="nomor_kps" id="nomor_kps" class="form-control mt-1" value=""
+                placeholder="Nomor KPS">
+        </div>
     </div>
 </div>
 

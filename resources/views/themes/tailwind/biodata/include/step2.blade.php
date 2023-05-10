@@ -1,9 +1,52 @@
 <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs">
+            <label for="jalan">Jalan</label>
+            <input type="text" name="jalan" id="jalan" class="form-control mt-1" value="" placeholder="Jalan">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="dusun">Dusun</label>
+            <input type="text" name="dusun" id="dusun" class="form-control mt-1" value="" placeholder="Dusun">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="rt">RT</label>
+            <input type="number" name="rt" id="rt" class="form-control mt-1" value="" placeholder="RT">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="rw">RW</label>
+            <input type="number" name="rw" id="rw" class="form-control mt-1" value="" placeholder="RW">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="kelurahan">Kelurahan <span class="text-red">*</span></label>
+            <input type="text" name="kelurahan" id="kelurahan" class="form-control mt-1" value=""
+                placeholder="Kelurahan">
+        </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs">
+            <label for="kodepos">Kode Pos</label>
+            <input type="text" name="kodepos" id="kodepos" class="form-control mt-1" value="" placeholder="Kode Pos">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="kecamatan">Kecamatan <span class="text-red">*</span></label>
+            <input type="text" name="kecamatan" id="kecamatan" class="form-control mt-1" value=""
+                placeholder="Kecamatan">
+            <input type="hidden" name="id_wilayah" id="id_wilayah" value="">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="email">Email <span class="text-red">*</span></label>
+            <input type="text" name="email" id="email" class="form-control mt-1" value="" placeholder="Email">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="wa_camaba">No. Handphone CAMABA (WA) <span class="text-red">*</span></label>
+            <input type="text" name="wa_camaba" id="wa_camaba" class="form-control mt-1" value=""
+                placeholder="No. Handphone CAMABA (WA)">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="wa_wali">No. Handphone WALI (WA) <span class="text-red">*</span></label>
+            <input type="text" name="wa_wali" id="wa_wali" class="form-control mt-1" value=""
+                placeholder="No. Handphone WALI (WA)">
+        </div>
     </div>
 </div>
 

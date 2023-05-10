@@ -65,6 +65,7 @@
 
 
 <script>
+    // on open/click tabs
     function openTabs(evt, cityName) {
         // Declare all variables
         var i, tabcontent, tablinks;
@@ -79,19 +80,31 @@
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        console.log(evt);
+        }        
 
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     } 
+
+    // event on penerima kps change    
+    // $('#penerima_kps').on('change', function() {   
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        $('#div_nokps').addClass( "hidden" );
+        $('.penerima_kps').change(function() {
+            if(this.value==1){
+                $('#div_nokps').removeClass( "hidden" );                
+            }else{
+                $('#div_nokps').addClass( "hidden" );
+            }
+        });
+
+        // autocomplete kewarganegaraan
         var route = $('#citizenshipurl').val();
         $('#citizenship').typeahead({
             source: function (query, result) {
@@ -111,6 +124,31 @@
                 //do your stuff.
                 id_negara = item.split(" - ");
                 $('#id_negara').val(id_negara[0]);
+                return item;
+            }
+        }); 
+
+
+        // autocomplete kecamatan/wilayah
+        var route_2 = $('#wilayahurl').val();
+        $('#kecamatan').typeahead({
+            source: function (query, result) {
+                $.ajax({
+                    url:route_2,
+                    method:"GET",
+                    data:{query:query},
+                    dataType: "json",
+                    success:function(data){
+                        result($.map(data, function(item) {
+                            return item.code_lengkap+" - "+item.nama_lengkap;
+                        }));
+                    }
+                })
+            },
+            updater:function (item) {
+                //do your stuff.
+                id_wilayah = item.split(" - ");
+                $('#id_wilayah').val(id_wilayah[0]);
                 return item;
             }
         }); 

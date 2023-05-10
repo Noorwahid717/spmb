@@ -1,11 +1,103 @@
 <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs">
+            <label for="kondisi_ayah">Kondisi Ayah <span class="text-red">*</span></label>
+            <input type="text" name="kondisi_ayah" id="kondisi_ayah" class="form-control mt-1" value=""
+                placeholder="Kondisi Ayah">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="nik_ayah">Nomor Induk Kependudukan Ayah <span class="text-red">*</span></label>
+            <input type="text" name="nik_ayah" id="nik_ayah" class="form-control mt-1" value=""
+                placeholder="Nomor Induk Kependudukan Ayah">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="nama_ayah">Nama Ayah <span class="text-red">*</span></label>
+            <input type="text" name="nama_ayah" id="nama_ayah" class="form-control mt-1" value=""
+                placeholder="Nama Ayah">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="tgllhr_ayah">Tanggal Lahir Ayah<span class="text-red">*</span></label>
+            <input type="date" name="tgllhr_ayah" id="tgllhr_ayah" class="form-control mt-1" value=""
+                placeholder="Tanggal Lahir Ayah">
+        </div>
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="pendidikan_ayah">Pendidikan Terakhir Ayah <span class="text-red">*</span></label>
+            <select name="pendidikan_ayah" id="pendidikan_ayah" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Pendidikan Terakhir--</option>
+                @foreach ($pendidikan as $item)
+                <option value="{{$item['id_jenjang_didik']}}">{{$item['nama_jenjang_didik']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="pekerjaan_ayah">Pekerjaan Ayah <span class="text-red">*</span></label>
+            <select name="pekerjaan_ayah" id="pekerjaan_ayah" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Pekerjaan--</option>
+                @foreach ($pekerjaan as $item)
+                <option value="{{$item['id_pekerjaan']}}">{{$item['nama_pekerjaan']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="penghasilan_ayah">Penghasilan Ayah <span class="text-red">*</span></label>
+            <select name="penghasilan_ayah" id="penghasilan_ayah" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Penghasilan--</option>
+                @foreach ($penghasilan as $item)
+                <option value="{{$item['id_penghasilan']}}">{{$item['nama_penghasilan']}}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white">
-
+    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs">
+            <label for="kondisi_ibu">Kondisi Ibu <span class="text-red">*</span></label>
+            <input type="text" name="kondisi_ibu" id="kondisi_ibu" class="form-control mt-1" value=""
+                placeholder="Kondisi Ibu">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="nik_ibu">Nomor Induk Kependudukan Ibu <span class="text-red">*</span></label>
+            <input type="text" name="nik_ibu" id="nik_ibu" class="form-control mt-1" value=""
+                placeholder="Nomor Induk Kependudukan Ibu">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="nama_ibu">Nama Ibu <span class="text-red">*</span></label>
+            <input type="text" name="nama_ibu" id="nama_ibu" class="form-control mt-1" value="" placeholder="Nama Ibu">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="tgllhr_ibu">Tanggal Lahir Ibu<span class="text-red">*</span></label>
+            <input type="date" name="tgllhr_ibu" id="tgllhr_ibu" class="form-control mt-1" value=""
+                placeholder="Tanggal Lahir Ibu">
+        </div>
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="pendidikan_ibu">Pendidikan Terakhir Ibu <span class="text-red">*</span></label>
+            <select name="pendidikan_ibu" id="pendidikan_ibu" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Pendidikan Terakhir--</option>
+                @foreach ($pendidikan as $item)
+                <option value="{{$item['id_jenjang_didik']}}">{{$item['nama_jenjang_didik']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="pekerjaan_ibu">Pekerjaan Ibu <span class="text-red">*</span></label>
+            <select name="pekerjaan_ibu" id="pekerjaan_ibu" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Pekerjaan--</option>
+                @foreach ($pekerjaan as $item)
+                <option value="{{$item['id_pekerjaan']}}">{{$item['nama_pekerjaan']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="penghasilan_ibu">Penghasilan Ibu <span class="text-red">*</span></label>
+            <select name="penghasilan_ibu" id="penghasilan_ibu" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Penghasilan--</option>
+                @foreach ($penghasilan as $item)
+                <option value="{{$item['id_penghasilan']}}">{{$item['nama_penghasilan']}}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 </div>
+<input type="hidden" name="wilayahurl" id="wilayahurl" value="{{route('wave.biodata-wilayah')}}">
 
 
 {{-- button nav --}}
