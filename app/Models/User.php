@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Wave\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -25,10 +23,10 @@ class User extends Authenticatable
         'no_hp_ortu',
         'password',
         'bukti_pembayaran',
+        'status_pembayaran',
         'verification_code',
         'verified',
         'trial_ends_at',
-        'administrasi'
     ];
 
     /**

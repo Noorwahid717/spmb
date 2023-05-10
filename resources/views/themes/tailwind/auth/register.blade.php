@@ -165,11 +165,14 @@
                     </div>
 
                     <div class="mt-5 row mb-3">
-                        <label for="bukti_pembayaran" class="col-md-4 col-form-label text-md-end">{{ __('Bukti Pembayaran Administrasi') }}</label>
-
                         <div class="col-md-6">
-                            <input id="bukti_pembayaran" type="file" class="form-control @error('bukti_pembayaran') is-invalid @enderror" name="bukti_pembayaran" value="{{ old('bukti_pembayaran') }}" required autocomplete="bukti_pembayaran">
-
+                            <div class="form-group">
+                                <label for="bukti_pembayaran">{{ __('Bukti Pembayaran Administrasi') }}</label>
+                                @if(isset($dataTypeContent->bukti_pembayaran))
+                                    <img src="{{ filter_var($dataTypeContent->bukti_pembayaran, FILTER_VALIDATE_URL) ? $dataTypeContent->bukti_pembayaran : Voyager::image( $dataTypeContent->bukti_pembayaran ) }}" style="width:200px; height:auto; clear:both; display:block; padding:2px; border:1px solid #ddd; margin-bottom:10px;" />
+                                @endif
+                                <input type="file" data-name="bukti_pembayaran" name="bukti_pembayaran">
+                            </div>
                             @error('bukti_pembayaran')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
