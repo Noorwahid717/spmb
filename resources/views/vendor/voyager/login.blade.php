@@ -34,8 +34,8 @@
                             <img class="w-10 h-auto" src="{{ Voyager::image($admin_logo_img) }}" alt="Logo Icon">
                         @endif
                         <div class="flex flex-col justify-center w-auto h-full">
-                            <p>Sign in to your account below</p>
-                            <p class="text-xs font-normal">Welcome to your administration login</p>
+                            <p>Masuk ke akun Anda di bawah ini</p>
+                            <p class="text-xs font-normal">Selamat datang di login administrasi Anda</p>
                         </div>
                     </div>
                     <div class="p-8">

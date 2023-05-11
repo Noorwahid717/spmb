@@ -128,7 +128,7 @@ class RegisterController extends Controller
         }
 
         if (request()->hasfile('bukti_pembayaran')) {
-            $namaBuktiPembayaran = time() . '.' . request()->bukti_pembayaran->getClientOriginalExtension();
+            $namaBuktiPembayaran = 'tempat_bukti_pembayaran/' . request()->bukti_pembayaran->getClientOriginalName();
             request()->bukti_pembayaran->move(public_path('storage/tempat_bukti_pembayaran'), $namaBuktiPembayaran);
         }
 

@@ -32,7 +32,7 @@ class SettingsController extends Controller
                 'username' => 'sometimes|required|unique:users,username,' . Auth::user()->id,
                 'no_hp_camaba' => 'required|string',
                 'no_hp_ortu' => 'required|string',
-                'bukti_pembayaran' => 'nullable|base64image',
+                'bukti_pembayaran' => 'image',
                 'avatar' => 'nullable|base64image'
             ],
             [
@@ -97,14 +97,14 @@ class SettingsController extends Controller
         }
 
         if (!Hash::check($request->current_password, $request->user()->password)) {
-            return back()->with(['message' => 'Incorrect current password entered.', 'message_type' => 'danger']);
+            return back()->with(['message' => 'Kata sandi saat ini salah dimasukkan.', 'message_type' => 'danger']);
         }
 
         auth()->user()->forceFill([
             'password' => bcrypt($request->password)
         ])->save();
 
-        return back()->with(['message' => 'Successfully updated your password.', 'message_type' => 'success']);
+        return back()->with(['message' => 'Berhasil memperbarui kata sandi Anda.', 'message_type' => 'success']);
     }
 
     public function paymentPost(Request $request)

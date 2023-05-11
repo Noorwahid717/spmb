@@ -66,6 +66,9 @@
                 </div>
             </div>
 
+            
+
+            
             <div class="mt-5">
                 <label for="about" class="block text-sm font-medium leading-5 text-gray-700">Tentang</label>
                 <div class="mt-1 rounded-md">
@@ -73,7 +76,7 @@
                 </div>
             </div>
 
-			
+
 
             <div class="flex justify-end w-full">
                 <button

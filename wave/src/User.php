@@ -31,6 +31,7 @@ class User extends Authenticatable implements JWTSubject
         'no_hp_ortu',
         'password',
         'bukti_pembayaran',
+        'status_pembayaran',
         'verification_code',
         'verified',
         'trial_ends_at',
