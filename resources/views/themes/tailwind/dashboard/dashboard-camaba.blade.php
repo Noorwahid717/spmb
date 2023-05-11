@@ -1,4 +1,4 @@
-<div class="w-1/2">
+{{-- <div class="w-1/2"> --}}
     @foreach($steps as $item)
     @if($item['id']==4)
     @if(\App\Models\SpmbConfig::where('id',1)->first()->kip_enable=="true")
@@ -51,4 +51,5 @@
     </div>
     @endif
     @endforeach
-</div>
+    {{--
+</div> --}}
