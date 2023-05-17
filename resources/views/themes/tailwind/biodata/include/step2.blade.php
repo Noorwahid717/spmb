@@ -1,5 +1,5 @@
-<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+<div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <label for="jalan">Jalan</label>
             <input type="text" name="jalan" id="jalan" class="form-control mt-1" value="" placeholder="Jalan">
@@ -22,7 +22,7 @@
                 placeholder="Kelurahan">
         </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <label for="kodepos">Kode Pos</label>
             <input type="text" name="kodepos" id="kodepos" class="form-control mt-1" value="" placeholder="Kode Pos">
@@ -63,10 +63,10 @@
         Simpan
     </button>
 </div>
-<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+<div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
         <button onclick="document.getElementById('tablinks1').click()"
-            class="inline-flex self-start items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
+            class="inline-flex xl:self-start self-center items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.271,9.212H3.615l4.184-4.184c0.306-0.306,0.306-0.801,0-1.107c-0.306-0.306-0.801-0.306-1.107,0
@@ -83,7 +83,7 @@
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
         <button onclick="document.getElementById('tablinks3').click()"
-            class="inline-flex self-end items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
+            class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
             Next &nbsp;
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">

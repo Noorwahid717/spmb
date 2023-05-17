@@ -4,6 +4,7 @@ namespace Wave\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\SpmbConfig;
+use App\Models\UserSpmbStep;
 use App\Models\ProdiFakultas;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
@@ -25,14 +26,18 @@ class BiodataController extends Controller
         $penghasilan = $response->json();
         $prodi = ProdiFakultas::all();
         if(!auth()->guest() && auth()->user()->role_id==3){
-            return view('theme::biodata.index',array(
-                'tahun_ajaran'=>$ta,
-                'agama'=>$agama,
-                'pendidikan'=>$pendidikan,
-                'pekerjaan'=>$pekerjaan,
-                'penghasilan'=>$penghasilan,
-                'prodi'=>$prodi,
-            ));
+            if(UserSpmbStep::where('user_id',auth()->user()->id)->first()->step_2==1){
+                return view('theme::biodata.index',array(
+                    'tahun_ajaran'=>$ta,
+                    'agama'=>$agama,
+                    'pendidikan'=>$pendidikan,
+                    'pekerjaan'=>$pekerjaan,
+                    'penghasilan'=>$penghasilan,
+                    'prodi'=>$prodi,
+                ));
+            }else{
+            return abort(404);
+            }
         }else{
             return abort(404);
         }

@@ -49,13 +49,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    {{--
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <!-- jQuery Modal -->
+    <link href="{{ asset('themes/' . $theme->folder . '/css/jquery.modal.min.css')}}" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('themes/' . $theme->folder . '/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('themes/' . $theme->folder . '/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('themes/' . $theme->folder . '/css/magnifier.css') }}" rel="stylesheet">
 </head>
 
 <body
     class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif @if(config('wave.dev_bar')){{ 'pb-10' }}@endif">
+    <div class="_token" data-token="{{ csrf_token() }}"></div>
 
     @if(config('wave.demo') && Request::is('/'))
     @include('theme::partials.demo-header')

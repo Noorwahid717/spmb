@@ -39,6 +39,11 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::get('biodata-kewarganegaraan', '\Wave\Http\Controllers\BiodataController@cariKewarganegaraan')->name('wave.biodata-kewarganegaraan');
 	Route::get('biodata-wilayah', '\Wave\Http\Controllers\BiodataController@cariWilayah')->name('wave.biodata-wilayah');
 	Route::get('seleksi-info', '\Wave\Http\Controllers\SeleksiController@index')->name('wave.seleksi-info');	
+
+	Route::get('registrasi-awal', '\Wave\Http\Controllers\RegistrasiAwalController@index')->name('wave.registrasi-awal');	
+	Route::post('registrasi-awal-getlist', '\Wave\Http\Controllers\RegistrasiAwalController@getList')->name('wave.registrasi-awal-getlist');	
+	Route::post('update-registrasi-awal-status', '\Wave\Http\Controllers\RegistrasiAwalController@updateStatus')->name('wave.update-registrasi-awal-status');	
+	
 });
 
 Route::group(['middleware' => 'auth'], function(){

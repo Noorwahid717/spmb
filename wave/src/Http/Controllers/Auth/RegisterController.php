@@ -5,6 +5,8 @@ namespace Wave\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserSpmbStep;
+use App\Models\SpmbConfig;
+use App\Models\RegistrasiAwalUser;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -157,6 +159,12 @@ class RegisterController extends Controller
         $userStep->user_id = $user->id;
         $userStep->step_1 = 1;
         $userStep->save();
+
+        $regAwalUser = new RegistrasiAwalUser();
+        $regAwalUser->id_user =  $user->id;        
+        $regAwalUser->url_bukti_bayar = $namaBuktiPembayaran ?? NULL;
+        $regAwalUser->tahun_akademik_registrasi = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
+        $regAwalUser->save();
         
         return $user;
     }
