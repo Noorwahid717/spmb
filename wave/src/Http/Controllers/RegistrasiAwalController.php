@@ -4,6 +4,7 @@ namespace Wave\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\RegistrasiAwalUser;
+use App\Models\UserSpmbStep;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -129,6 +130,9 @@ class RegistrasiAwalController extends Controller
             $data->tanggal_bayar = $req->tanggal_bayar;
             $data->id_user_admin = auth()->user()->id;
             if($data->save()){
+                $step = UserSpmbStep::where('user_id',$req->id_user)->first();
+                $step->step_2 = $req->status_bayar==-1?"0":$req->status_bayar;
+                $step->save();
                 $res['message']="Validasi Pembayaran berhasil diubah.";
             }else{
                 $res['error']=true;
