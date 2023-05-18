@@ -5,6 +5,7 @@ namespace Wave\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\RegistrasiAwalUser;
 use App\Models\UserSpmbStep;
+use App\Models\SpmbConfig;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,9 @@ class RegistrasiAwalController extends Controller
     public function getList(Request $req)
     {
         $is_lunas = $req->is_lunas;       
+        $ta_aktif = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
         $reg_awal_data = RegistrasiAwalUser::with('getUser')
+        ->where('tahun_akademik_registrasi',$ta_aktif)
         ->where(function ($query) use(&$is_lunas) {
             if($is_lunas=="all"){
                 return $query;
@@ -100,6 +103,11 @@ class RegistrasiAwalController extends Controller
                         return;
                     }
                 })
+                ->editColumn('tahun_akademik_registrasi',function($row){
+                    $ta = $row->tahun_akademik_registrasi;
+                    $ta = self::left($ta,4)."/".((int)self::left($ta,4)+1).(self::right($ta,1)=="1"?" Ganjil":" Genap");;
+                    return $ta;
+                })
                 ->editColumn('is_lunas', function($row){                    
                     if($row->is_lunas==0){
                         return "Menunggu";
@@ -112,6 +120,14 @@ class RegistrasiAwalController extends Controller
                 ->rawColumns(['act'])
                 ->make(true);
         }
+    }
+    
+    static function left($str, $length) {
+        return substr($str, 0, $length);
+    }
+    
+    static function right($str, $length) {
+        return substr($str, -$length);
     }
 
     public function updateStatus(Request $req)

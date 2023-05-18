@@ -44,6 +44,13 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('registrasi-awal-getlist', '\Wave\Http\Controllers\RegistrasiAwalController@getList')->name('wave.registrasi-awal-getlist');	
 	Route::post('update-registrasi-awal-status', '\Wave\Http\Controllers\RegistrasiAwalController@updateStatus')->name('wave.update-registrasi-awal-status');	
 	
+	Route::get('registrasi-ulang', '\Wave\Http\Controllers\RegistrasiUlangController@index')->name('wave.registrasi-ulang');	
+	
+	
+	
+	Route::get('tagihan-camaba', '\Wave\Http\Controllers\TagihanCamabaController@index')->name('wave.tagihan-camaba');	
+	Route::post('tagihan-camaba-update-slip-pendaftaran', '\Wave\Http\Controllers\TagihanCamabaController@updateSlipPendaftaran')->name('wave.tagihan-camaba-update-slip-pendaftaran');	
+	
 });
 
 Route::group(['middleware' => 'auth'], function(){

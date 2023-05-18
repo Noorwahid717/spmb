@@ -27,7 +27,7 @@ class BiodataController extends Controller
         $prodi = ProdiFakultas::all();
         if(!auth()->guest() && auth()->user()->role_id==3){
             if(UserSpmbStep::where('user_id',auth()->user()->id)->first()->step_2==1){
-                return view('theme::biodata.index',array(
+                return view('theme::camaba.biodata.index',array(
                     'tahun_ajaran'=>$ta,
                     'agama'=>$agama,
                     'pendidikan'=>$pendidikan,

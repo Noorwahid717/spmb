@@ -25,8 +25,8 @@
                 <div class="form-group mb-5 text-xs">
                     <label for="is_lunas_option">Filter Status Pembayaran:</label>
                     <select name="is_lunas_option" id="is_lunas_option" class="form-control mt-1 is_lunas_option">
-                        <option value="all" selected>--Semua--</option>
-                        <option value="0">Menunggu</option>
+                        <option value="all">--Semua--</option>
+                        <option value="0" selected>Menunggu</option>
                         <option value="1">Lunas</option>
                         <option value="-1">Belum Lunas</option>
                     </select>
@@ -44,6 +44,7 @@
                         <th>NO</th>
                         <th>NAMA</th>
                         <th>NO.WA</th>
+                        <th>TAHUN</th>
                         <th>NOMINAL</th>
                         <th>TANGGAL BAYAR</th>
                         <th>STATUS BAYAR</th>
@@ -106,22 +107,24 @@
             $(cells[0]).addClass('text-center text-sm')
             $(cells[1]).addClass('text-sm')
             $(cells[2]).addClass('text-sm')
-            $(cells[3]).addClass('text-sm text-right')
-            $(cells[4]).addClass('text-center text-sm')
+            $(cells[3]).addClass('text-center text-sm')
+            $(cells[4]).addClass('text-sm text-right')
+            $(cells[5]).addClass('text-center text-sm')
             if(data['is_lunas']=="Menunggu"){
-            $(cells[5]).addClass('text-sm gold text-center')        
+            $(cells[6]).addClass('text-sm gold text-center')        
             }else if(data['is_lunas']=="Lunas"){
-            $(cells[5]).addClass('text-sm greenYellow text-center')                        
+            $(cells[6]).addClass('text-sm greenYellow text-center')                        
             }else if(data['is_lunas']=="Belum Lunas"){
-            $(cells[5]).addClass('text-sm redHeart text-center')                        
+            $(cells[6]).addClass('text-sm redHeart text-center')                        
             }
-            $(cells[6]).addClass('text-center text-sm')        
             $(cells[7]).addClass('text-center text-sm')        
+            $(cells[8]).addClass('text-center text-sm')        
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'get_user.name', name: 'get_user.name'},
             {data: 'get_user.no_hp_camaba', name: 'get_user.no_hp_camaba'},
+            {data: 'tahun_akademik_registrasi', name: 'tahun_akademik_registrasi'},
             {data: 'nominal', name: 'nominal'},
             {data: 'tanggal_bayar', name: 'tanggal_bayar'},
             {data: 'is_lunas', name: 'is_lunas'},

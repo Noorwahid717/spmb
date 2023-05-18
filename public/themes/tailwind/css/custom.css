@@ -50,6 +50,14 @@
         background-color: red;
     }
 
+    .active_menu{
+      border: #8c6daf;
+    }
+
+    .read_only{
+      background: lightgray;
+    }
+
     /* Fade in tabs */
     @-webkit-keyframes fadeEffect {
         from {
