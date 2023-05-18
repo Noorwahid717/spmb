@@ -1,54 +1,56 @@
-<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+<div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
-            <label for="jalan">Jalan</label>
-            <input type="text" name="jalan" id="jalan" class="form-control mt-1" value="" placeholder="Jalan">
+            <label for="nkk">Nomor Kartu Keluarga <span class="text-red">*</span></label>
+            <input type="text" name="nkk" id="nkk" class="form-control mt-1" value=""
+                placeholder="Nomor Kartu Keluarga">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="dusun">Dusun</label>
-            <input type="text" name="dusun" id="dusun" class="form-control mt-1" value="" placeholder="Dusun">
+            <label for="nik">Nomor Induk Kependudukan <span class="text-red">*</span></label>
+            <input type="text" name="nik" id="nik" class="form-control mt-1" value=""
+                placeholder="Nomor Induk Kependudukan">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="rt">RT</label>
-            <input type="number" name="rt" id="rt" class="form-control mt-1" value="" placeholder="RT">
+            <label for="nama">Nama Lengkap (sesuai KTP) <span class="text-red">*</span></label>
+            <input type="text" name="nama" id="nama" class="form-control mt-1" value=""
+                placeholder="Nama Lengkap (sesuai KTP)">
         </div>
-        <div class="form-group mb-5 text-xs">
-            <label for="rw">RW</label>
-            <input type="number" name="rw" id="rw" class="form-control mt-1" value="" placeholder="RW">
-        </div>
-        <div class="form-group mb-5 text-xs">
-            <label for="kelurahan">Kelurahan <span class="text-red">*</span></label>
-            <input type="text" name="kelurahan" id="kelurahan" class="form-control mt-1" value=""
-                placeholder="Kelurahan">
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="gender">Jenis Kelamin <span class="text-red">*</span></label>
+            <select name="gender" id="gender" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Jenis Kelamin--</option>
+                <option value="l">Laki-laki</option>
+                <option value="p">Perempuan</option>
+            </select>
         </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
-            <label for="kodepos">Kode Pos</label>
-            <input type="text" name="kodepos" id="kodepos" class="form-control mt-1" value="" placeholder="Kode Pos">
+            <label for="tmplhr">Tempat Lahir <span class="text-red">*</span></label>
+            <input type="text" name="tmplhr" id="tmplhr" class="form-control mt-1" value="" placeholder="Tempat Lahir">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="kecamatan">Kecamatan <span class="text-red">*</span></label>
-            <input type="text" name="kecamatan" id="kecamatan" class="form-control mt-1" value=""
-                placeholder="Kecamatan">
-            <input type="hidden" name="id_wilayah" id="id_wilayah" value="">
+            <label for="tgllhr">Tanggal Lahir <span class="text-red">*</span></label>
+            <input type="date" name="tgllhr" id="tgllhr" class="form-control mt-1" value="" placeholder="Tanggal Lahir">
+        </div>
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="agama">Agama <span class="text-red">*</span></label>
+            <select name="agama" id="agama" class="form-control mt-1">
+                <option value="-1" selected>--Pilih Agama--</option>
+                @foreach ($agama as $item)
+                <option value="{{$item['id_agama']}}">{{$item['nama_agama']}}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="email">Email <span class="text-red">*</span></label>
-            <input type="text" name="email" id="email" class="form-control mt-1" value="" placeholder="Email">
-        </div>
-        <div class="form-group mb-5 text-xs">
-            <label for="wa_camaba">No. Handphone CAMABA (WA) <span class="text-red">*</span></label>
-            <input type="text" name="wa_camaba" id="wa_camaba" class="form-control mt-1" value=""
-                placeholder="No. Handphone CAMABA (WA)">
-        </div>
-        <div class="form-group mb-5 text-xs">
-            <label for="wa_wali">No. Handphone WALI (WA) <span class="text-red">*</span></label>
-            <input type="text" name="wa_wali" id="wa_wali" class="form-control mt-1" value=""
-                placeholder="No. Handphone WALI (WA)">
+            <label for="citizenship">Kewarganegaraan <span class="text-red">*</span></label>
+            <input type="text" name="citizenship" id="citizenship" class="form-control mt-1" value=""
+                placeholder="Kewarganegaraan">
+            <input type="hidden" name="id_negara" id="id_negara" value="">
         </div>
     </div>
 </div>
+<input type="hidden" name="citizenshipurl" id="citizenshipurl" value="{{route('wave.biodata-kewarganegaraan')}}">
 
 
 {{-- button nav --}}
@@ -63,10 +65,10 @@
         Simpan
     </button>
 </div>
-<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+<div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
-        <button onclick="document.getElementById('tablinks1').click()"
-            class="inline-flex self-start items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
+        <button
+            class="hidden inline-flex xl:self-start self-center items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.271,9.212H3.615l4.184-4.184c0.306-0.306,0.306-0.801,0-1.107c-0.306-0.306-0.801-0.306-1.107,0
@@ -79,11 +81,11 @@
         </button>
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
-        <button disabled>Step 2 of 8</button>
+        <button disabled>Step 1 of 8</button>
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
-        <button onclick="document.getElementById('tablinks3').click()"
-            class="inline-flex self-end items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
+        <button onclick="document.getElementById('tablinks2').click()"
+            class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
             Next &nbsp;
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">

@@ -36,28 +36,28 @@
 
             <!-- Tab content -->
             <div id="step1" class="tabcontent">
-                @include('theme::biodata.include.step1')
+                @include('theme::camaba.biodata.include.step1')
             </div>
             <div id="step2" class="tabcontent">
-                @include('theme::biodata.include.step2')
+                @include('theme::camaba.biodata.include.step2')
             </div>
             <div id="step3" class="tabcontent">
-                @include('theme::biodata.include.step3')
+                @include('theme::camaba.biodata.include.step3')
             </div>
             <div id="step4" class="tabcontent">
-                @include('theme::biodata.include.step4')
+                @include('theme::camaba.biodata.include.step4')
             </div>
             <div id="step5" class="tabcontent">
-                @include('theme::biodata.include.step5')
+                @include('theme::camaba.biodata.include.step5')
             </div>
             <div id="step6" class="tabcontent">
-                @include('theme::biodata.include.step6')
+                @include('theme::camaba.biodata.include.step6')
             </div>
             <div id="step7" class="tabcontent">
-                @include('theme::biodata.include.step7')
+                @include('theme::camaba.biodata.include.step7')
             </div>
             <div id="step8" class="tabcontent">
-                @include('theme::biodata.include.step8')
+                @include('theme::camaba.biodata.include.step8')
             </div>
         </div>
     </div>

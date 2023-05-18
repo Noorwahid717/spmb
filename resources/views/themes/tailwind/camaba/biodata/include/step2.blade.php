@@ -1,47 +1,51 @@
-<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
-    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+<div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
-            <label for="alumni_smawa">Alumni SMA Wahidiyah Daerah/Pusat? <span class="text-red">*</span></label>
-            <select name="alumni_smawa" id="alumni_smawa" class="form-control mt-1">
-                <option value="-1" selected>--Pilih Jawaban--</option>
-                <option value="1">Ya</option>
-                <option value="0">Tidak</option>
-            </select>
+            <label for="jalan">Jalan</label>
+            <input type="text" name="jalan" id="jalan" class="form-control mt-1" value="" placeholder="Jalan">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="pendidikan_asal">Pendidikan Asal <span class="text-red">*</span></label>
-            <select name="pendidikan_asal" id="pendidikan_asal" class="form-control mt-1">
-                <option value="-1" selected>--Pilih Jawaban--</option>
-                <option value="sma">SMA</option>
-                <option value="smk">SMK</option>
-                <option value="ma">MA</option>
-                <option value="lainnya">Lainnya</option>
-            </select>
+            <label for="dusun">Dusun</label>
+            <input type="text" name="dusun" id="dusun" class="form-control mt-1" value="" placeholder="Dusun">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="jenis_pendidikan_asal">Jenis Pendidikan Asal <span class="text-red">*</span></label>
-            <select name="jenis_pendidikan_asal" id="jenis_pendidikan_asal" class="form-control mt-1">
-                <option value="-1" selected>--Pilih Jawaban--</option>
-                <option value="negeri">Negeri</option>
-                <option value="swasta">Swasta</option>
-            </select>
+            <label for="rt">RT</label>
+            <input type="number" name="rt" id="rt" class="form-control mt-1" value="" placeholder="RT">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="rw">RW</label>
+            <input type="number" name="rw" id="rw" class="form-control mt-1" value="" placeholder="RW">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="kelurahan">Kelurahan <span class="text-red">*</span></label>
+            <input type="text" name="kelurahan" id="kelurahan" class="form-control mt-1" value=""
+                placeholder="Kelurahan">
         </div>
     </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
-            <label for="nama_pendidikan_asal">Nama Pendidikan Asal <span class="text-red">*</span></label>
-            <input type="text" name="nama_pendidikan_asal" id="nama_pendidikan_asal" class="form-control mt-1" value=""
-                placeholder="Nama Pendidikan Asal">
+            <label for="kodepos">Kode Pos</label>
+            <input type="text" name="kodepos" id="kodepos" class="form-control mt-1" value="" placeholder="Kode Pos">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="nisn">NISN <span class="text-red">*</span></label>
-            <input type="text" name="nisn" id="nisn" class="form-control mt-1" value="" placeholder="NISN">
+            <label for="kecamatan">Kecamatan <span class="text-red">*</span></label>
+            <input type="text" name="kecamatan" id="kecamatan" class="form-control mt-1" value=""
+                placeholder="Kecamatan">
+            <input type="hidden" name="id_wilayah" id="id_wilayah" value="">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="alamat_pendidikan_asal">Alamat Pengiriman Surat Pendidikan Asal <span
-                    class="text-red">*</span></label>
-            <input type="text" name="alamat_pendidikan_asal" id="alamat_pendidikan_asal" class="form-control mt-1"
-                value="" placeholder="Alamat Pengiriman Surat Pendidikan Asal">
+            <label for="email">Email <span class="text-red">*</span></label>
+            <input type="text" name="email" id="email" class="form-control mt-1" value="" placeholder="Email">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="wa_camaba">No. Handphone CAMABA (WA) <span class="text-red">*</span></label>
+            <input type="text" name="wa_camaba" id="wa_camaba" class="form-control mt-1" value=""
+                placeholder="No. Handphone CAMABA (WA)">
+        </div>
+        <div class="form-group mb-5 text-xs">
+            <label for="wa_wali">No. Handphone WALI (WA) <span class="text-red">*</span></label>
+            <input type="text" name="wa_wali" id="wa_wali" class="form-control mt-1" value=""
+                placeholder="No. Handphone WALI (WA)">
         </div>
     </div>
 </div>
@@ -59,10 +63,10 @@
         Simpan
     </button>
 </div>
-<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+<div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
-        <button onclick="document.getElementById('tablinks4').click()"
-            class="inline-flex self-start items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
+        <button onclick="document.getElementById('tablinks1').click()"
+            class="inline-flex xl:self-start self-center items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.271,9.212H3.615l4.184-4.184c0.306-0.306,0.306-0.801,0-1.107c-0.306-0.306-0.801-0.306-1.107,0
@@ -75,11 +79,11 @@
         </button>
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
-        <button disabled>Step 5 of 8</button>
+        <button disabled>Step 2 of 8</button>
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
-        <button onclick="document.getElementById('tablinks6').click()"
-            class="inline-flex self-end items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
+        <button onclick="document.getElementById('tablinks3').click()"
+            class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
             Next &nbsp;
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
