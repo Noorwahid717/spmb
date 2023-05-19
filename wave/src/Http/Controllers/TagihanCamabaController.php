@@ -55,7 +55,9 @@ class TagihanCamabaController extends Controller
             if($data->save()){
                 $res['message']="Upload bukti pembayaran berhasil.";
                 $file_path = public_path().'/storage/'.$old_foto;
-                unlink($file_path);
+                if($old_foto!=""){
+                    unlink($file_path);
+                }
                 // dd($file_path);
                 // Storage::delete($file_path);
                 // File::delete(storage_path($old_foto));                                
