@@ -45,7 +45,12 @@
             <p class="mb-2 text-xl font-bold text-gray-600">{{$item['title']}}</p>
             <img src="{{ $item['icon'] }}" class="w-16 rounded sm:mx-auto">
             <p class="text-gray-700">
+                @if($item['id']==1)
+                Kamu telah berhasil melakukan pendaftaran dan juga mengunggah bukti pembayaran formulir pendaftaran
+                online.
+                @else
                 {{$item['description']}}
+                @endif
             </p>
         </div>
     </div>
