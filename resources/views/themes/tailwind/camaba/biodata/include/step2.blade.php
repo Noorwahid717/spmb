@@ -25,7 +25,8 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <label for="kodepos">Kode Pos</label>
-            <input type="text" name="kodepos" id="kodepos" class="form-control mt-1" value="" placeholder="Kode Pos">
+            <input type="text" name="kodepos" id="kodepos" class="form-control mt-1" value="" maxlength="6"
+                placeholder="Kode Pos">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="kecamatan">Kecamatan <span class="text-red">*</span></label>
@@ -39,30 +40,70 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="wa_camaba">No. Handphone CAMABA (WA) <span class="text-red">*</span></label>
-            <input type="text" name="wa_camaba" id="wa_camaba" class="form-control mt-1" value=""
-                placeholder="No. Handphone CAMABA (WA)">
+            <input type="text" name="wa_camaba" id="wa_camaba" class="form-control mt-1" value="" maxlength="13"
+                placeholder="08xxxxxxxxxx">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="wa_wali">No. Handphone WALI (WA) <span class="text-red">*</span></label>
-            <input type="text" name="wa_wali" id="wa_wali" class="form-control mt-1" value=""
-                placeholder="No. Handphone WALI (WA)">
+            <input type="text" name="wa_wali" id="wa_wali" class="form-control mt-1" value="" maxlength="13"
+                placeholder="08xxxxxxxxxx">
         </div>
     </div>
 </div>
-
+<input type="hidden" name="saveOrUpdateUrlStep2" id="saveOrUpdateUrlStep2"
+    value="{{route('wave.biodata-update-data-alamat')}}">
 
 {{-- button nav --}}
-<div style="display:flex; align-items:center; justify-content:center">
-    <button
-        class="inline-flex self-start items-center px-4 py-2 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M17.064,4.656l-2.05-2.035C14.936,2.544,14.831,2.5,14.721,2.5H3.854c-0.229,0-0.417,0.188-0.417,0.417v14.167c0,0.229,0.188,0.417,0.417,0.417h12.917c0.229,0,0.416-0.188,0.416-0.417V4.952C17.188,4.84,17.144,4.733,17.064,4.656M6.354,3.333h7.917V10H6.354V3.333z M16.354,16.667H4.271V3.333h1.25v7.083c0,0.229,0.188,0.417,0.417,0.417h8.75c0.229,0,0.416-0.188,0.416-0.417V3.886l1.25,1.239V16.667z M13.402,4.688v3.958c0,0.229-0.186,0.417-0.417,0.417c-0.229,0-0.417-0.188-0.417-0.417V4.688c0-0.229,0.188-0.417,0.417-0.417C13.217,4.271,13.402,4.458,13.402,4.688" />
-        </svg>
-        Simpan
-    </button>
+@if($step_2!=null&&$step_2->status_step==1)
+@else
+<div id="button_manipulation_step_2">
+    @if($step_2==null)
+    <div style="display:flex; align-items:center; justify-content:center" id="save_step_2">
+        <button onclick="ValidateStep2()"
+            class="inline-flex self-start items-center px-4 py-2 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.064,4.656l-2.05-2.035C14.936,2.544,14.831,2.5,14.721,2.5H3.854c-0.229,0-0.417,0.188-0.417,0.417v14.167c0,0.229,0.188,0.417,0.417,0.417h12.917c0.229,0,0.416-0.188,0.416-0.417V4.952C17.188,4.84,17.144,4.733,17.064,4.656M6.354,3.333h7.917V10H6.354V3.333z M16.354,16.667H4.271V3.333h1.25v7.083c0,0.229,0.188,0.417,0.417,0.417h8.75c0.229,0,0.416-0.188,0.416-0.417V3.886l1.25,1.239V16.667z M13.402,4.688v3.958c0,0.229-0.186,0.417-0.417,0.417c-0.229,0-0.417-0.188-0.417-0.417V4.688c0-0.229,0.188-0.417,0.417-0.417C13.217,4.271,13.402,4.458,13.402,4.688" />
+            </svg>
+            Simpan
+        </button>
+    </div>
+    @else
+    <div style="align-items:center; justify-content:center" class="flex" id="edit_step_2">
+        <button
+            class="inline-flex self-start items-center px-4 py-2 bg-gray-400 hover:bg-gray-600 text-white text-sm font-medium rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon>
+                <line x1="3" y1="22" x2="21" y2="22"></line>
+            </svg>
+            &nbsp;Edit
+        </button>
+    </div>
+    @endif
+    <div style="align-items:center; justify-content:center" class="flex" id="update_step_2">
+        <button onclick="batalUpdateStep2()"
+            class="inline-flex self-start items-center px-4 py-2 bg-gray-400 hover:bg-gray-600 text-white text-sm font-medium rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            &nbsp;Batal
+        </button>
+        <button onclick="ValidateStep2()"
+            class="ml-3 inline-flex self-start items-center px-4 py-2 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.064,4.656l-2.05-2.035C14.936,2.544,14.831,2.5,14.721,2.5H3.854c-0.229,0-0.417,0.188-0.417,0.417v14.167c0,0.229,0.188,0.417,0.417,0.417h12.917c0.229,0,0.416-0.188,0.416-0.417V4.952C17.188,4.84,17.144,4.733,17.064,4.656M6.354,3.333h7.917V10H6.354V3.333z M16.354,16.667H4.271V3.333h1.25v7.083c0,0.229,0.188,0.417,0.417,0.417h8.75c0.229,0,0.416-0.188,0.416-0.417V3.886l1.25,1.239V16.667z M13.402,4.688v3.958c0,0.229-0.186,0.417-0.417,0.417c-0.229,0-0.417-0.188-0.417-0.417V4.688c0-0.229,0.188-0.417,0.417-0.417C13.217,4.271,13.402,4.458,13.402,4.688" />
+            </svg>
+            &nbsp;Update
+        </button>
+    </div>
 </div>
+@endif
 <div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
         <button onclick="document.getElementById('tablinks1').click()"

@@ -1,6 +1,62 @@
 <div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs mb-4">
+            <label for="pilihan_wali">Data Wali Mahasiswa (sama dengan ayah atau ibu?)<span
+                    class="text-red">*</span></label>
+            <select name="pilihan_wali" id="pilihan_wali" class="form-control mt-1 pilihan_wali">
+                <option value="-1" selected>--Pilih Jawaban--</option>
+                <option value="1">Sama dengan data ayah</option>
+                <option value="0">Sama dengan data ibu</option>
+                <option value="2">Berbeda</option>
+            </select>
+        </div>
+        <div id="form_wali">
+            <div class="form-group mb-5 text-xs">
+                <label for="nik_wali">Nomor Induk Kependudukan Wali <span class="text-red">*</span></label>
+                <input type="text" name="nik_wali" id="nik_wali" class="form-control mt-1" value="" maxlength="16"
+                    placeholder="Nomor Induk Kependudukan Wali">
+            </div>
+            <div class="form-group mb-5 text-xs">
+                <label for="nama_wali">Nama Wali <span class="text-red">*</span></label>
+                <input type="text" name="nama_wali" id="nama_wali" class="form-control mt-1" value=""
+                    placeholder="Nama Wali">
+            </div>
+            <div class="form-group mb-5 text-xs">
+                <label for="tgllhr_wali">Tanggal Lahir Wali<span class="text-red">*</span></label>
+                <input type="date" name="tgllhr_wali" id="tgllhr_wali" class="form-control mt-1" value=""
+                    placeholder="Tanggal Lahir Wali">
+            </div>
+            <div class="form-group mb-5 text-xs mb-4">
+                <label for="pendidikan_wali">Pendidikan Terakhir Wali <span class="text-red">*</span></label>
+                <select name="pendidikan_wali" id="pendidikan_wali" class="form-control mt-1">
+                    <option value="-1" selected>--Pilih Pendidikan Terakhir--</option>
+                    @foreach ($pendidikan as $item)
+                    <option value="{{$item['id_jenjang_didik']}}">{{$item['nama_jenjang_didik']}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group mb-5 text-xs mb-4">
+                <label for="pekerjaan_wali">Pekerjaan Wali <span class="text-red">*</span></label>
+                <select name="pekerjaan_wali" id="pekerjaan_wali" class="form-control mt-1">
+                    <option value="-1" selected>--Pilih Pekerjaan--</option>
+                    @foreach ($pekerjaan as $item)
+                    <option value="{{$item['id_pekerjaan']}}">{{$item['nama_pekerjaan']}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group mb-5 text-xs mb-4">
+                <label for="penghasilan_wali">Penghasilan Wali <span class="text-red">*</span></label>
+                <select name="penghasilan_wali" id="penghasilan_wali" class="form-control mt-1">
+                    <option value="-1" selected>--Pilih Penghasilan--</option>
+                    @foreach ($penghasilan as $item)
+                    <option value="{{$item['id_penghasilan']}}">{{$item['nama_penghasilan']}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs mb-4">
             <label for="penerima_kps">Penerima KPS <span class="text-red">*</span></label>
             <select name="penerima_kps" id="penerima_kps" class="form-control mt-1 penerima_kps">
                 <option value="-1" selected>--Pilih Jawaban--</option>
@@ -8,8 +64,6 @@
                 <option value="0">Tidak</option>
             </select>
         </div>
-    </div>
-    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs" id="div_nokps">
             <label for="nomor_kps">Nomor KPS</label>
             <input type="text" name="nomor_kps" id="nomor_kps" class="form-control mt-1" value=""

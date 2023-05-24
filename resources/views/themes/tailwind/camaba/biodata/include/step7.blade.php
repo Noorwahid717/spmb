@@ -26,6 +26,11 @@
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
+            <label for="dok_ktp_wali">Dokumen KTP Wali <span class="text-red">*</span></label>
+            <input type="file" name="dok_ktp_wali" id="dok_ktp_wali" class="form-control mt-1" value=""
+                accept="image/*">
+        </div>
+        <div class="form-group mb-5 text-xs">
             <label for="dok_akta">Dokumen Akta Kelahiran Calon Mahasiswa <span class="text-red">*</span></label>
             <input type="file" name="dok_akta" id="dok_akta" class="form-control mt-1" value="" accept="image/*">
         </div>
