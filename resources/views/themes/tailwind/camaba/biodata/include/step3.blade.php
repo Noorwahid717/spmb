@@ -2,8 +2,13 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <label for="kondisi_ayah">Kondisi Ayah <span class="text-red">*</span></label>
-            <input type="text" name="kondisi_ayah" id="kondisi_ayah" class="form-control mt-1" value=""
-                placeholder="Kondisi Ayah">
+            {{-- <input type="text" name="kondisi_ayah" id="kondisi_ayah" class="form-control mt-1" value=""
+                placeholder="Kondisi Ayah"> --}}
+            <select name="kondisi_ayah" id="kondisi_ayah" class="form-control mt-1 kondisi_ayah">
+                <option value="-1" selected>--Pilih Kondisi Ayah--</option>
+                <option value="1">Masih Hidup</option>
+                <option value="0">Sudah Meninggal</option>
+            </select>
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="nik_ayah">Nomor Induk Kependudukan Ayah <span class="text-red">*</span></label>
@@ -51,8 +56,13 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <label for="kondisi_ibu">Kondisi Ibu <span class="text-red">*</span></label>
-            <input type="text" name="kondisi_ibu" id="kondisi_ibu" class="form-control mt-1" value=""
-                placeholder="Kondisi Ibu">
+            {{-- <input type="text" name="kondisi_ibu" id="kondisi_ibu" class="form-control mt-1" value=""
+                placeholder="Kondisi Ibu"> --}}
+            <select name="kondisi_ibu" id="kondisi_ibu" class="form-control mt-1 kondisi_ibu">
+                <option value="-1" selected>--Pilih Kondisi Ibu--</option>
+                <option value="1">Masih Hidup</option>
+                <option value="0">Sudah Meninggal</option>
+            </select>
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="nik_ibu">Nomor Induk Kependudukan Ibu <span class="text-red">*</span></label>
