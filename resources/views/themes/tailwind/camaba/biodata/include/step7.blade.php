@@ -2,49 +2,59 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <label for="dok_ktp_camaba">Dokumen KTP Calon Mahasiswa <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_ktp_camaba" id="dok_ktp_camaba" class="form-control mt-1" value=""
                 accept="image/*">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="pas_foto_camaba">Pas Foto Calon Mahasiswa <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="pas_foto_camaba" id="pas_foto_camaba" class="form-control mt-1" value=""
                 accept="image/*">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="dok_ktp_ayah">Dokumen KTP Ayah <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_ktp_ayah" id="dok_ktp_ayah" class="form-control mt-1" value=""
                 accept="image/*">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="dok_ktp_ibu">Dokumen KTP Ibu <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_ktp_ibu" id="dok_ktp_ibu" class="form-control mt-1" value="" accept="image/*">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="dok_kk">Dokumen Kartu Keluarga <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_kk" id="dok_kk" class="form-control mt-1" value="" accept="image/*">
         </div>
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <label for="dok_ktp_wali">Dokumen KTP Wali <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_ktp_wali" id="dok_ktp_wali" class="form-control mt-1" value=""
                 accept="image/*">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="dok_akta">Dokumen Akta Kelahiran Calon Mahasiswa <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_akta" id="dok_akta" class="form-control mt-1" value="" accept="image/*">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="dok_ijasah">Dokumen Ijasah SMA/Sederajat Calon Mahasiswa <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_ijasah" id="dok_ijasah" class="form-control mt-1" value="" accept="image/*">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="dok_nilai_ujian">Dokumen Nilai Ujian Sekolah <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_nilai_ujian" id="dok_nilai_ujian" class="form-control mt-1" value=""
                 accept="image/*, .pdf">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="dok_nilai_rapor">Dokumen Nilai Rapor <span class="text-red">*</span></label>
+            <a href="#" id="" class="text-wave-500"><span style="float:right;">Lihat Dokumen Terupload</span></a>
             <input type="file" name="dok_nilai_rapor" id="dok_nilai_rapor" class="form-control mt-1" value=""
                 accept="image/*, .pdf">
         </div>
