@@ -223,6 +223,105 @@ class BiodataController extends Controller
         return response()->json($res);
     }
 
+    public function updateDataWaliPs(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $data = CamabaDataWaliPs::where('id_user','=',auth()->user()->id)->first();
+            if($data==null){
+                $data = new CamabaDataWaliPs();
+                $data->id_user = auth()->user()->id;           
+            }
+            $data->opsi_wali = $req->opsi_wali;
+            $data->nik_wali = $req->nik_wali;
+            $data->nama_wali = strtoupper($req->nama_wali);
+            $data->tanggal_lahir_wali = $req->tanggal_lahir_wali;
+            $data->id_jenjang_pendidikan_wali = $req->id_jenjang_pendidikan_wali;
+            $data->pendidikan_wali = $req->pendidikan_wali;
+            $data->id_pekerjaan_wali = $req->id_pekerjaan_wali;
+            $data->pekerjaan_wali = $req->pekerjaan_wali;
+            $data->id_penghasilan_wali = $req->id_penghasilan_wali;
+            $data->penghasilan_wali = $req->penghasilan_wali;
+            $data->is_kps = $req->is_kps;
+            $data->no_kps = $req->no_kps;          
+            if($data->save()){
+                $res['message']="Data wali & perlindungan sosial berhasil disimpan.";
+            }else{
+                $res['error']=true;
+                $res['message']="Data wali & perlindungan sosial gagal disimpan!";
+            }                    
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
+    }
+
+    public function updateDataRiwayatPendidikan(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $data = CamabaDataRiwayatPendidikan::where('id_user','=',auth()->user()->id)->first();
+            if($data==null){
+                $data = new CamabaDataRiwayatPendidikan();
+                $data->id_user = auth()->user()->id;           
+            }
+            $data->is_alumni = $req->is_alumni;
+            $data->pendidikan_asal = $req->pendidikan_asal;
+            $data->jenis_pendidikan_asal = $req->jenis_pendidikan_asal;
+            $data->nama_pendidikan_asal = strtoupper($req->nama_pendidikan_asal);
+            $data->nisn = $req->nisn;
+            $data->alamat_pendidikan_asal = $req->alamat_pendidikan_asal;
+            if($data->save()){
+                $res['message']="Data riwayat pendidikan berhasil disimpan.";
+            }else{
+                $res['error']=true;
+                $res['message']="Data riwayat pendidikan gagal disimpan!";
+            }                    
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
+    }  
+    
+    public function updateDataProgramStudi(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $data = CamabaDataProgramStudi::where('id_user','=',auth()->user()->id)->first();
+            if($data==null){
+                $data = new CamabaDataProgramStudi();
+                $data->id_user = auth()->user()->id;           
+            }           
+            $data->tahun_akademik_registrasi = $req->tahun_akademik_registrasi;
+            $data->id_program_studi_1 = $req->id_program_studi_1;
+            $data->id_program_studi_2 = $req->id_program_studi_2;
+            if($data->save()){
+                $res['message']="Data program studi berhasil disimpan.";
+            }else{
+                $res['error']=true;
+                $res['message']="Data program studi gagal disimpan!";
+            }                    
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
+    }      
+
     public function downloadSuratPernyataan()
     {
         $poin_pernyataan = PoinPernyataan::where('is_active','1')->get();

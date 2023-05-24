@@ -127,14 +127,37 @@
         $('#update_step_7').addClass("hidden");
         $('#update_step_8').addClass("hidden");
 
-        // update value tabs
-        updateValueStep1();
-        updateValueStep2();
-        updateValueStep3();
-
         $('#div_nokps').addClass( "hidden" );
         $('#form_wali').addClass( "hidden" );
         
+        // update value tabs
+        updateValueStep1();
+        updateValueStep2();
+        disabledAyahStep3();
+        disabledIbuStep3();
+        $('.kondisi_ayah').change(function() {
+            if(this.value==1){
+                disabledAyahStep3();
+                enabledAyahStep3();
+            }else{
+                disabledAyahStep3();
+                clearAyahData();
+            }
+        });
+        $('.kondisi_ibu').change(function() {
+            if(this.value==1){
+                disabledIbuStep3();
+                enabledIbuStep3();
+            }else if(this.value==0){
+                disabledIbuStep3();
+                enableNamaIbuOnlyStep3();     
+                clearIbuData();       
+            }else{
+                disabledIbuStep3();
+                clearIbuData();       
+            }
+        });
+        updateValueStep3();        
         $('.penerima_kps').change(function() {
             if(this.value==1){
                 $('#div_nokps').removeClass( "hidden" );                
@@ -155,6 +178,9 @@
                 $('#form_wali').addClass( "hidden" );
             }
         });
+        updateValueStep4();
+        updateValueStep5();
+        updateValueStep6();
 
         // autocomplete kewarganegaraan
         var route = $('#citizenshipurl').val();
@@ -203,85 +229,7 @@
                 return item;
             }
         }); 
-    });
-
-    function clear_wali() {
-        $("#nik_wali").val("");
-        $('#nik_wali').removeClass( "read_only" );
-        $('#nik_wali').attr('readonly', false);
-
-        $("#nama_wali").val("");
-        $('#nama_wali').removeClass( "read_only" );
-        $('#nama_wali').attr('readonly', false);
-
-        $("#tgllhr_wali").val("");
-        $('#tgllhr_wali').removeClass( "read_only" );
-        $('#tgllhr_wali').attr('readonly', false);
-        
-        $("#pendidikan_wali").val("-1");
-        $('#pendidikan_wali').removeClass( "read_only" );
-        $("#pendidikan_wali").attr('disabled', false);
-        
-        $("#pekerjaan_wali").val("-1");
-        $('#pekerjaan_wali').removeClass( "read_only" );
-        $("#pekerjaan_wali").attr('disabled', false);
-        
-        $("#penghasilan_wali").val("-1");
-        $('#penghasilan_wali').removeClass( "read_only" );
-        $('#penghasilan_wali').attr('disabled', false);
-    }
-
-    function sama_dengan_ibu() {
-        $("#nik_wali").val($("#nik_ibu").val());
-        $('#nik_wali').addClass( "read_only" );
-        $('#nik_wali').attr('readonly', true);
-
-        $("#nama_wali").val($("#nama_ibu").val());
-        $('#nama_wali').addClass( "read_only" );
-        $('#nama_wali').attr('readonly', true);
-
-        $("#tgllhr_wali").val($("#tgllhr_ibu").val());
-        $('#tgllhr_wali').addClass( "read_only" );
-        $('#tgllhr_wali').attr('readonly', true);
-
-        $("#pendidikan_wali").val($("#pendidikan_ibu  option:selected").val());
-        $('#pendidikan_wali').addClass( "read_only" );
-        $('#pendidikan_wali').attr('disabled', true);
-
-        $("#pekerjaan_wali").val($("#pekerjaan_ibu  option:selected").val());
-        $('#pekerjaan_wali').addClass( "read_only" );
-        $('#pekerjaan_wali').attr('disabled', true);
-
-        $("#penghasilan_wali").val($("#penghasilan_ibu  option:selected").val());
-        $('#penghasilan_wali').addClass( "read_only" );
-        $('#penghasilan_wali').attr('disabled', true);
-    }
-
-    function sama_dengan_ayah() {
-        $("#nik_wali").val($("#nik_ayah").val());
-        $('#nik_wali').addClass( "read_only" );
-        $('#nik_wali').attr('readonly', true);
-
-        $("#nama_wali").val($("#nama_ayah").val());
-        $('#nama_wali').addClass( "read_only" );
-        $('#nama_wali').attr('readonly', true);
-
-        $("#tgllhr_wali").val($("#tgllhr_ayah").val());
-        $('#tgllhr_wali').addClass( "read_only" );
-        $('#tgllhr_wali').attr('readonly', true);
-
-        $("#pendidikan_wali").val($("#pendidikan_ayah  option:selected").val());
-        $('#pendidikan_wali').addClass( "read_only" );
-        $('#pendidikan_wali').attr('disabled', true);
-
-        $("#pekerjaan_wali").val($("#pekerjaan_ayah  option:selected").val());
-        $('#pekerjaan_wali').addClass( "read_only" );
-        $('#pekerjaan_wali').attr('disabled', true);
-
-        $("#penghasilan_wali").val($("#penghasilan_ayah  option:selected").val());
-        $('#penghasilan_wali').addClass( "read_only" );
-        $('#penghasilan_wali').attr('disabled', true);
-    }
+    });    
 
     // Restricts input for the given textbox to the given inputFilter function.
     function setInputFilter(textbox, inputFilter) {
@@ -330,6 +278,7 @@
         enabledStep1();      
     });
     function batalUpdateStep1(){
+        updateValueStep2();
         $('#update_step_1').addClass("hidden");
         $('#edit_step_1').removeClass("hidden");  
         disabledStep1()
@@ -514,6 +463,7 @@
         enabledStep2();      
     });
     function batalUpdateStep2(){
+        updateValueStep2();
         $('#update_step_2').addClass("hidden");
         $('#edit_step_2').removeClass("hidden");  
         disabledStep2()
@@ -692,11 +642,30 @@
         $('#update_step_3').removeClass("hidden");
         $('#edit_step_3').addClass("hidden");  
         enabledStep3();      
+        // triger onclick
+        $('#kondisi_ayah').val($('#kondisi_ayah option:selected').val()).trigger('change');
+        $('#kondisi_ibu').val($('#kondisi_ibu option:selected').val()).trigger('change');
     });
     function batalUpdateStep3(){
+        updateValueStep3();
         $('#update_step_3').addClass("hidden");
         $('#edit_step_3').removeClass("hidden");  
-        disabledStep3()
+        disabledStep3();
+    }
+    function clearAyahData() {
+        $('#nik_ayah').val(null);            
+        $('#nama_ayah').val(null);            
+        $('#tgllhr_ayah').val(null);
+        $('#pendidikan_ayah').val(-1);
+        $('#pekerjaan_ayah').val(-1);
+        $('#penghasilan_ayah').val(-1);            
+    }
+    function clearIbuData() {
+        $('#nik_ibu').val(null);                    
+        $('#tgllhr_ibu').val(null);
+        $('#pendidikan_ibu').val(-1);
+        $('#pekerjaan_ibu').val(-1);
+        $('#penghasilan_ibu').val(-1);            
     }
     function updateValueStep3(){
         var step_3 = @json($step_3);
@@ -715,7 +684,7 @@
             $('#pendidikan_ibu').val(step_3['id_jenjang_pendidikan_ibu']);
             $('#pekerjaan_ibu').val(step_3['id_pekerjaan_ibu']);
             $('#penghasilan_ibu').val(step_3['id_penghasilan_ibu']);      
-            disabledStep3();
+            disabledStep3();            
         }
     }
     function disabledStep3(){
@@ -735,6 +704,34 @@
         $('#penghasilan_ayah').addClass('read_only');
         $('#kondisi_ibu').attr('disabled',true);
         $('#kondisi_ibu').addClass('read_only');
+        $('#nik_ibu').attr('disabled',true);
+        $('#nik_ibu').addClass('read_only');
+        $('#nama_ibu').attr('disabled',true);
+        $('#nama_ibu').addClass('read_only');
+        $('#tgllhr_ibu').attr('disabled',true);
+        $('#tgllhr_ibu').addClass('read_only');
+        $('#pendidikan_ibu').attr('disabled',true);
+        $('#pendidikan_ibu').addClass('read_only');
+        $('#pekerjaan_ibu').attr('disabled',true);
+        $('#pekerjaan_ibu').addClass('read_only');
+        $('#penghasilan_ibu').attr('disabled',true);
+        $('#penghasilan_ibu').addClass('read_only');
+    }
+    function disabledAyahStep3(){
+        $('#nik_ayah').attr('disabled',true);
+        $('#nik_ayah').addClass('read_only');
+        $('#nama_ayah').attr('disabled',true);
+        $('#nama_ayah').addClass('read_only');
+        $('#tgllhr_ayah').attr('disabled',true);
+        $('#tgllhr_ayah').addClass('read_only');
+        $('#pendidikan_ayah').attr('disabled',true);
+        $('#pendidikan_ayah').addClass('read_only');
+        $('#pekerjaan_ayah').attr('disabled',true);
+        $('#pekerjaan_ayah').addClass('read_only');
+        $('#penghasilan_ayah').attr('disabled',true);
+        $('#penghasilan_ayah').addClass('read_only');
+    }
+    function disabledIbuStep3(){        
         $('#nik_ibu').attr('disabled',true);
         $('#nik_ibu').addClass('read_only');
         $('#nama_ibu').attr('disabled',true);
@@ -778,8 +775,40 @@
         $('#penghasilan_ibu').attr('disabled',false);
         $('#penghasilan_ibu').removeClass('read_only');
     }
+    function enabledAyahStep3(){
+        $('#nik_ayah').attr('disabled',false);
+        $('#nik_ayah').removeClass('read_only');
+        $('#nama_ayah').attr('disabled',false);
+        $('#nama_ayah').removeClass('read_only');
+        $('#tgllhr_ayah').attr('disabled',false);
+        $('#tgllhr_ayah').removeClass('read_only');
+        $('#pendidikan_ayah').attr('disabled',false);
+        $('#pendidikan_ayah').removeClass('read_only');
+        $('#pekerjaan_ayah').attr('disabled',false);
+        $('#pekerjaan_ayah').removeClass('read_only');
+        $('#penghasilan_ayah').attr('disabled',false);
+        $('#penghasilan_ayah').removeClass('read_only');
+    }    
+    function enableNamaIbuOnlyStep3(){
+        $('#nama_ibu').attr('disabled',false);
+        $('#nama_ibu').removeClass('read_only');
+    }
+    function enabledIbuStep3(){
+        $('#nik_ibu').attr('disabled',false);
+        $('#nik_ibu').removeClass('read_only');
+        $('#nama_ibu').attr('disabled',false);
+        $('#nama_ibu').removeClass('read_only');
+        $('#tgllhr_ibu').attr('disabled',false);
+        $('#tgllhr_ibu').removeClass('read_only');
+        $('#pendidikan_ibu').attr('disabled',false);
+        $('#pendidikan_ibu').removeClass('read_only');
+        $('#pekerjaan_ibu').attr('disabled',false);
+        $('#pekerjaan_ibu').removeClass('read_only');
+        $('#penghasilan_ibu').attr('disabled',false);
+        $('#penghasilan_ibu').removeClass('read_only');
+    }
     function ValidateStep3() {
-        var kondisi_ayah = $('#kondisi_ayah').val();            
+        var kondisi_ayah = $('#kondisi_ayah option:selected').val(); 
         var nik_ayah = $('#nik_ayah').val();            
         var nama_ayah = $('#nama_ayah').val();            
         var tgllhr_ayah = $('#tgllhr_ayah').val();
@@ -788,8 +817,8 @@
         var id_pekerjaan_ayah = $('#pekerjaan_ayah option:selected').val();
         var pekerjaan_ayah = $('#pekerjaan_ayah option:selected').text();
         var id_penghasilan_ayah = $('#penghasilan_ayah option:selected').val();            
-        var penghasilan_ayah = $('#penghasilan_ayah option:selected').text();            
-        var kondisi_ibu = $('#kondisi_ibu').val();            
+        var penghasilan_ayah = $('#penghasilan_ayah option:selected').text();                                     
+        var kondisi_ibu = $('#kondisi_ibu option:selected').val();      
         var nik_ibu = $('#nik_ibu').val();            
         var nama_ibu = $('#nama_ibu').val();            
         var tgllhr_ibu = $('#tgllhr_ibu').val();            
@@ -800,26 +829,233 @@
         var id_penghasilan_ibu = $('#penghasilan_ibu option:selected').val();
         var penghasilan_ibu = $('#penghasilan_ibu option:selected').text();
 
-        if(kondisi_ayah!=""){
+        if(kondisi_ayah!=-1){
+            if(kondisi_ayah==1){
+                // cek kelengkapan data ayah
+                // ayah masih hidup, lanjut ibu
+                cekDataAyahLanjutDataIbu(
+                    kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+                    pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+                    tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+                    id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+                    id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+                );
+            }else{
+                if(kondisi_ibu!=-1){
+                    if(kondisi_ibu==1){
+                        // cek kelengkapan data ibu
+                        // ayah meninggal, ibu masih hidup
+                        cekDataIbuAndSave(
+                            kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+                            pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+                            tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+                            id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+                            id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+                        );
+                    }else{
+                        if(nama_ibu!=""){                            
+                            // ayah meninggal, ibu meninggal
+                            saveOrUpdateStep3(
+                                kondisi_ayah,null,null,null,null,null,null,
+                                kondisi_ibu,null,nama_ibu,null,null,null,
+                                null,-1,-1,-1,-1,-1,-1
+                            )
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Isi nama ibu dahulu!",
+                            });
+                        }
+                    }
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "Pilih kondisi ibu dahulu!",
+                    });
+                }
+            }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih kondisi ayah dahulu!",
+            });
+        }
+    }    
+    function cekDataAyahLanjutDataIbu(
+        kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+        pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+        tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+        id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+    ) {
         if(nik_ayah!=""){
         if(nama_ayah!=""){
         if(tgllhr_ayah!=""){
         if(id_jenjang_pendidikan_ayah!=-1){
         if(id_pekerjaan_ayah!=-1){
         if(id_penghasilan_ayah!=-1){
-        if(kondisi_ibu!=""){
+            cekDataIbuAndSaveWithDataAyah(
+                kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+                pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+                tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+                id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+                id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+            );
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih penghasilan ayah dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pekerjaan ayah dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pendidikan ayah dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi tanggal lahir ayah dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi nama ayah dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi nomor induk kependudukan ayah dahulu!",
+            });
+        }
+    }
+    function cekDataIbuAndSaveWithDataAyah(
+        kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+        pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+        tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+        id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+    ) {
+        if(kondisi_ibu!=-1){
+                    if(kondisi_ibu==1){
+                        // cek kelengkapan data ibu
+                        // ayah meninggal, ibu masih hidup
+                        if(nik_ibu!=""){
+                        if(nama_ibu!=""){
+                        if(tgllhr_ibu!=""){
+                        if(id_jenjang_pendidikan_ibu!=-1){
+                        if(id_pekerjaan_ibu!=-1){
+                        if(id_penghasilan_ibu!=-1){ 
+                            saveOrUpdateStep3(
+                                kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+                                pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+                                tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+                                id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+                                id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+                            );
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Pilih penghasilan ibu dahulu!",
+                            });
+                        }
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Pilih pekerjaan ibu dahulu!",
+                            });
+                        }
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Pilih pendidikan ibu dahulu!",
+                            });
+                        }
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Isi tanggal lahir ibu dahulu!",
+                            });
+                        }
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Isi nama ibu (sesuai KTP) dahulu!",
+                            });
+                        }
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Isi nomor induk kependudukan ibu dahulu!",
+                            });
+                        }        
+                    }else{
+                        if(nama_ibu!=""){                            
+                            // ayah meninggal, ibu meninggal
+                            saveOrUpdateStep3(
+                                kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+                                pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,null,nama_ibu,null,null,null,
+                                null,-1,-1,-1,id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+                            )
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Isi nama ibu dahulu!",
+                            });
+                        }
+                    }
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "Pilih kondisi ibu dahulu!",
+                    });
+                }        
+    }
+    function cekDataIbuAndSave(
+        kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+        pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+        tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+        id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+    ) {
         if(nik_ibu!=""){
         if(nama_ibu!=""){
         if(tgllhr_ibu!=""){
         if(id_jenjang_pendidikan_ibu!=-1){
         if(id_pekerjaan_ibu!=-1){
-        if(id_penghasilan_ibu!=-1){                            
-        saveOrUpdateStep3(
-            kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
-            pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+        if(id_penghasilan_ibu!=-1){ 
+            saveOrUpdateStep3(
+            kondisi_ayah,null,null,null,null,
+            null,null,kondisi_ibu,nik_ibu,nama_ibu,
             tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
             id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-            id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+            -1,-1,-1
         );
         }else{
             Swal.fire({
@@ -863,62 +1099,6 @@
                 text: "Isi nomor induk kependudukan ibu dahulu!",
             });
         }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Isi kondisi ibu dahulu!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Pilih penghasilan ayah dahulu!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Pilih pekerjaan ayah dahulu!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Pilih pendidikan ayah dahulu!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Isi tanggal lahir ayah dahulu!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Isi nama ayah dahulu!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Isi nomor induk kependudukan ayah dahulu!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Isi kondisi ayah dahulu!",
-            });
-        }
     }
     function saveOrUpdateStep3(
         kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
@@ -928,7 +1108,6 @@
         id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
     ) {
         $('.containerr').show();
-        console.log(pendidikan_ayah);
         let datar = {};
         datar['_method']='POST';
         datar['_token']=$('._token').data('token');
@@ -980,6 +1159,574 @@
             },
         }); 
     }
+
+    // TAB STEP 4
+    $('#edit_step_4').on('click',function() {
+        $('#update_step_4').removeClass("hidden");
+        $('#edit_step_4').addClass("hidden");  
+        enabledStep4();      
+    });
+    function batalUpdateStep4(){
+        updateValueStep4();
+        $('#update_step_4').addClass("hidden");
+        $('#edit_step_4').removeClass("hidden");  
+        disabledStep4()
+    }
+    function updateValueStep4(){
+        var step_4 = @json($step_4);
+        if(step_4!=null){
+            $("#pilihan_wali").val(step_4['opsi_wali']);
+            $("#nik_wali").val(step_4['nik_wali']);
+            $("#nama_wali").val(step_4['nama_wali']);
+            $("#tgllhr_wali").val(step_4['tanggal_lahir_wali']);
+            $("#pendidikan_wali").val(step_4['id_jenjang_pendidikan_wali']);
+            $("#pekerjaan_wali").val(step_4['id_pekerjaan_wali']);
+            $("#penghasilan_wali").val(step_4['id_penghasilan_wali']);
+            $("#penerima_kps").val(step_4['is_kps']);
+            $("#nomor_kps").val(step_4['no_kps']);                    
+            if(step_4['is_kps']==1){
+                $('#div_nokps').removeClass( "hidden" );                
+            }else{
+                $('#div_nokps').addClass( "hidden" );
+            }
+            if(step_4['opsi_wali']!=-1){
+                $('#form_wali').removeClass( "hidden" );                                
+            }else{
+                $('#form_wali').addClass( "hidden" );
+            }
+            disabledStep4();
+        }
+    }
+    function clear_wali() {
+        $("#nik_wali").val("");
+        $('#nik_wali').removeClass( "read_only" );
+        $('#nik_wali').attr('readonly', false);
+
+        $("#nama_wali").val("");
+        $('#nama_wali').removeClass( "read_only" );
+        $('#nama_wali').attr('readonly', false);
+
+        $("#tgllhr_wali").val("");
+        $('#tgllhr_wali').removeClass( "read_only" );
+        $('#tgllhr_wali').attr('readonly', false);
+        
+        $("#pendidikan_wali").val("-1");
+        $('#pendidikan_wali').removeClass( "read_only" );
+        $("#pendidikan_wali").attr('disabled', false);
+        
+        $("#pekerjaan_wali").val("-1");
+        $('#pekerjaan_wali').removeClass( "read_only" );
+        $("#pekerjaan_wali").attr('disabled', false);
+        
+        $("#penghasilan_wali").val("-1");
+        $('#penghasilan_wali').removeClass( "read_only" );
+        $('#penghasilan_wali').attr('disabled', false);
+    }
+    function sama_dengan_ibu() {
+        $("#nik_wali").val($("#nik_ibu").val());
+        $('#nik_wali').addClass( "read_only" );
+        $('#nik_wali').attr('readonly', true);
+
+        $("#nama_wali").val($("#nama_ibu").val());
+        $('#nama_wali').addClass( "read_only" );
+        $('#nama_wali').attr('readonly', true);
+
+        $("#tgllhr_wali").val($("#tgllhr_ibu").val());
+        $('#tgllhr_wali').addClass( "read_only" );
+        $('#tgllhr_wali').attr('readonly', true);
+
+        $("#pendidikan_wali").val($("#pendidikan_ibu  option:selected").val());
+        $('#pendidikan_wali').addClass( "read_only" );
+        $('#pendidikan_wali').attr('disabled', true);
+
+        $("#pekerjaan_wali").val($("#pekerjaan_ibu  option:selected").val());
+        $('#pekerjaan_wali').addClass( "read_only" );
+        $('#pekerjaan_wali').attr('disabled', true);
+
+        $("#penghasilan_wali").val($("#penghasilan_ibu  option:selected").val());
+        $('#penghasilan_wali').addClass( "read_only" );
+        $('#penghasilan_wali').attr('disabled', true);
+    }
+    function sama_dengan_ayah() {
+        $("#nik_wali").val($("#nik_ayah").val());
+        $('#nik_wali').addClass( "read_only" );
+        $('#nik_wali').attr('readonly', true);
+
+        $("#nama_wali").val($("#nama_ayah").val());
+        $('#nama_wali').addClass( "read_only" );
+        $('#nama_wali').attr('readonly', true);
+
+        $("#tgllhr_wali").val($("#tgllhr_ayah").val());
+        $('#tgllhr_wali').addClass( "read_only" );
+        $('#tgllhr_wali').attr('readonly', true);
+
+        $("#pendidikan_wali").val($("#pendidikan_ayah  option:selected").val());
+        $('#pendidikan_wali').addClass( "read_only" );
+        $('#pendidikan_wali').attr('disabled', true);
+
+        $("#pekerjaan_wali").val($("#pekerjaan_ayah  option:selected").val());
+        $('#pekerjaan_wali').addClass( "read_only" );
+        $('#pekerjaan_wali').attr('disabled', true);
+
+        $("#penghasilan_wali").val($("#penghasilan_ayah  option:selected").val());
+        $('#penghasilan_wali').addClass( "read_only" );
+        $('#penghasilan_wali').attr('disabled', true);
+    }
+    function disabledStep4(){
+        $("#pilihan_wali").attr('disabled',true);
+        $("#pilihan_wali").addClass('read_only');
+        $("#nik_wali").attr('disabled',true);
+        $("#nik_wali").addClass('read_only');
+        $("#nama_wali").attr('disabled',true);
+        $("#nama_wali").addClass('read_only');
+        $("#tgllhr_wali").attr('disabled',true);
+        $("#tgllhr_wali").addClass('read_only');
+        $("#pendidikan_wali").attr('disabled',true);
+        $("#pendidikan_wali").addClass('read_only');
+        $("#pekerjaan_wali").attr('disabled',true);
+        $("#pekerjaan_wali").addClass('read_only');
+        $("#penghasilan_wali").attr('disabled',true);
+        $("#penghasilan_wali").addClass('read_only');
+        $("#penerima_kps").attr('disabled',true);
+        $("#penerima_kps").addClass('read_only');
+        $("#nomor_kps").attr('disabled',true);
+        $("#nomor_kps").addClass('read_only');
+    }
+    function enabledStep4(){
+        $("#pilihan_wali").attr('disabled',false);
+        $("#pilihan_wali").removeClass('read_only');
+        $("#nik_wali").attr('disabled',false);
+        $("#nik_wali").removeClass('read_only');
+        $("#nama_wali").attr('disabled',false);
+        $("#nama_wali").removeClass('read_only');
+        $("#tgllhr_wali").attr('disabled',false);
+        $("#tgllhr_wali").removeClass('read_only');
+        $("#pendidikan_wali").attr('disabled',false);
+        $("#pendidikan_wali").removeClass('read_only');
+        $("#pekerjaan_wali").attr('disabled',false);
+        $("#pekerjaan_wali").removeClass('read_only');
+        $("#penghasilan_wali").attr('disabled',false);
+        $("#penghasilan_wali").removeClass('read_only');
+        $("#penerima_kps").attr('disabled',false);
+        $("#penerima_kps").removeClass('read_only');
+        $("#nomor_kps").attr('disabled',false);
+        $("#nomor_kps").removeClass('read_only');
+    }
+    function ValidateStep4() {
+        var pilihan_wali = $("#pilihan_wali option:selected").val();
+        var nik_wali = $("#nik_wali").val();
+        var nama_wali = $("#nama_wali").val();
+        var tgllhr_wali = $("#tgllhr_wali").val();
+        var id_jenjang_pendidikan_wali = $("#pendidikan_wali option:selected").val();
+        var pendidikan_wali = $("#pendidikan_wali option:selected").text();
+        var id_pekerjaan_wali = $("#pekerjaan_wali option:selected").val();
+        var pekerjaan_wali = $("#pekerjaan_wali option:selected").text();
+        var id_penghasilan_wali = $("#penghasilan_wali option:selected").val();
+        var penghasilan_wali = $("#penghasilan_wali option:selected").text();
+        var penerima_kps = $("#penerima_kps option:selected").val();
+        var nomor_kps = $("#nomor_kps").val();  
+
+        if(pilihan_wali!=-1){
+        if(nik_wali!=""){
+        if(nama_wali!=""){
+        if(tgllhr_wali!=""){
+        if(id_jenjang_pendidikan_wali!=-1){
+        if(id_pekerjaan_wali!=-1){
+        if(id_penghasilan_wali!=-1){
+        if(penerima_kps!=-1){
+            if(penerima_kps==1){
+                if(nomor_kps!=""){                          
+                saveOrUpdateStep4(
+                    pilihan_wali,nik_wali,nama_wali,tgllhr_wali,
+                    id_jenjang_pendidikan_wali,pendidikan_wali,
+                    id_pekerjaan_wali,pekerjaan_wali,id_penghasilan_wali,
+                    penghasilan_wali,penerima_kps,nomor_kps  
+                );        
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "Isi nomor kps dahulu!",
+                    });
+                }
+            }else{
+                saveOrUpdateStep4(
+                    pilihan_wali,nik_wali,nama_wali,tgllhr_wali,
+                    id_jenjang_pendidikan_wali,pendidikan_wali,
+                    id_pekerjaan_wali,pekerjaan_wali,id_penghasilan_wali,
+                    penghasilan_wali,penerima_kps,nomor_kps
+                );   
+            }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pilihan penerima kps dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih penghasilan wali dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pekerjaan wali dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pendidikan wali dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi tanggal lahir wali dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi nama wali dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi nomor induk kependudukan wali dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih data wali mahasiswa dahulu!",
+            });
+        }
+    }
+    function saveOrUpdateStep4(
+        pilihan_wali,nik_wali,nama_wali,tgllhr_wali,
+        id_jenjang_pendidikan_wali,pendidikan_wali,
+        id_pekerjaan_wali,pekerjaan_wali,id_penghasilan_wali,
+        penghasilan_wali,penerima_kps,nomor_kps
+    ) {
+        $('.containerr').show();
+        let datar = {};
+        datar['_method']='POST';
+        datar['_token']=$('._token').data('token');
+        datar['opsi_wali'] = pilihan_wali;        
+        datar['nik_wali'] = nik_wali;
+        datar['nama_wali'] = nama_wali;
+        datar['tanggal_lahir_wali'] = tgllhr_wali;        
+        datar['id_jenjang_pendidikan_wali'] = id_jenjang_pendidikan_wali;
+        datar['pendidikan_wali'] = pendidikan_wali;
+        datar['id_pekerjaan_wali'] = id_pekerjaan_wali;
+        datar['pekerjaan_wali'] = pekerjaan_wali;
+        datar['id_penghasilan_wali'] = id_penghasilan_wali;
+        datar['penghasilan_wali'] = penghasilan_wali;
+        datar['is_kps'] = penerima_kps;
+        datar['no_kps'] = nomor_kps;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#saveOrUpdateUrlStep4").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    location.reload();
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
+
+    // TAB STEP 5
+    $('#edit_step_5').on('click',function() {
+        $('#update_step_5').removeClass("hidden");
+        $('#edit_step_5').addClass("hidden");  
+        enabledStep5();      
+    });
+    function batalUpdateStep5(){
+        updateValueStep5();
+        $('#update_step_5').addClass("hidden");
+        $('#edit_step_5').removeClass("hidden");  
+        disabledStep5()
+    }
+    function updateValueStep5(){
+        var step_5 = @json($step_5);
+        if(step_5!=null){
+            $("#alumni_smawa").val(step_5['is_alumni']);
+            $("#pendidikan_asal").val(step_5['pendidikan_asal']);
+            $("#jenis_pendidikan_asal").val(step_5['jenis_pendidikan_asal']);
+            $("#nama_pendidikan_asal").val(step_5['nama_pendidikan_asal']);
+            $("#nisn").val(step_5['nisn']);
+            $("#alamat_pendidikan_asal").val(step_5['alamat_pendidikan_asal']);            
+            disabledStep5();
+        }
+    }
+    function disabledStep5(){
+        $("#alumni_smawa").attr('disabled',true);
+        $("#alumni_smawa").addClass('read_only');
+        $("#pendidikan_asal").attr('disabled',true);
+        $("#pendidikan_asal").addClass('read_only');
+        $("#jenis_pendidikan_asal").attr('disabled',true);
+        $("#jenis_pendidikan_asal").addClass('read_only');
+        $("#nama_pendidikan_asal").attr('disabled',true);
+        $("#nama_pendidikan_asal").addClass('read_only');
+        $("#nisn").attr('disabled',true);
+        $("#nisn").addClass('read_only');
+        $("#alamat_pendidikan_asal").attr('disabled',true);
+        $("#alamat_pendidikan_asal").addClass('read_only');        
+    }
+    function enabledStep5(){
+        $("#alumni_smawa").attr('disabled',false);
+        $("#alumni_smawa").removeClass('read_only');
+        $("#pendidikan_asal").attr('disabled',false);
+        $("#pendidikan_asal").removeClass('read_only');
+        $("#jenis_pendidikan_asal").attr('disabled',false);
+        $("#jenis_pendidikan_asal").removeClass('read_only');
+        $("#nama_pendidikan_asal").attr('disabled',false);
+        $("#nama_pendidikan_asal").removeClass('read_only');
+        $("#nisn").attr('disabled',false);
+        $("#nisn").removeClass('read_only');
+        $("#alamat_pendidikan_asal").attr('disabled',false);
+        $("#alamat_pendidikan_asal").removeClass('read_only');
+    }
+    function ValidateStep5() {
+        var is_alumni = $("#alumni_smawa option:selected").val();
+        var pendidikan_asal = $("#pendidikan_asal option:selected").val();
+        var jenis_pendidikan_asal = $("#jenis_pendidikan_asal option:selected").val();
+        var nama_pendidikan_asal = $("#nama_pendidikan_asal").val();
+        var nisn = $("#nisn").val();
+        var alamat_pendidikan_asal = $("#alamat_pendidikan_asal").val();        
+
+        if(is_alumni!=-1){
+        if(pendidikan_asal!=-1){
+        if(jenis_pendidikan_asal!=-1){
+        if(nama_pendidikan_asal!=""){
+        if(nisn!=""){
+        if(alamat_pendidikan_asal!=""){
+            saveOrUpdateStep5(
+                is_alumni,pendidikan_asal,jenis_pendidikan_asal,nama_pendidikan_asal,
+                nisn,alamat_pendidikan_asal                    
+            );                
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi alamat pengiriman surat pendidikan asal dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi nisn dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi nama pendidikan asal dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih jenis pendidikan asal dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pendidikan asal dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih jawaban atas pertanyaan terkait alumni dahulu!",
+            });
+        }
+    }
+    function saveOrUpdateStep5(
+        is_alumni,pendidikan_asal,jenis_pendidikan_asal,
+        nama_pendidikan_asal,nisn,alamat_pendidikan_asal
+    ) {
+        $('.containerr').show();
+        let datar = {};
+        datar['_method']='POST';
+        datar['_token']=$('._token').data('token');
+        datar['is_alumni'] = is_alumni;
+        datar['pendidikan_asal'] = pendidikan_asal;
+        datar['jenis_pendidikan_asal'] = jenis_pendidikan_asal;
+        datar['nama_pendidikan_asal'] = nama_pendidikan_asal;
+        datar['nisn'] = nisn;
+        datar['alamat_pendidikan_asal'] = alamat_pendidikan_asal;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#saveOrUpdateUrlStep5").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    location.reload();
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
+
+    // TAB STEP 6
+    $('#edit_step_6').on('click',function() {
+        $('#update_step_6').removeClass("hidden");
+        $('#edit_step_6').addClass("hidden");  
+        enabledStep6();      
+    });
+    function batalUpdateStep6(){
+        updateValueStep6();
+        $('#update_step_6').addClass("hidden");
+        $('#edit_step_6').removeClass("hidden");  
+        disabledStep6()
+    }
+    function updateValueStep6(){
+        var step_6 = @json($step_6);
+        if(step_6!=null){
+            $("#ta").val(step_6['tahun_akademik_registrasi']);
+            $("#prodi_1").val(step_6['id_program_studi_1']);
+            $("#prodi_2").val(step_6['id_program_studi_2']);
+            disabledStep6();
+        }
+    }
+    function disabledStep6(){
+        $("#ta").attr('disabled',true);
+        $("#ta").addClass('read_only');
+        $("#prodi_1").attr('disabled',true);
+        $("#prodi_1").addClass('read_only');
+        $("#prodi_2").attr('disabled',true);
+        $("#prodi_2").addClass('read_only');
+    }
+    function enabledStep6(){
+        $("#ta").attr('disabled',false);
+        $("#ta").removeClass('read_only');
+        $("#prodi_1").attr('disabled',false);
+        $("#prodi_1").removeClass('read_only');
+        $("#prodi_2").attr('disabled',false);
+        $("#prodi_2").removeClass('read_only');
+    }
+    function ValidateStep6() {
+        var tahun_akademik_registrasi = $("#ta").val();
+        var id_program_studi_1 = $("#prodi_1 option:selected").val();
+        var id_program_studi_2 = $("#prodi_2 option:selected").val();
+
+        if(id_program_studi_1!=-1){
+        if(id_program_studi_2!=-1){
+            saveOrUpdateStep6(
+                tahun_akademik_registrasi,
+                id_program_studi_1,
+                id_program_studi_2                                    
+            );                        
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pilihan program studi 2 dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pilihan program studi 1 dahulu!",
+            });
+        }
+    }
+    function saveOrUpdateStep6(
+        tahun_akademik_registrasi,
+        id_program_studi_1,
+        id_program_studi_2 
+    ) {
+        $('.containerr').show();
+        let datar = {};
+        datar['_method']='POST';
+        datar['_token']=$('._token').data('token');
+        datar['tahun_akademik_registrasi'] = tahun_akademik_registrasi;
+        datar['id_program_studi_1'] = id_program_studi_1;
+        datar['id_program_studi_2'] = id_program_studi_2;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#saveOrUpdateUrlStep6").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    location.reload();
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
+
+    
     
     function downloadSuratPernyataan() {
         // window.open($('#urlDownloadSuratPernyataan').val(), '_blank');           
