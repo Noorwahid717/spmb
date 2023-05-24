@@ -35,7 +35,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="nisn">NISN <span class="text-red">*</span></label>
-            <input type="text" name="nisn" id="nisn" class="form-control mt-1" value="" placeholder="NISN">
+            <input type="text" name="nisn" id="nisn" class="form-control mt-1" value="" maxlength="10"
+                placeholder="NISN">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="alamat_pendidikan_asal">Alamat Pengiriman Surat Pendidikan Asal <span

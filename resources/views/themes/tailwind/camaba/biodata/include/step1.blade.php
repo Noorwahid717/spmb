@@ -2,12 +2,12 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <label for="nkk">Nomor Kartu Keluarga <span class="text-red">*</span></label>
-            <input type="text" name="nkk" id="nkk" class="form-control mt-1" value=""
+            <input type="text" name="nkk" id="nkk" class="form-control mt-1" value="" maxlength="16"
                 placeholder="Nomor Kartu Keluarga">
         </div>
         <div class="form-group mb-5 text-xs">
             <label for="nik">Nomor Induk Kependudukan <span class="text-red">*</span></label>
-            <input type="text" name="nik" id="nik" class="form-control mt-1" value=""
+            <input type="text" name="nik" id="nik" class="form-control mt-1" value="" maxlength="16"
                 placeholder="Nomor Induk Kependudukan">
         </div>
         <div class="form-group mb-5 text-xs">
@@ -51,20 +51,60 @@
     </div>
 </div>
 <input type="hidden" name="citizenshipurl" id="citizenshipurl" value="{{route('wave.biodata-kewarganegaraan')}}">
-
+<input type="hidden" name="saveOrUpdateUrlStep1" id="saveOrUpdateUrlStep1"
+    value="{{route('wave.biodata-update-data-pokok')}}">
 
 {{-- button nav --}}
-<div style="display:flex; align-items:center; justify-content:center">
-    <button
-        class="inline-flex self-start items-center px-4 py-2 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M17.064,4.656l-2.05-2.035C14.936,2.544,14.831,2.5,14.721,2.5H3.854c-0.229,0-0.417,0.188-0.417,0.417v14.167c0,0.229,0.188,0.417,0.417,0.417h12.917c0.229,0,0.416-0.188,0.416-0.417V4.952C17.188,4.84,17.144,4.733,17.064,4.656M6.354,3.333h7.917V10H6.354V3.333z M16.354,16.667H4.271V3.333h1.25v7.083c0,0.229,0.188,0.417,0.417,0.417h8.75c0.229,0,0.416-0.188,0.416-0.417V3.886l1.25,1.239V16.667z M13.402,4.688v3.958c0,0.229-0.186,0.417-0.417,0.417c-0.229,0-0.417-0.188-0.417-0.417V4.688c0-0.229,0.188-0.417,0.417-0.417C13.217,4.271,13.402,4.458,13.402,4.688" />
-        </svg>
-        Simpan
-    </button>
+@if($step_1!=null&&$step_1->status_step==1)
+@else
+<div id="button_manipulation_step_1">
+    @if($step_1==null)
+    <div style="display:flex; align-items:center; justify-content:center" id="save_step_1">
+        <button onclick="ValidateStep1()"
+            class="inline-flex self-start items-center px-4 py-2 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.064,4.656l-2.05-2.035C14.936,2.544,14.831,2.5,14.721,2.5H3.854c-0.229,0-0.417,0.188-0.417,0.417v14.167c0,0.229,0.188,0.417,0.417,0.417h12.917c0.229,0,0.416-0.188,0.416-0.417V4.952C17.188,4.84,17.144,4.733,17.064,4.656M6.354,3.333h7.917V10H6.354V3.333z M16.354,16.667H4.271V3.333h1.25v7.083c0,0.229,0.188,0.417,0.417,0.417h8.75c0.229,0,0.416-0.188,0.416-0.417V3.886l1.25,1.239V16.667z M13.402,4.688v3.958c0,0.229-0.186,0.417-0.417,0.417c-0.229,0-0.417-0.188-0.417-0.417V4.688c0-0.229,0.188-0.417,0.417-0.417C13.217,4.271,13.402,4.458,13.402,4.688" />
+            </svg>
+            Simpan
+        </button>
+    </div>
+    @else
+    <div style="align-items:center; justify-content:center" class="flex" id="edit_step_1">
+        <button
+            class="inline-flex self-start items-center px-4 py-2 bg-gray-400 hover:bg-gray-600 text-white text-sm font-medium rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon>
+                <line x1="3" y1="22" x2="21" y2="22"></line>
+            </svg>
+            &nbsp;Edit
+        </button>
+    </div>
+    @endif
+    <div style="align-items:center; justify-content:center" class="flex" id="update_step_1">
+        <button onclick="batalUpdateStep1()"
+            class="inline-flex self-start items-center px-4 py-2 bg-gray-400 hover:bg-gray-600 text-white text-sm font-medium rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            &nbsp;Batal
+        </button>
+        <button onclick="ValidateStep1()"
+            class="ml-3 inline-flex self-start items-center px-4 py-2 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.064,4.656l-2.05-2.035C14.936,2.544,14.831,2.5,14.721,2.5H3.854c-0.229,0-0.417,0.188-0.417,0.417v14.167c0,0.229,0.188,0.417,0.417,0.417h12.917c0.229,0,0.416-0.188,0.416-0.417V4.952C17.188,4.84,17.144,4.733,17.064,4.656M6.354,3.333h7.917V10H6.354V3.333z M16.354,16.667H4.271V3.333h1.25v7.083c0,0.229,0.188,0.417,0.417,0.417h8.75c0.229,0,0.416-0.188,0.416-0.417V3.886l1.25,1.239V16.667z M13.402,4.688v3.958c0,0.229-0.186,0.417-0.417,0.417c-0.229,0-0.417-0.188-0.417-0.417V4.688c0-0.229,0.188-0.417,0.417-0.417C13.217,4.271,13.402,4.458,13.402,4.688" />
+            </svg>
+            &nbsp;Update
+        </button>
+    </div>
 </div>
+@endif
 <div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
         <button

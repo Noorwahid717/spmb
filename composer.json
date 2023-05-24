@@ -23,7 +23,8 @@
         "livewire/livewire": "^2.4",
         "tcg/voyager": "1.5.x-dev",
         "tymon/jwt-auth": "@dev",
-        "yajra/laravel-datatables-oracle": "^9.18"
+        "yajra/laravel-datatables-oracle": "^9.18",
+        "barryvdh/laravel-dompdf": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

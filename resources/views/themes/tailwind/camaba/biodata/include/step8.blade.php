@@ -20,15 +20,15 @@
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
-            <label for="format_pernyataan">Format Surat Pernyataan</label>
-            <button style="width: 100%"
+            <label for="format_pernyataan">Surat Pernyataan</label>
+            <button style="width: 100%" onclick="downloadSuratPernyataan()"
                 class="mt-1 justify-center inline-flex self-start items-center px-4 py-2 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
                 </svg>
-                Unduh
+                Unduh Surat Pernyataan
             </button>
         </div>
         <div class="form-group mb-5 text-xs">
@@ -39,7 +39,8 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" name="urlDownloadSuratPernyataan" id="urlDownloadSuratPernyataan"
+    value="{{route('wave.biodata-download-surat-pernyataan')}}">
 
 {{-- button nav --}}
 <div style="display:flex; align-items:center; justify-content:center">
