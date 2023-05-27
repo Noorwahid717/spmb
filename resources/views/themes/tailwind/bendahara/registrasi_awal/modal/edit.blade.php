@@ -18,6 +18,19 @@
             <input type="hidden" name="id_user" value id="id_user" class="id_user">
             <input type="hidden" name="ta_registrasi" value id="ta_registrasi" class="ta_registrasi">
             <div class="form-group mb-5 text-xs">
+                <label for="bukti_bayar">Upload Bukti Pembayaran</label>
+                <div class="flex">
+                    <input type="file" name="bukti_bayar" id="bukti_bayar" class="form-control mt-1" value=""
+                        accept="image/*">
+                    <button onclick="resetBerkas()" id="resetberkas"
+                        class="inline-flex self-start items-center ml-3 mt-1 py-3 px-4 w-100 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md">
+                        Reset
+                    </button>
+                </div>
+                <input type="hidden" name="realimage_slip" id="img-value_slip">
+            </div>
+
+            <div class="form-group mb-5 text-xs">
                 <label for="nama">Nama</label>
                 <input type="text" name="nama" id="nama" class="form-control mt-1" value="" placeholder="Nama" readonly>
             </div>

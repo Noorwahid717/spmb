@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
 use PDF;
+use Str;
 
 class BiodataController extends Controller
 {
@@ -321,6 +322,152 @@ class BiodataController extends Controller
 
         return response()->json($res);
     }      
+
+    public function updateDataDokumen(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $dataImageKTPCamaba = self::UploadDokumenToStorage($req->dok_ktp_camaba,"ktp_camaba");
+            $dataImagePasFotoCamaba = self::UploadDokumenToStorage($req->dok_pas_foto_camaba,"foto_camaba");
+            $dataImageKTPAyah = self::UploadDokumenToStorage($req->dok_ktp_ayah,"ktp_ayah");
+            $dataImageKTPIbu = self::UploadDokumenToStorage($req->dok_ktp_ibu,"ktp_ibu");
+            $dataImageKK = self::UploadDokumenToStorage($req->dok_kk,"kartu_keluarga");
+            $dataImageKTPWali = self::UploadDokumenToStorage($req->dok_ktp_wali,"ktp_wali");
+            $dataImageAkta = self::UploadDokumenToStorage($req->dok_akta,"akta_kelahiran");
+            $dataImageIjasah = self::UploadDokumenToStorage($req->dok_ijasah,"ijasah");
+            $dataImageNilaiUjianSekolah = self::UploadDokumenToStorage($req->dok_nilai_ujian_sekolah,"nilai_ujian_sekolah");
+            $dataImageNilaiRapor = self::UploadDokumenToStorage($req->dok_nilai_rapor,"nilai_rapor");            
+
+            $data = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
+            if($data==null){
+                $data = new CamabaDataDokumen();
+                $data->id_user = auth()->user()->id;           
+            }           
+            $oldDokKTPCamaba = $data->url_ktp;
+            if($dataImageKTPCamaba!=null||$dataImageKTPCamaba!=""){
+                $data->url_ktp = 'ktp_camaba/'.$dataImageKTPCamaba;
+            }
+            $oldDokFotoCamaba = $data->url_foto;
+            if($dataImagePasFotoCamaba!=null||$dataImagePasFotoCamaba!=""){
+                $data->url_foto = 'foto_camaba/'.$dataImagePasFotoCamaba;
+            }
+            $oldDokKTPAyah = $data->url_ktp_ayah;
+            if($dataImageKTPAyah!=null||$dataImageKTPAyah!=""){
+                $data->url_ktp_ayah = 'ktp_ayah/'.$dataImageKTPAyah;
+            }
+            $oldDokKTPIbu = $data->url_ktp_ibu;
+            if($dataImageKTPIbu!=null||$dataImageKTPIbu!=""){
+                $data->url_ktp_ibu = 'ktp_ibu/'.$dataImageKTPIbu;
+            }
+            $oldDokKTPWali = $data->url_ktp_wali;
+            if($dataImageKTPWali!=null||$dataImageKTPWali!=""){
+                $data->url_ktp_wali = 'ktp_wali/'.$dataImageKTPWali;
+            }
+            $oldDokKK = $data->url_kk;
+            if($dataImageKK!=null||$dataImageKK!=""){
+                $data->url_kk = 'kartu_keluarga/'.$dataImageKK;
+            }
+            $oldDokAkta = $data->url_akta;
+            if($dataImageAkta!=null||$dataImageAkta!=""){
+                $data->url_akta = 'akta_kelahiran/'.$dataImageAkta;
+            }
+            $oldDokIjasah = $data->url_ijasah;
+            if($dataImageIjasah!=null||$dataImageIjasah!=""){
+                $data->url_ijasah = 'ijasah/'.$dataImageIjasah;
+            }
+            $oldDokNilaiUjianSekolah = $data->url_nilai_ujian_sekolah;
+            if($dataImageNilaiUjianSekolah!=null||$dataImageNilaiUjianSekolah!=""){
+                $data->url_nilai_ujian_sekolah = 'nilai_ujian_sekolah/'.$dataImageNilaiUjianSekolah;
+            }
+            $oldDokNilaiRapor = $data->url_nilai_rapor;
+            if($dataImageNilaiRapor!=null||$dataImageNilaiRapor!=""){
+                $data->url_nilai_rapor = 'nilai_rapor/'.$dataImageNilaiRapor;
+            }                        
+            if($data->save()){
+                $res['message']="Data dokumen berhasil disimpan.";
+                $fpKTPCamaba = public_path().'/storage/'.$oldDokKTPCamaba;
+                if($oldDokKTPCamaba!=""){
+                    unlink($fpKTPCamaba);
+                }
+                $fpFotoCamaba = public_path().'/storage/'.$oldDokFotoCamaba;
+                if($oldDokFotoCamaba!=""){
+                    unlink($fpFotoCamaba);
+                }
+                $fpKTPAyah = public_path().'/storage/'.$oldDokKTPAyah;
+                if($oldDokKTPAyah!=""){
+                    unlink($fpKTPAyah);
+                }
+                $fpKTPIbu = public_path().'/storage/'.$oldDokKTPIbu;
+                if($oldDokKTPIbu!=""){
+                    unlink($fpKTPIbu);
+                }
+                $fpKK = public_path().'/storage/'.$oldDokKK;
+                if($oldDokKK!=""){
+                    unlink($fpKK);
+                }
+                $fpKTPWali = public_path().'/storage/'.$oldDokKTPWali;
+                if($oldDokKTPWali!=""){
+                    unlink($fpKTPWali);
+                }
+                $fpAkta = public_path().'/storage/'.$oldDokAkta;
+                if($oldDokAkta!=""){
+                    unlink($fpAkta);
+                }
+                $fpIjasah = public_path().'/storage/'.$oldDokIjasah;
+                if($oldDokIjasah!=""){
+                    unlink($fpIjasah);
+                }
+                $fpNilaiUjianSekolah = public_path().'/storage/'.$oldDokNilaiUjianSekolah;
+                if($oldDokNilaiUjianSekolah!=""){
+                    unlink($fpNilaiUjianSekolah);
+                }
+                $fpNilaiRapor = public_path().'/storage/'.$oldDokNilaiRapor;
+                if($oldDokNilaiRapor!=""){
+                    unlink($fpNilaiRapor);
+                }
+            }else{
+                $res['error']=true;
+                $res['message']="Data dokumen gagal disimpan!";
+            }                    
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
+    }
+
+    public static function UploadDokumenToStorage($imageData,$location)
+    {
+        $initialization = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
+        $jpegExtDataImage = 'data:image/jpeg;base64,';
+        $pngExtDataImage = 'data:image/png;base64,';
+        $pdfExtDataImage = 'data:application/pdf;base64,';
+        $ext=null;
+        if (str_contains($imageData, $jpegExtDataImage)) {
+            $ext='png';
+        }else if (str_contains($imageData, $pngExtDataImage)) {
+            $ext='png';
+        }else if (str_contains($imageData, $pdfExtDataImage)) {
+            $ext='pdf';
+        }else{
+            $ext='png';
+        }
+        $imageName = null;
+        if($imageData){
+            $image = $imageData; 
+            $image = str_replace($jpegExtDataImage, '', $image);
+            $image = str_replace($pngExtDataImage, '', $image);
+            $image = str_replace($pdfExtDataImage, '', $image);            
+            $image = str_replace(' ', '+', $image);
+            $imageName = Str::random(50).'.'.$ext;
+            \File::put(storage_path(). '/app/public/'.$location.'/' . $imageName, base64_decode($image));
+        }
+        return $imageName;
+    }
 
     public function downloadSuratPernyataan()
     {

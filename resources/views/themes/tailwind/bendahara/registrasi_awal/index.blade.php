@@ -48,6 +48,7 @@
                         <th>NOMINAL</th>
                         <th>TANGGAL BAYAR</th>
                         <th>STATUS BAYAR</th>
+                        <th>SLIP</th>
                         <th>UPDATED</th>
                         <th>ACT</th>
                     </tr>
@@ -119,6 +120,7 @@
             }
             $(cells[7]).addClass('text-center text-sm')        
             $(cells[8]).addClass('text-center text-sm')        
+            $(cells[9]).addClass('text-center text-sm')        
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -128,6 +130,7 @@
             {data: 'nominal', name: 'nominal'},
             {data: 'tanggal_bayar', name: 'tanggal_bayar'},
             {data: 'is_lunas', name: 'is_lunas'},
+            {data: 'slip', name: 'slip'},
             {data: 'updated_at', name: 'updated_at'},
             {data: 'act', name:'act'},               
         ], 
@@ -194,6 +197,9 @@
         }else{
             $('#nominal_view').text("Rp. "+new Intl.NumberFormat(['ban', 'id']).format(parseInt(nominal)));
         }
+
+        $('#resetberkas').attr('onClick','resetBerkas("'+url_bukti_bayar+'")');
+        
     }
 
     // Restricts input for the given textbox to the given inputFilter function.
@@ -234,11 +240,13 @@
         var status_bayar = $('#status_bayar option:selected').val();
         var keterangan = $("#keterangan").val();   
         var ta_registrasi = $("#ta_registrasi").val();   
+        let bukti_bayar = $('input[id=bukti_bayar]').val();
+        let real_image_foto = $('input[id=img-value_slip]').val();
 
         if(nominal>0){
             if(tanggal_bayar!=""){
                 if(status_bayar!=-2){
-                    updateValidasiPembayaran(id_user,nominal,tanggal_bayar,status_bayar,keterangan,ta_registrasi);                    
+                    updateValidasiPembayaran(id_user,nominal,tanggal_bayar,status_bayar,keterangan,ta_registrasi,real_image_foto,bukti_bayar);                    
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -262,7 +270,9 @@
         }
     }
 
-    function updateValidasiPembayaran(id_user,nominal,tanggal_bayar,status_bayar,keterangan,ta_registrasi) {
+    function updateValidasiPembayaran(
+        id_user,nominal,tanggal_bayar,status_bayar,keterangan,ta_registrasi,
+        real_image_foto,bukti_bayar) {
         $('.containerr').show();
         let datar = {};
         datar['_method']='POST';
@@ -273,6 +283,8 @@
         datar['status_bayar']=status_bayar;
         datar['keterangan']=keterangan;
         datar['ta_registrasi']=ta_registrasi;
+        datar['url_bukti_bayar']=real_image_foto;
+        datar['bukti_bayar']=bukti_bayar;
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -301,6 +313,48 @@
                 }
             },
         }); 
+    }
+
+    var evt = new Event();
+    function readFileKK() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                $("#thumb_slip").attr("src",e.target.result);
+                $("#thumb_slip").attr("data-large-img-url",e.target.result);
+                document.getElementById("img-value_slip").value = e.target.result;
+                $("#thumb_slip-large").remove();
+                $("#thumb_slip-lens").remove();
+                var m = new Magnifier(evt);
+                m.attach({thumb: '#thumb_slip',
+                large: e.target.result,
+                largeWrapper: 'preview_slip',
+                zoomable:true,
+                mode:'inside',
+                zoom: 3
+                });
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("bukti_bayar").addEventListener("change", readFileKK);
+
+    function resetBerkas(url_bukti_bayar){
+        $('input[id=bukti_bayar]').val("");
+        $('input[id=img-value_slip]').val("");
+        $("#thumb_slip").attr("src","");
+        $("#thumb_slip-large").remove();
+        $("#thumb_slip-lens").remove();
+        var element = document.getElementById("img-prev_slip");
+        element.classList.remove("d-none");        
+        if (url_bukti_bayar==""){
+            element.classList.add("d-none");
+        }else{
+            var url = '{{ asset("")}}'+"storage/"+url_bukti_bayar;
+            $('#thumb_slip').attr('src', url);
+            $('#thumb_slip').attr('data-large-img-url', url);
+            extm();
+        }
     }
 </script>
 @endsection

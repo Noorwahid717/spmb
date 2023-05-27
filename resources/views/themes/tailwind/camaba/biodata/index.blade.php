@@ -115,7 +115,31 @@
 <script src="{{ asset('themes/' . $theme->folder . '/js/Event.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function(event){
-        document.getElementById('tablinks1').click()
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        if(getUrlParameter('tab')==1){
+            document.getElementById('tablinks1').click();
+        }else if(getUrlParameter('tab')==2){
+            document.getElementById('tablinks2').click();
+        }else if(getUrlParameter('tab')==3){
+            document.getElementById('tablinks3').click();
+        }else if(getUrlParameter('tab')==4){
+            document.getElementById('tablinks4').click();
+        }else if(getUrlParameter('tab')==5){
+            document.getElementById('tablinks5').click();
+        }else if(getUrlParameter('tab')==6){
+            document.getElementById('tablinks6').click();
+        }else if(getUrlParameter('tab')==7){
+            document.getElementById('tablinks7').click();
+        }else if(getUrlParameter('tab')==8){
+            document.getElementById('tablinks8').click();
+        }else{
+            document.getElementById('tablinks1').click();
+        }
 
         // hide edit button tabs
         $('#update_step_1').addClass("hidden");
@@ -181,6 +205,7 @@
         updateValueStep4();
         updateValueStep5();
         updateValueStep6();
+        updateValueStep7();
 
         // autocomplete kewarganegaraan
         var route = $('#citizenshipurl').val();
@@ -443,7 +468,8 @@
                         icon: 'success',
                         title: data.message
                     });
-                    location.reload();
+                    // location.reload();
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=1" );
                 }else{
                     Swal.fire({
                     icon: 'error',
@@ -624,7 +650,8 @@
                         icon: 'success',
                         title: data.message
                     });
-                    location.reload();
+                    // location.reload();
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=2" );
                 }else{
                     Swal.fire({
                     icon: 'error',
@@ -1147,7 +1174,8 @@
                         icon: 'success',
                         title: data.message
                     });
-                    location.reload();
+                    // location.reload();
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=3" );
                 }else{
                     Swal.fire({
                     icon: 'error',
@@ -1452,7 +1480,8 @@
                         icon: 'success',
                         title: data.message
                     });
-                    location.reload();
+                    // location.reload();
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=4" );
                 }else{
                     Swal.fire({
                     icon: 'error',
@@ -1608,7 +1637,8 @@
                         icon: 'success',
                         title: data.message
                     });
-                    location.reload();
+                    // location.reload();
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=5" );
                 }else{
                     Swal.fire({
                     icon: 'error',
@@ -1713,7 +1743,8 @@
                         icon: 'success',
                         title: data.message
                     });
-                    location.reload();
+                    // location.reload();
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=6" );
                 }else{
                     Swal.fire({
                     icon: 'error',
@@ -1726,7 +1757,382 @@
         }); 
     }
 
-    
+    // TAB STEP 7
+    $('#edit_step_7').on('click',function() {
+        $('#update_step_7').removeClass("hidden");
+        $('#edit_step_7').addClass("hidden");  
+        enabledStep7();      
+    });
+    function batalUpdateStep7(){
+        updateValueStep7();
+        $('#update_step_7').addClass("hidden");
+        $('#edit_step_7').removeClass("hidden");  
+        disabledStep7()
+    }
+    function updateValueStep7(){
+        var step_7 = @json($step_7);
+        if(step_7!=null){
+            $("#link_ktp_camaba").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_ktp"]);
+            $("#link_foto_camaba").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_foto"]);
+            $("#link_ktp_ayah").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_ktp_ayah"]);
+            $("#link_ktp_ibu").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_ktp_ibu"]);
+            $("#link_ktp_wali").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_ktp_wali"]);
+            $("#link_kk").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_kk"]);
+            $("#link_akta").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_akta"]);
+            $("#link_ijasah").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_ijasah"]);
+            $("#link_nilai_rapor").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_nilai_rapor"]);
+            $("#link_nilai_ujian_sekolah").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_nilai_ujian_sekolah"]);
+            $("#imgVal_dok_ktp_camaba").val(step_7["url_ktp_b64"]);    
+            $("#thumb_ktp_camaba").attr('src',step_7["url_ktp_b64"]);    
+
+            $("#imgVal_dok_foto_camaba").val(step_7["url_foto_b64"]);        
+            $("#thumb_foto_camaba").attr('src',step_7["url_foto_b64"]);    
+            
+            $("#imgVal_dok_ktp_ayah").val(step_7["url_ktp_ayah_b64"]);        
+            $("#thumb_ktp_ayah").attr('src',step_7["url_ktp_ayah_b64"]);    
+
+            $("#imgVal_dok_ktp_ibu").val(step_7["url_ktp_ibu_b64"]);        
+            $("#thumb_ktp_ibu").attr('src',step_7["url_ktp_ibu_b64"]);    
+
+            $("#imgVal_dok_kk").val(step_7["url_kk_b64"]);        
+            $("#thumb_kk").attr('src',step_7["url_kk_b64"]);    
+           
+            $("#imgVal_dok_ktp_wali").val(step_7["url_ktp_wali_b64"]);        
+            $("#thumb_ktp_wali").attr('src',step_7["url_ktp_wali_b64"]);
+
+            $("#imgVal_dok_akta").val(step_7["url_akta_b64"]);        
+            $("#thumb_akta").attr('src',step_7["url_akta_b64"]);
+
+            $("#imgVal_dok_ijasah").val(step_7["url_ijasah_b64"]);        
+            $("#thumb_ijasah").attr('src',step_7["url_ijasah_b64"]);
+
+            $("#imgVal_dok_nilai_ujian_sekolah").val(step_7["url_nilai_ujian_sekolah_b64"]);        
+            $("#thumb_nilai_ujian_sekolah").attr('src',step_7["url_nilai_ujian_sekolah_b64"]);
+
+            $("#imgVal_dok_nilai_rapor").val(step_7["url_nilai_rapor_b64"]);
+            $("#thumb_nilai_rapor").attr('src',step_7["url_nilai_rapor_b64"]);
+
+            disabledStep7();
+        }else{
+            $("#link_ktp_camaba").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_foto_camaba").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_ktp_ayah").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_ktp_ibu").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_ktp_wali").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_kk").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_akta").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_ijasah").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_nilai_rapor").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#link_nilai_ujian_sekolah").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
+            $("#imgVal_dok_ktp_camaba").val("");        
+            $("#imgVal_dok_foto_camaba").val("");        
+            $("#imgVal_dok_ktp_ayah").val("");        
+            $("#imgVal_dok_ktp_ibu").val("");        
+            $("#imgVal_dok_kk").val("");        
+            $("#imgVal_dok_ktp_wali").val("");        
+            $("#imgVal_dok_akta").val("");        
+            $("#imgVal_dok_ijasah").val("");        
+            $("#imgVal_dok_nilai_ujian_sekolah").val("");        
+            $("#imgVal_dok_nilai_rapor").val("");
+        }
+        $("#dok_ktp_camaba").val("");
+        $("#pas_foto_camaba").val("");
+        $("#dok_ktp_ayah").val("");
+        $("#dok_ktp_ibu").val("");
+        $("#dok_kk").val("");
+        $("#dok_ktp_wali").val("");
+        $("#dok_ktp_akta").val("");
+        $("#dok_ktp_ijasah").val("");
+        $("#dok_ktp_nilai_ujian_sekolah").val("");
+        $("#dok_nilai_rapor").val("");       
+    }
+    function disabledStep7(){
+        $("#dok_ktp_camaba").attr('disabled',true);
+        $("#dok_ktp_camaba").addClass('read_only');
+        $("#pas_foto_camaba").attr('disabled',true);
+        $("#pas_foto_camaba").addClass('read_only');
+        $("#dok_ktp_ayah").attr('disabled',true);
+        $("#dok_ktp_ayah").addClass('read_only');
+        $("#dok_ktp_ibu").attr('disabled',true);
+        $("#dok_ktp_ibu").addClass('read_only');
+        $("#dok_kk").attr('disabled',true);
+        $("#dok_kk").addClass('read_only');
+        $("#dok_ktp_wali").attr('disabled',true);
+        $("#dok_ktp_wali").addClass('read_only');
+        $("#dok_akta").attr('disabled',true);
+        $("#dok_akta").addClass('read_only');
+        $("#dok_ijasah").attr('disabled',true);
+        $("#dok_ijasah").addClass('read_only');
+        $("#dok_nilai_ujian_sekolah").attr('disabled',true);
+        $("#dok_nilai_ujian_sekolah").addClass('read_only');
+        $("#dok_nilai_rapor").attr('disabled',true);
+        $("#dok_nilai_rapor").addClass('read_only');
+    }
+    function enabledStep7(){
+        $("#dok_ktp_camaba").attr('disabled',false);
+        $("#dok_ktp_camaba").removeClass('read_only');
+        $("#pas_foto_camaba").attr('disabled',false);
+        $("#pas_foto_camaba").removeClass('read_only');
+        $("#dok_ktp_ayah").attr('disabled',false);
+        $("#dok_ktp_ayah").removeClass('read_only');
+        $("#dok_ktp_ibu").attr('disabled',false);
+        $("#dok_ktp_ibu").removeClass('read_only');
+        $("#dok_kk").attr('disabled',false);
+        $("#dok_kk").removeClass('read_only');
+        $("#dok_ktp_wali").attr('disabled',false);
+        $("#dok_ktp_wali").removeClass('read_only');
+        $("#dok_akta").attr('disabled',false);
+        $("#dok_akta").removeClass('read_only');
+        $("#dok_ijasah").attr('disabled',false);
+        $("#dok_ijasah").removeClass('read_only');
+        $("#dok_nilai_ujian_sekolah").attr('disabled',false);
+        $("#dok_nilai_ujian_sekolah").removeClass('read_only');
+        $("#dok_nilai_rapor").attr('disabled',false);
+        $("#dok_nilai_rapor").removeClass('read_only');
+    }
+    function readDokKTPCamaba() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_ktp_camaba").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_ktp_camaba").addEventListener("change", readDokKTPCamaba);
+    function readDokFotoCamaba() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_foto_camaba").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("pas_foto_camaba").addEventListener("change", readDokFotoCamaba);
+    function readDokKTPAyah() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_ktp_ayah").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_ktp_ayah").addEventListener("change", readDokKTPAyah);
+    function readDokKTPIbu() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_ktp_ibu").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_ktp_ibu").addEventListener("change", readDokKTPIbu);
+    function readDokKK() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_kk").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_kk").addEventListener("change", readDokKK);
+    function readDokKTPWali() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_ktp_wali").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_ktp_wali").addEventListener("change", readDokKTPWali);
+    function readDokAkta() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_akta").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_akta").addEventListener("change", readDokAkta);
+    function readDokIjasah() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_ijasah").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_ijasah").addEventListener("change", readDokIjasah);
+    function readDokNilaiUjianSekolah() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_nilai_ujian_sekolah").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_nilai_ujian_sekolah").addEventListener("change", readDokNilaiUjianSekolah);    
+    function readDokNilaiRapor() {
+        if (this.files && this.files[0]) {
+            var FR= new FileReader();
+            FR.addEventListener("load", function(e) {
+                document.getElementById("imgVal_dok_nilai_rapor").value = e.target.result;                
+            });
+            FR.readAsDataURL( this.files[0] );
+        }
+    }
+    document.getElementById("dok_nilai_rapor").addEventListener("change", readDokNilaiRapor);
+    function ValidateStep7() {
+        var dok_ktp_camaba = $("#imgVal_dok_ktp_camaba").val();
+        var dok_pas_foto_camaba = $("#imgVal_dok_foto_camaba").val();
+        var dok_ktp_ayah = $("#imgVal_dok_ktp_ayah").val();
+        var dok_ktp_ibu = $("#imgVal_dok_ktp_ibu").val();
+        var dok_kk = $("#imgVal_dok_kk").val();
+        var dok_ktp_wali = $("#imgVal_dok_ktp_wali").val();
+        var dok_akta = $("#imgVal_dok_akta").val();
+        var dok_ijasah = $("#imgVal_dok_ijasah").val();
+        var dok_nilai_ujian_sekolah = $("#imgVal_dok_nilai_ujian_sekolah").val();
+        var dok_nilai_rapor = $("#imgVal_dok_nilai_rapor").val();
+
+        if(dok_ktp_camaba!=""){
+        if(dok_pas_foto_camaba!=""){
+        if(dok_ktp_ayah!=""){
+        if(dok_ktp_ibu!=""){
+        if(dok_kk!=""){
+        if(dok_ktp_wali!=""){
+        if(dok_akta!=""){
+        if(dok_ijasah!=""){
+        if(dok_nilai_ujian_sekolah!=""){
+        if(dok_nilai_rapor!=""){
+            saveOrUpdateStep7(
+                dok_ktp_camaba,dok_pas_foto_camaba,dok_ktp_ayah,dok_ktp_ibu,dok_kk,
+                dok_ktp_wali,dok_akta,dok_ijasah,dok_nilai_ujian_sekolah,dok_nilai_rapor
+            );
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen nilai rapor dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih nilai ujian sekolah dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen ijasah dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen akta kelahiran dahulu!",
+            });
+        }    
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen ktp wali dahulu!",
+            });
+        }    
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen kartu keluarga dahulu!",
+            });
+        }    
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen ktp ibu dahulu!",
+            });
+        }                            
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen ktp ayah dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih pas foto camaba dahulu!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen ktp camaba dahulu!",
+            });
+        }
+    }
+    function saveOrUpdateStep7(
+        dok_ktp_camaba,dok_pas_foto_camaba,dok_ktp_ayah,dok_ktp_ibu,dok_kk,
+        dok_ktp_wali,dok_akta,dok_ijasah,dok_nilai_ujian_sekolah,dok_nilai_rapor
+    ) {
+        $('.containerr').show();
+        let datar = {};
+        datar['_method']='POST';
+        datar['_token']=$('._token').data('token');
+        datar['dok_ktp_camaba'] = dok_ktp_camaba;
+        datar['dok_pas_foto_camaba'] = dok_pas_foto_camaba;
+        datar['dok_ktp_ayah'] = dok_ktp_ayah;
+        datar['dok_ktp_ibu'] = dok_ktp_ibu;
+        datar['dok_kk'] = dok_kk;
+        datar['dok_ktp_wali'] = dok_ktp_wali;
+        datar['dok_akta'] = dok_akta;
+        datar['dok_ijasah'] = dok_ijasah;
+        datar['dok_nilai_ujian_sekolah'] = dok_nilai_ujian_sekolah;
+        datar['dok_nilai_rapor'] = dok_nilai_rapor;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#saveOrUpdateUrlStep7").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=7" );
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
     
     function downloadSuratPernyataan() {
         // window.open($('#urlDownloadSuratPernyataan').val(), '_blank');           

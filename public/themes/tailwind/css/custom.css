@@ -215,3 +215,11 @@
         animation-duration: 3s;
         animation-iteration-count: infinite;
       }
+
+      .no-cursor{
+        cursor: not-allowed! important;
+      }
+
+      .thumb_doc{
+        height:47px;width:auto;float:right;
+      }
