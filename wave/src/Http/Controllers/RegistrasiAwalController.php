@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use DataTables;
 use Illuminate\Support\Arr;
+use Str;
 
 class RegistrasiAwalController extends Controller
 {
@@ -116,8 +117,15 @@ class RegistrasiAwalController extends Controller
                     }else{
                         return "Belum Lunas";
                     }
-                })         
-                ->rawColumns(['act'])
+                })    
+                ->addColumn('slip', function($row){                    
+                    if($row->url_bukti_bayar!=""){
+                        return '<img src="'.asset('/themes/tailwind/images/checked.png').'" class="w-6 rounded sm:mx-auto">';
+                    }else{
+                        return '<img src="'.asset('/themes/tailwind/images/close.png').'" class="w-6 rounded sm:mx-auto">';
+                    }
+                })            
+                ->rawColumns(['act','slip'])
                 ->make(true);
         }
     }
@@ -137,9 +145,22 @@ class RegistrasiAwalController extends Controller
         $res['message']="";
 
         try {
+            $imageName = null;
+            if($req->url_bukti_bayar){
+                $image = $req->url_bukti_bayar;  // your base64 encoded
+                $image = str_replace('data:image/jpeg;base64,', '', $image);
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $imageName = Str::random(50).'.'.'png';
+                \File::put(storage_path(). '/app/public/tempat_bukti_pembayaran/' . $imageName, base64_decode($image));
+            }
             $data = RegistrasiAwalUser::where('id_user','=',$req->id_user)
                                 ->where('tahun_akademik_registrasi','=',$req->ta_registrasi)
                                 ->first();           
+            $old_foto = $data->url_bukti_bayar;
+            if($imageName!=null||$imageName!=""){
+                $data->url_bukti_bayar = 'tempat_bukti_pembayaran/'.$imageName;
+            }
             $data->keterangan = $req->keterangan;
             $data->is_lunas = $req->status_bayar;
             $data->nominal = $req->nominal;
@@ -150,6 +171,10 @@ class RegistrasiAwalController extends Controller
                 $step->step_2 = $req->status_bayar==-1?"0":$req->status_bayar;
                 $step->save();
                 $res['message']="Validasi Pembayaran berhasil diubah.";
+                $file_path = public_path().'/storage/'.$old_foto;
+                if($old_foto!=""){
+                    unlink($file_path);
+                }
             }else{
                 $res['error']=true;
                 $res['message']="Validasi Pembayaran gagal diubah!";
