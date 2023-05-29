@@ -153,6 +153,7 @@
 
         $('#div_nokps').addClass( "hidden" );
         $('#form_wali').addClass( "hidden" );
+        $('#tidak_mondok').addClass( "hidden" );
         
         // update value tabs
         updateValueStep1();
@@ -206,6 +207,13 @@
         updateValueStep5();
         updateValueStep6();
         updateValueStep7();
+        $('.sanggup_mondok').change(function() {
+            if(this.value==0){
+                $('#tidak_mondok').removeClass( "hidden" );                                
+            }else{
+                $('#tidak_mondok').addClass( "hidden" );
+            }
+        });
 
         // autocomplete kewarganegaraan
         var route = $('#citizenshipurl').val();

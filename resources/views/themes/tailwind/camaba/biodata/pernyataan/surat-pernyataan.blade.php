@@ -153,6 +153,10 @@
             padding-right: -140px;
             /* Should be removed. Only for demonstration */
         }
+
+        .page_break {
+            page-break-before: always;
+        }
     </style>
 </head>
 
@@ -325,6 +329,8 @@
             <li>Biaya kuliah dan pondok sebagaimana terlampir.</li>
         </ol>
     </div>
+    <div class="page_break"></div>
+    <span>ddd</span>
 </body>
 
 </html>
