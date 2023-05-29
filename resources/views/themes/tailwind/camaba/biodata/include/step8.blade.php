@@ -2,18 +2,26 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs mb-4">
             <label for="sanggup_mondok">Sanggup Tinggal Dipondok? <span class="text-red">*</span></label>
-            <select name="sanggup_mondok" id="sanggup_mondok" class="form-control mt-1">
+            <select name="sanggup_mondok" id="sanggup_mondok" class="form-control mt-1 sanggup_mondok">
                 <option value="-1" selected>--Pilih Jawaban--</option>
                 <option value="1">Ya</option>
                 <option value="0">Tidak</option>
             </select>
         </div>
+        <strong id="tidak_mondok" class="mb-5" style="color: brown">* Jika tidak sanggup tinggal dipondok maka wajib
+            tinggal bersama orang
+            tua kandung/wali
+            dalam
+            area
+            karisidenan
+            kediri.</strong>
         <div class="form-group mb-5 text-xs mb-4">
             <label for="sanggup_tidak_menikah">Sanggup Tidak Menikah Selama Kuliah? <span
                     class="text-red">*</span></label>
-            <select name="sanggup_tidak_menikah" id="sanggup_tidak_menikah" class="form-control mt-1">
-                <option value="-1" selected>--Pilih Jawaban--</option>
-                <option value="1">Ya</option>
+            <select name="sanggup_tidak_menikah" id="sanggup_tidak_menikah" class="form-control mt-1 read_only"
+                disabled>
+                <option value="-1">--Pilih Jawaban--</option>
+                <option value="1" selected>Ya</option>
                 <option value="0">Tidak</option>
             </select>
         </div>

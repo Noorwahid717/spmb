@@ -64,6 +64,8 @@ class RegistrasiAwalController extends Controller
                 ->addColumn('act', function($row){   
                     $split = explode('8', $row->getUser->no_hp_camaba,2);
                     $hp_camaba = '628'.$split[1];
+                    $nama = str_replace("'","\'",$row->getUser->name);
+                    $keterangan = str_replace("'","\'",$row->keterangan);
                     $actionBtn =
                     '<a href="https://wa.me/'.$hp_camaba.'" id="link_wa_da" target="_blank" '.
                     'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md"> '.
@@ -73,14 +75,14 @@ class RegistrasiAwalController extends Controller
                     'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md"'.
                     'onClick="modalClik(
                         \''.$row->id_user.'\',
-                        \''.$row->getUser->name.'\',
+                        \''.$nama.'\',
                         \''.$hp_camaba.'\',
                         \''.$row->getUser->email.'\',
                         \''.$row->is_lunas.'\',
                         \''.$row->nominal.'\',
                         \''.$row->url_bukti_bayar.'\',
                         \''.$row->tanggal_bayar.'\',
-                        \''.$row->keterangan.'\',
+                        \''.$keterangan.'\',
                         \''.$row->tahun_akademik_registrasi.'\');"'.                
                     '>'.
                     '<img src="'.asset('/themes/tailwind/images/pen.png').'" class="w-6 rounded sm:mx-auto"> '.
