@@ -329,8 +329,132 @@
             <li>Biaya kuliah dan pondok sebagaimana terlampir.</li>
         </ol>
     </div>
+
+
+    @if($mondok==false)
     <div class="page_break"></div>
-    <span>ddd</span>
+    {{-- KOP SURAT UNIWA --}}
+    <div class="row">
+        <div class="column1">
+            <img src="{{ public_path('img/logo-uniwa.png') }}" alt="spmb uniwa" height="100px" style="margin-top:-10px">
+        </div>
+        <div class="column2" style="text-align: center">
+            <h4 style="font-size: 11.5pt;margin-top:-25px!important">
+                YAYASAN PERJUANGAN WAHIDIYAH DAN PONDOK PESANTREN KEDUNGLO
+            </h4>
+            <h3 style="margin-top: -15px!important">
+                PANITIA PENERIMAAN MAHASISWA BARU
+            </h3>
+            <h3 style="margin-top: -15px!important">
+                UNIVERSITAS WAHIDIYAH
+            </h3>
+            <h4 style="margin-top: -15px!important">
+                SK Mendikbud RI Nomor 608/E/O/2014 Tanggal 17 Oktober 2014
+            </h4>
+            <p style="margin-top: -15px!important;font-size:12px;">JL. KH. Wachid Hasyim Ponpes Kedunglo, Mojoroto Telp.
+                (0354) 771018
+                Fax. (0354) 772179 Kediri 64114</p>
+            <p style="margin-top: -10px!important;font-size:12px;">Email: rektorat@uniwa.ac.id</p>
+        </div>
+    </div>
+    <hr class="s1">
+
+    {{-- JUDUL LAPORAN --}}
+    <div style="text-align: center;line-height: 1.4;margin-top:-30px;margin-bottom:-7px;">
+        <strong style="font-size: 14pt">SURAT PERNYATAAN</strong>
+        <hr style="width:30%;
+        margin:0 auto;border-bottom:solid 1.5px black">
+        <span style="margin-top:-15px!important;font-size:14px;">
+            Nomor:../UNIWA/Um./../20..
+        </span>
+    </div>
+
+    <p style="font-size:14px;line-height: 1.5rem;text-align: justify;text-indent:5%">
+        Dengan taufik hidayah Allah SWT, syafa’at Rosululloh SAW, barokah
+        nadzroh Ghoutsu Hadzaz Zaman RA, serta do’a restu Hadrotul Mukarrom Kanjeng Kyai Abdul Majid Ali Fikri RA,
+        Pengasuh Perjuangan Wahidiyah dan Pondok Pesantren Kedunglo Al-Munadhdhoroh.
+        Yang bertanda tangan di bawah ini :
+    </p>
+
+    {{-- BIODATA --}}
+    <div class="row" style="margin-left:-5px;font-size:14px;margin-top:-10px">
+        <div class="column25">Nama Wali Mahasiswa</div>
+        <div class="column35">:
+        </div>
+        <div class="column10"></div>
+    </div>
+    <div class="row" style="margin-left:-5px;font-size:14px;">
+        <div class="column25">Alamat</div>
+        <div class="column35">:
+        </div>
+        <div class="column10"></div>
+    </div>
+    <div class="row" style="margin-left:-5px;font-size:14px;">
+        <div class="column25">No.HP/No.WA</div>
+        <div class="column35">:
+        </div>
+        <div class="column10"></div>
+    </div>
+    <div class="row" style="margin-left:-5px;font-size:14px;margin-top:10px">
+        <div class="column25">Selaku Orang Tua Wali dari,</div>
+        <div class="column35">
+        </div>
+        <div class="column10"></div>
+    </div>
+    <div class="row" style="margin-left:-5px;font-size:14px;">
+        <div class="column25">Nama Mahasiswa</div>
+        <div class="column35">:
+        </div>
+        <div class="column10"></div>
+    </div>
+    <div class="row" style="margin-left:-5px;font-size:14px;">
+        <div class="column25">Fakultas / Prodi</div>
+        <div class="column35">:
+        </div>
+        <div class="column10"></div>
+    </div>
+    <div class="row" style="margin-left:-5px;font-size:14px;">
+        <div class="column25">Semester</div>
+        <div class="column35">:
+        </div>
+        <div class="column10"></div>
+    </div>
+
+    <p style="font-weight:bold;font-size:14px;line-height: 1.5rem;text-align: justify;text-indent:5%;margin-top:10px">
+        Menyatakan dengan sesungguhnya bahwa anak kami yang tersebut diatas benar-benar tinggal bersama dengan kami dan
+        tidak tinggal (dikamar kos/rumah saudara/rumah teman/rumah kerabat diarea sekitar pondok pesantren Kedunglo
+        Al-Munadhdhoroh).
+    </p>
+    <p style="font-size:14px;line-height: 1.5rem;text-align: justify;text-indent:5%;margin-top:-15px">
+        Demikian surat pernyataan ini kami buat tanpa paksaan dari pihak manapun. Atas kesempatan yang diberikan kami
+        sampaikan terima kasih teriring do'a: “Jazaakumullohu
+        Khoirooti wa Sa’aadaatid Dunya wal Akhiroh”. Amin.
+    </p>
+
+    {{-- TANDA TANGAN --}}
+    <div style="margin-top:-40px"><br><br>
+        <div style="width: 240px;margin-left:40px;float:left;display:block;font-size:14px;">
+            <span style="text-align: left">Kedunglo,
+                <?php 
+                if($sign_date!=null){
+                    // $sign_date = explode(" ", $sign_date);
+                    echo tgl_indo($sign_date[0]);
+                }else{
+                    echo tgl_indo(date('Y-m-d'));
+                }
+                ?>
+            </span><br>
+            <span style="text-align: left">Wali Mahasiswa,</span>
+            <br><br><br>
+            <div style="border: 1px solid black;width:65px;padding-left:10px;padding-top:10px;padding-bottom:10px">
+                Materai<br>
+                Rp 10.000
+            </div>
+            <br>
+            <span style="text-align: right">Nama Wali</span>
+        </div>
+    </div>
+    @endif
 </body>
 
 </html>

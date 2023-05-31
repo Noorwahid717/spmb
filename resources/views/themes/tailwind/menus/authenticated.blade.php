@@ -53,6 +53,7 @@
         </div> --}}
         @include('theme::menus.detail.camaba_menu')
         @include('theme::menus.detail.bendahara_menu')
+        @include('theme::menus.detail.pendaftaran_menu')
     </div>
 
 

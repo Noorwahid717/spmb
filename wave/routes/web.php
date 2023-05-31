@@ -34,6 +34,7 @@ Route::post('checkout', '\Wave\Http\Controllers\SubscriptionController@checkout'
 Route::get('test', '\Wave\Http\Controllers\SubscriptionController@test');
 
 Route::group(['middleware' => 'wave'], function () {
+	// route camaba
 	Route::get('dashboard', '\Wave\Http\Controllers\DashboardController@index')->name('wave.dashboard');
 	Route::get('biodata', '\Wave\Http\Controllers\BiodataController@index')->name('wave.biodata');
 	Route::get('biodata-kewarganegaraan', '\Wave\Http\Controllers\BiodataController@cariKewarganegaraan')->name('wave.biodata-kewarganegaraan');
@@ -45,19 +46,24 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('biodata-update-data-wali-ps', '\Wave\Http\Controllers\BiodataController@updateDataWaliPs')->name('wave.biodata-update-data-wali-ps');
 	Route::post('biodata-update-data-riwayat-pendidikan', '\Wave\Http\Controllers\BiodataController@updateDataRiwayatPendidikan')->name('wave.biodata-update-data-riwayat-pendidikan');
 	Route::post('biodata-update-data-program-studi', '\Wave\Http\Controllers\BiodataController@updateDataProgramStudi')->name('wave.biodata-update-data-program-studi');
-	Route::post('biodata-update-data-dokumen', '\Wave\Http\Controllers\BiodataController@updateDataDokumen')->name('wave.biodata-update-data-dokumen');
-	
+	Route::post('biodata-update-data-dokumen', '\Wave\Http\Controllers\BiodataController@updateDataDokumen')->name('wave.biodata-update-data-dokumen');	
 
 	Route::get('seleksi-info', '\Wave\Http\Controllers\SeleksiController@index')->name('wave.seleksi-info');	
 
+	Route::get('tagihan-camaba', '\Wave\Http\Controllers\TagihanCamabaController@index')->name('wave.tagihan-camaba');	
+	Route::post('tagihan-camaba-update-slip-pendaftaran', '\Wave\Http\Controllers\TagihanCamabaController@updateSlipPendaftaran')->name('wave.tagihan-camaba-update-slip-pendaftaran');	
+
+	// route admin bendahara
 	Route::get('registrasi-awal', '\Wave\Http\Controllers\RegistrasiAwalController@index')->name('wave.registrasi-awal');	
 	Route::post('registrasi-awal-getlist', '\Wave\Http\Controllers\RegistrasiAwalController@getList')->name('wave.registrasi-awal-getlist');	
 	Route::post('update-registrasi-awal-status', '\Wave\Http\Controllers\RegistrasiAwalController@updateStatus')->name('wave.update-registrasi-awal-status');	
 	
 	Route::get('registrasi-ulang', '\Wave\Http\Controllers\RegistrasiUlangController@index')->name('wave.registrasi-ulang');	
 	
-	Route::get('tagihan-camaba', '\Wave\Http\Controllers\TagihanCamabaController@index')->name('wave.tagihan-camaba');	
-	Route::post('tagihan-camaba-update-slip-pendaftaran', '\Wave\Http\Controllers\TagihanCamabaController@updateSlipPendaftaran')->name('wave.tagihan-camaba-update-slip-pendaftaran');	
+	// route admin pendaftaran
+	Route::get('validasi-pendaftaran', '\Wave\Http\Controllers\ValidasiPendaftaranController@index')->name('wave.validasi-pendaftaran');
+	Route::post('validasi-pendaftaran-getlist', '\Wave\Http\Controllers\ValidasiPendaftaranController@getList')->name('wave.validasi-pendaftaran-getlist');	
+	Route::get('validasi-pendaftaran-detail/{id}/{ta}', '\Wave\Http\Controllers\ValidasiPendaftaranController@detailValidasiPendaftaran')->name('wave.validasi-pendaftaran-detail');	
 	
 });
 

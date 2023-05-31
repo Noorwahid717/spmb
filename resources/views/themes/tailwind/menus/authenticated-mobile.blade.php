@@ -36,6 +36,7 @@
                         </a>
                         @include('theme::menus.detail.camaba_menu_mobile')
                         @include('theme::menus.detail.bendahara_menu_mobile')
+                        @include('theme::menus.detail.pendaftaran_menu_mobile')
                     </nav>
                 </div>
             </div>
