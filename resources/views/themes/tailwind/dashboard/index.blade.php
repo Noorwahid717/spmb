@@ -34,6 +34,11 @@
 			{{-- @include('themes/tailwind/dashboard/dashboar-camaba') --}}
 			@include('theme::dashboard.dashboard-camaba')
 			@endif
+
+			@if( !auth()->guest() && auth()->user()->role_id==8 )
+			{{-- @include('themes/tailwind/dashboard/dashboar-camaba') --}}
+			@include('theme::dashboard.dashboard-pendaftaran')
+			@endif
 		</div>
 	</div>
 

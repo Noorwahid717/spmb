@@ -64,6 +64,11 @@ class DashboardController extends Controller
             return view('theme::dashboard.index',array(
                 "steps"=>self::getStepStatus($step,$user_step,$step_with_status)
             ));
+        }else if(!auth()->guest() && auth()->user()->role_id==8){
+            $data = "dd";
+            return view('theme::dashboard.index',array(
+                "data" => $data
+            ));
         }else{
             return view('theme::dashboard.index',array(
                 
