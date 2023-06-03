@@ -74,7 +74,7 @@ class ValidasiPendaftaranController extends Controller
         //         return $query->where('is_lunas', '=', $is_lunas);
         //     }
         // })
-        ->withWhereHas('getCamabaDataProgramStudi', function($query) use(&$is_prodi1){
+        ->with('getCamabaDataProgramStudi', function($query) use(&$is_prodi1){
             if($is_prodi1=="all"){
                 return $query;
             }else{
@@ -82,6 +82,7 @@ class ValidasiPendaftaranController extends Controller
             }
         })
         ->get();
+        // dd($reg_awal_data);
         // dd($reg_awal_data[0]->getUserSpmbStep->updated_at->diffForHumans());
         // $value = Arr::add($value, "globalInfo", $globalInfo);                
 
@@ -112,6 +113,20 @@ class ValidasiPendaftaranController extends Controller
                 })
                 ->editColumn('get_user_spmb_step.updated_at',function($row){                    
                     return $row->getUserSpmbStep->updated_at->diffForHumans();
+                })
+                ->editColumn('get_camaba_data_program_studi.get_prodi_fakultas1.nama_program_studi',function($row){
+                    if($row->getCamabaDataProgramStudi==null){
+                        return 'belum memilih';
+                    }else{
+                        return $row->getCamabaDataProgramStudi->program_studi_1;
+                    }
+                })
+                ->editColumn('get_camaba_data_program_studi.get_prodi_fakultas2.nama_program_studi',function($row){
+                    if($row->getCamabaDataProgramStudi==null){
+                        return 'belum memilih';
+                    }else{
+                        return $row->getCamabaDataProgramStudi->program_studi_2;
+                    }
                 })
                 ->editColumn('tahun_akademik_registrasi',function($row){
                     $ta = $row->tahun_akademik_registrasi;
