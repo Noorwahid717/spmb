@@ -36,54 +36,85 @@ class ValidasiPendaftaranController extends Controller
         $is_pernyataan = $req->is_pernyataan;       
         $is_prodi1 = $req->is_prodi;       
         $ta_aktif = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
-        $reg_awal_data = RegistrasiAwalUser::with('getUser')
-        ->with('getCamabaDataPokok')
-        ->with('getCamabaDataAlamat')
-        ->with('getCamabaDataOrtu')
-        ->with('getCamabaDataWaliPs')
-        ->with('getCamabaDataRiwayatPendidikan')
-        ->with('getCamabaDataDokumen')
-        ->with('getCamabaDataPernyataan')
-        ->where('tahun_akademik_registrasi',$ta_aktif)        
-        // ->with('getUserSpmbStep')
-        ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_lunas) {
-            if($is_lunas=="all"){
-                return $query;
-            }else{
-                return $query->where('step_2', '=', $is_lunas);
-            }
-        })
-        ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_valid) {            
-            if($is_valid=="all"){
-                return $query;
-            }else{
-                return $query->where('step_5', '=', $is_valid);
-            }
-        })
-        ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_pernyataan) {            
-            if($is_pernyataan=="all"){
-                return $query;
-            }else{
-                return $query->where('step_6', '=', $is_pernyataan);
-            }
-        })
-        // ->where(function ($query) use(&$is_lunas) {
-        //     if($is_lunas=="all"){
-        //         return $query;
-        //     }else{
-        //         return $query->where('is_lunas', '=', $is_lunas);
-        //     }
-        // })
-        ->with('getCamabaDataProgramStudi', function($query) use(&$is_prodi1){
-            if($is_prodi1=="all"){
-                return $query;
-            }else{
-                return $query->where('id_program_studi_1', '=', $is_prodi1);
-            }
-        })
-        ->get();
+        if($is_prodi1=="null"){
+            $reg_awal_data = RegistrasiAwalUser::with('getUser')
+            ->with('getCamabaDataPokok')
+            ->with('getCamabaDataAlamat')
+            ->with('getCamabaDataOrtu')
+            ->with('getCamabaDataWaliPs')
+            ->with('getCamabaDataRiwayatPendidikan')
+            ->with('getCamabaDataDokumen')
+            ->with('getCamabaDataPernyataan')
+            ->where('tahun_akademik_registrasi',$ta_aktif)        
+            // ->with('getUserSpmbStep')
+            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_lunas) {
+                if($is_lunas=="all"){
+                    return $query;
+                }else{
+                    return $query->where('step_2', '=', $is_lunas);
+                }
+            })
+            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_valid) {            
+                if($is_valid=="all"){
+                    return $query;
+                }else{
+                    return $query->where('step_5', '=', $is_valid);
+                }
+            })
+            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_pernyataan) {            
+                if($is_pernyataan=="all"){
+                    return $query;
+                }else{
+                    return $query->where('step_6', '=', $is_pernyataan);
+                }
+            })
+            ->with('getCamabaDataProgramStudi')
+            ->doesntHave('getCamabaDataProgramStudi')
+            ->get();
+        }else{
+            $reg_awal_data = RegistrasiAwalUser::with('getUser')
+            ->with('getCamabaDataPokok')
+            ->with('getCamabaDataAlamat')
+            ->with('getCamabaDataOrtu')
+            ->with('getCamabaDataWaliPs')
+            ->with('getCamabaDataRiwayatPendidikan')
+            ->with('getCamabaDataDokumen')
+            ->with('getCamabaDataPernyataan')
+            ->where('tahun_akademik_registrasi',$ta_aktif)        
+            // ->with('getUserSpmbStep')
+            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_lunas) {
+                if($is_lunas=="all"){
+                    return $query;
+                }else{
+                    return $query->where('step_2', '=', $is_lunas);
+                }
+            })
+            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_valid) {            
+                if($is_valid=="all"){
+                    return $query;
+                }else{
+                    return $query->where('step_5', '=', $is_valid);
+                }
+            })
+            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_pernyataan) {            
+                if($is_pernyataan=="all"){
+                    return $query;
+                }else{
+                    return $query->where('step_6', '=', $is_pernyataan);
+                }
+            })
+            ->with('getCamabaDataProgramStudi')
+            ->withWhereHas('getCamabaDataProgramStudi', function($query) use(&$is_prodi1){
+                if($is_prodi1=="all"){
+                    return $query;
+                }else{
+                    return $query->where('id_program_studi_1', '=', $is_prodi1);
+                }
+            })
+            ->get();
+        }
+        
         // dd($reg_awal_data);
-        // dd($reg_awal_data[0]->getUserSpmbStep->updated_at->diffForHumans());
         // $value = Arr::add($value, "globalInfo", $globalInfo);                
 
         if ($req->ajax()) {
