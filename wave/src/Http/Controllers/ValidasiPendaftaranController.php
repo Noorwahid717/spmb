@@ -7,6 +7,14 @@ use App\Models\RegistrasiAwalUser;
 use App\Models\UserSpmbStep;
 use App\Models\SpmbConfig;
 use App\Models\ProdiFakultas;
+use App\Models\CamabaDataPokok;
+use App\Models\CamabaDataAlamat;
+use App\Models\CamabaDataOrtu;
+use App\Models\CamabaDataWaliPs;
+use App\Models\CamabaDataDokumen;
+use App\Models\CamabaDataPernyataan;
+use App\Models\CamabaDataProgramStudi;
+use App\Models\CamabaDataRiwayatPendidikan;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -206,10 +214,43 @@ class ValidasiPendaftaranController extends Controller
 
     public function detailValidasiPendaftaran($id_user,$ta)
     {
-        // dd($id_user,$ta);
+        // $ta = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
+        $ta = self::left($ta,4)."/".((int)self::left($ta,4)+1).(self::right($ta,1)=="1"?" Ganjil":" Genap");
+        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-agama');
+        $agama = $response->json();
+        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-pendidikan');
+        $pendidikan = $response->json();
+        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-pekerjaan');
+        $pekerjaan = $response->json();
+        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-penghasilan');
+        $penghasilan = $response->json();
+        $prodi = ProdiFakultas::all();
+
+        $step_1 = CamabaDataPokok::where('id_user',$id_user)->first();
+        $step_2 = CamabaDataAlamat::where('id_user',$id_user)->first();
+        $step_3 = CamabaDataOrtu::where('id_user',$id_user)->first();
+        $step_4 = CamabaDataWaliPs::where('id_user',$id_user)->first();
+        $step_5 = CamabaDataRiwayatPendidikan::where('id_user',$id_user)->first();
+        $step_6 = CamabaDataProgramStudi::where('id_user',$id_user)->first();
+        $step_7 = CamabaDataDokumen::where('id_user',$id_user)->first();
+        $step_8 = CamabaDataPernyataan::where('id_user',$id_user)->first();
+
         if(!auth()->guest() && auth()->user()->role_id==8){
             return view('theme::pendaftaran.validasi-pendaftaran.detail.index',array(
-                // 'prodi'=>$prodi,
+                'tahun_ajaran'=>$ta,
+                'agama'=>$agama,
+                'pendidikan'=>$pendidikan,
+                'pekerjaan'=>$pekerjaan,
+                'penghasilan'=>$penghasilan,
+                'prodi'=>$prodi,
+                'step_1'=>$step_1,
+                'step_2'=>$step_2,
+                'step_3'=>$step_3,
+                'step_4'=>$step_4,
+                'step_5'=>$step_5,
+                'step_6'=>$step_6,
+                'step_7'=>$step_7,
+                'step_8'=>$step_8,
             ));
         }else{
             return abort(404);

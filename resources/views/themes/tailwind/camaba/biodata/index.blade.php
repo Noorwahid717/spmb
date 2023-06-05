@@ -447,6 +447,7 @@
     }
     function saveOrUpdateStep1(nkk,nik,nama,gender,tmplhr,tgllhr,id_agama,agama,negara,id_negara) {
         $('.containerr').show();
+        console.log("dd");
         let datar = {};
         datar['_method']='POST';
         datar['_token']=$('._token').data('token');
