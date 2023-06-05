@@ -12,7 +12,7 @@
             </div>
             <div class="relative flex-1">
                 <h3 class="text-lg font-medium leading-6 text-gray-700">
-                    Validasi Data Pendaftaran Calon Mahasiswa Baru
+                    Data Pendaftaran Calon Mahasiswa Baru
                 </h3>
                 <p class="text-sm leading-5 text-gray-500 mt">
                     cek data sesuai dengan dokumen yang terlampir dan lakukan validasi data pendaftaran calon mahasiswa
@@ -22,36 +22,44 @@
 
         </div>
         <div class="relative p-5">
-            <div class="flex items-center">
-
-                <div class="form-group mb-5 text-xs">
-                    <label for="is_valid_option">Filter Status Validitas Data Keseluruhan:</label>
-                    <select name="is_valid_option" id="is_valid_option" class="form-control mt-1 is_valid_option">
-                        <option value="all">--Semua--</option>
-                        <option value="0" selected>Menunggu</option>
-                        <option value="1">Valid</option>
-                        <option value="-1">Belum Valid</option>
-                    </select>
-                </div>
-                <div class="form-group mb-5 text-xs ml-3">
-                    <label for="is_lunas_option">Filter Status Pembayaran:</label>
-                    <select name="is_lunas_option" id="is_lunas_option" class="form-control mt-1 is_lunas_option">
-                        <option value="all">--Semua--</option>
-                        <option value="0">Menunggu</option>
-                        <option value="1" selected>Lunas</option>
-                        <option value="-1">Belum Lunas</option>
-                    </select>
-                </div>
-                <div>
-                    <button
-                        class="inline-flex self-start items-center ml-3 px-4 py-3 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md"
-                        onclick="execFil()">
-                        <i class="fa fa-search"></i> Tampilkan Data</button>
-                </div>
+            <!-- Tab links -->
+            <div class="tab">
+                <button class="tablinks" id="tablinks1" onclick="openTabs(event, 'step1')">Data Pokok</button>
+                <button class="tablinks" id="tablinks2" onclick="openTabs(event, 'step2')">Alamat & Kontak</button>
+                <button class="tablinks" id="tablinks3" onclick="openTabs(event, 'step3')">Orang Tua</button>
+                <button class="tablinks" id="tablinks4" onclick="openTabs(event, 'step4')">Wali & Perlindungan
+                    Sosial</button>
+                <button class="tablinks" id="tablinks5" onclick="openTabs(event, 'step5')">Riwayat Pendidikan</button>
+                <button class="tablinks" id="tablinks6" onclick="openTabs(event, 'step6')">Prodi Dipilih</button>
+                <button class="tablinks" id="tablinks7" onclick="openTabs(event, 'step7')">Dokumen</button>
+                <button class="tablinks" id="tablinks8" onclick="openTabs(event, 'step8')">Pernyataan</button>
             </div>
-            {{-- <input type="hidden" id="val_pendaftaran_url" class="val_pendaftaran_url" name="val_pendaftaran_url"
-                value="{{route('wave.validasi-pendaftaran-getlist')}}"> --}}
-            {{-- @include('theme::bendahara.registrasi_awal.modal.edit') --}}
+
+            <!-- Tab content -->
+            <div id="step1" class="tabcontent">
+                @include('theme::pendaftaran.validasi-pendaftaran.detail.include.step1')
+            </div>
+            <div id="step2" class="tabcontent">
+                @include('theme::pendaftaran.validasi-pendaftaran.detail.include.step2')
+            </div>
+            <div id="step3" class="tabcontent">
+                @include('theme::pendaftaran.validasi-pendaftaran.detail.include.step3')
+            </div>
+            <div id="step4" class="tabcontent">
+                @include('theme::pendaftaran.validasi-pendaftaran.detail.include.step4')
+            </div>
+            <div id="step5" class="tabcontent">
+                @include('theme::pendaftaran.validasi-pendaftaran.detail.include.step5')
+            </div>
+            <div id="step6" class="tabcontent">
+                @include('theme::pendaftaran.validasi-pendaftaran.detail.include.step6')
+            </div>
+            <div id="step7" class="tabcontent">
+                @include('theme::pendaftaran.validasi-pendaftaran.detail.include.step7')
+            </div>
+            <div id="step8" class="tabcontent">
+                @include('theme::pendaftaran.validasi-pendaftaran.detail.include.step8')
+            </div>
         </div>
     </div>
 </div>
@@ -76,8 +84,116 @@
 <script src="{{ asset('themes/' . $theme->folder . '/js/Event.js') }}"></script>
 <script>
     $(document).ready( function () {
-            
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        if(getUrlParameter('tab')==1){
+            document.getElementById('tablinks1').click();
+        }else if(getUrlParameter('tab')==2){
+            document.getElementById('tablinks2').click();
+        }else if(getUrlParameter('tab')==3){
+            document.getElementById('tablinks3').click();
+        }else if(getUrlParameter('tab')==4){
+            document.getElementById('tablinks4').click();
+        }else if(getUrlParameter('tab')==5){
+            document.getElementById('tablinks5').click();
+        }else if(getUrlParameter('tab')==6){
+            document.getElementById('tablinks6').click();
+        }else if(getUrlParameter('tab')==7){
+            document.getElementById('tablinks7').click();
+        }else if(getUrlParameter('tab')==8){
+            document.getElementById('tablinks8').click();
+        }else{
+            document.getElementById('tablinks1').click();
+        }
+
+        // hide edit button tabs
+        $('#update_step_1').addClass("hidden");
+        $('#update_step_2').addClass("hidden");
+        $('#update_step_3').addClass("hidden");
+        $('#update_step_4').addClass("hidden");
+        $('#update_step_5').addClass("hidden");
+        $('#update_step_6').addClass("hidden");
+        $('#update_step_7').addClass("hidden");
+        $('#update_step_8').addClass("hidden");
+
+        $('#div_nokps').addClass( "hidden" );
+        $('#form_wali').addClass( "hidden" );
+        $('#tidak_mondok').addClass( "hidden" );
+
+
+        // autocomplete kewarganegaraan
+        var route = $('#citizenshipurl').val();
+        $('#citizenship').typeahead({
+            source: function (query, result) {
+                $.ajax({
+                    url:route,
+                    method:"GET",
+                    data:{query:query},
+                    dataType: "json",
+                    success:function(data){
+                        result($.map(data, function(item) {
+                            return item.id_negara+" - "+item.nama_negara;
+                        }));
+                    }
+                })
+            },
+            updater:function (item) {
+                //do your stuff.
+                id_negara = item.split(" - ");
+                $('#id_negara').val(id_negara[0]);
+                return item;
+            }
+        }); 
+
+        // autocomplete kecamatan/wilayah
+        var route_2 = $('#wilayahurl').val();
+        $('#kecamatan').typeahead({
+            source: function (query, result) {
+                $.ajax({
+                    url:route_2,
+                    method:"GET",
+                    data:{query:query},
+                    dataType: "json",
+                    success:function(data){
+                        result($.map(data, function(item) {
+                            return item.code_lengkap+" - "+item.nama_lengkap;
+                        }));
+                    }
+                })
+            },
+            updater:function (item) {
+                //do your stuff.
+                id_wilayah = item.split(" - ");
+                $('#id_wilayah').val(id_wilayah[0]);
+                return item;
+            }
+        }); 
     } );
 
+    // on open/click tabs
+    function openTabs(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }        
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    } 
 </script>
 @endsection

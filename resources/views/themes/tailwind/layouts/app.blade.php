@@ -64,6 +64,17 @@
 <body
     class="flex flex-col min-h-screen @if(Request::is('/')){{ 'bg-white' }}@else{{ 'bg-gray-50' }}@endif @if(config('wave.dev_bar')){{ 'pb-10' }}@endif">
     <div class="_token" data-token="{{ csrf_token() }}"></div>
+    <div class='containerr' style="display: none">
+        <div class='loader'>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--text'></div>
+        </div>
+    </div>
 
     @if(config('wave.demo') && Request::is('/'))
     @include('theme::partials.demo-header')

@@ -27,7 +27,8 @@
                     <label for="is_pil_prodi1_option">Filter <strong>PRODI1</strong>:</label>
                     <select name="is_pil_prodi1_option" id="is_pil_prodi1_option"
                         class="form-control mt-1 is_pil_prodi1_option">
-                        <option value="all" selected>--Semua--</option>
+                        <option value="null">--Belum Memilih Prodi--</option>
+                        <option value="all" selected>--Semua Prodi--</option>
                         @foreach ($prodi as $item)
                         <option value="{{$item->id_prodi}}">{{$item->nama_program_studi}}</option>
                         @endforeach
