@@ -389,44 +389,64 @@ class BiodataController extends Controller
             if($data->save()){
                 $res['message']="Data dokumen berhasil disimpan.";
                 $fpKTPCamaba = public_path().'/storage/'.$oldDokKTPCamaba;
-                if($oldDokKTPCamaba!=""){
-                    unlink($fpKTPCamaba);
-                }
+                if($dataImageKTPCamaba!=null||$dataImageKTPCamaba!=""){
+                    if($oldDokKTPCamaba!=""){
+                        unlink($fpKTPCamaba);
+                    }
+                }                
                 $fpFotoCamaba = public_path().'/storage/'.$oldDokFotoCamaba;
-                if($oldDokFotoCamaba!=""){
-                    unlink($fpFotoCamaba);
+                if($dataImagePasFotoCamaba!=null||$dataImagePasFotoCamaba!=""){
+                    if($oldDokFotoCamaba!=""){
+                        unlink($fpFotoCamaba);
+                    }
                 }
                 $fpKTPAyah = public_path().'/storage/'.$oldDokKTPAyah;
-                if($oldDokKTPAyah!=""){
-                    unlink($fpKTPAyah);
+                if($dataImageKTPAyah!=null||$dataImageKTPAyah!=""){                
+                    if($oldDokKTPAyah!=""){
+                        unlink($fpKTPAyah);
+                    }
                 }
                 $fpKTPIbu = public_path().'/storage/'.$oldDokKTPIbu;
-                if($oldDokKTPIbu!=""){
-                    unlink($fpKTPIbu);
+                if($dataImageKTPIbu!=null||$dataImageKTPIbu!=""){
+                    if($oldDokKTPIbu!=""){
+                        unlink($fpKTPIbu);
+                    }
                 }
                 $fpKK = public_path().'/storage/'.$oldDokKK;
-                if($oldDokKK!=""){
-                    unlink($fpKK);
+                if($dataImageKK!=null||$dataImageKK!=""){
+                    if($oldDokKK!=""){
+                        unlink($fpKK);
+                    }
                 }
                 $fpKTPWali = public_path().'/storage/'.$oldDokKTPWali;
-                if($oldDokKTPWali!=""){
-                    unlink($fpKTPWali);
+                if($dataImageKTPWali!=null||$dataImageKTPWali!=""){
+                    if($oldDokKTPWali!=""){
+                        unlink($fpKTPWali);
+                    }
                 }
                 $fpAkta = public_path().'/storage/'.$oldDokAkta;
-                if($oldDokAkta!=""){
-                    unlink($fpAkta);
+                if($dataImageAkta!=null||$dataImageAkta!=""){
+                    if($oldDokAkta!=""){
+                        unlink($fpAkta);
+                    }
                 }
                 $fpIjasah = public_path().'/storage/'.$oldDokIjasah;
-                if($oldDokIjasah!=""){
-                    unlink($fpIjasah);
+                if($dataImageIjasah!=null||$dataImageIjasah!=""){
+                    if($oldDokIjasah!=""){
+                        unlink($fpIjasah);
+                    }
                 }
                 $fpNilaiUjianSekolah = public_path().'/storage/'.$oldDokNilaiUjianSekolah;
-                if($oldDokNilaiUjianSekolah!=""){
-                    unlink($fpNilaiUjianSekolah);
+                if($dataImageNilaiUjianSekolah!=null||$dataImageNilaiUjianSekolah!=""){
+                    if($oldDokNilaiUjianSekolah!=""){
+                        unlink($fpNilaiUjianSekolah);
+                    }
                 }
                 $fpNilaiRapor = public_path().'/storage/'.$oldDokNilaiRapor;
-                if($oldDokNilaiRapor!=""){
-                    unlink($fpNilaiRapor);
+                if($dataImageNilaiRapor!=null||$dataImageNilaiRapor!=""){
+                    if($oldDokNilaiRapor!=""){
+                        unlink($fpNilaiRapor);
+                    }
                 }
             }else{
                 $res['error']=true;
@@ -472,7 +492,7 @@ class BiodataController extends Controller
     public function downloadSuratPernyataan()
     {
         $poin_pernyataan = PoinPernyataan::where('is_active','1')->get();
-        $is_mondok = false;
+        $is_mondok = true;
         // $data =json_decode($user->data_mahasiswa,true);
         // $krs=ProfilMhsHelper::getKRSMahasiswa($k,$kk);
 

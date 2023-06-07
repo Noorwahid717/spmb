@@ -64,6 +64,7 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -124,6 +125,8 @@
         $('#form_wali').addClass( "hidden" );
         $('#tidak_mondok').addClass( "hidden" );
 
+        // update value tabs
+        updateValueStep1();
 
         // autocomplete kewarganegaraan
         var route = $('#citizenshipurl').val();
@@ -195,5 +198,238 @@
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     } 
+
+    // Restricts input for the given textbox to the given inputFilter function.
+    function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+            textbox.addEventListener(event, function() {
+            if (inputFilter(this.value)) {
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            } else {
+                this.value = "";
+            }
+            });
+        });        
+    }
+    setInputFilter(document.getElementById("nik"), function(value) {
+        return  /^\d*$/.test(value) && (value === "" || parseInt(value) > 0);
+    });
+    setInputFilter(document.getElementById("nkk"), function(value) {
+        return  /^\d*$/.test(value) && (value === "" || parseInt(value) > 0);
+    });
+    setInputFilter(document.getElementById("nik_ayah"), function(value) {
+        return  /^\d*$/.test(value) && (value === "" || parseInt(value) > 0);
+    });
+    setInputFilter(document.getElementById("nik_ibu"), function(value) {
+        return  /^\d*$/.test(value) && (value === "" || parseInt(value) > 0);
+    });
+    setInputFilter(document.getElementById("nik_wali"), function(value) {
+        return  /^\d*$/.test(value) && (value === "" || parseInt(value) > 0);
+    });
+    setInputFilter(document.getElementById("kodepos"), function(value) {
+        return  /^\d*$/.test(value) && (value === "" || parseInt(value) > 0);
+    });
+    setInputFilter(document.getElementById("nisn"), function(value) {
+        return  /^\d*$/.test(value) ;
+        // && (value === "" || parseInt(value) > 0);
+    });
+
+    // TAB STEP 1
+    $('#edit_step_1').on('click',function() {
+        $('#update_step_1').removeClass("hidden");
+        $('#edit_step_1').addClass("hidden");  
+        enabledStep1();      
+    });
+    function batalUpdateStep1(){
+        updateValueStep1();
+        $('#update_step_1').addClass("hidden");
+        $('#edit_step_1').removeClass("hidden");  
+        disabledStep1()
+    }
+    function updateValueStep1(){
+        var step_1 = @json($step_1); 
+        if(step_1!=null){
+            $('#nkk').val(step_1['nkk']);
+            $('#nik').val(step_1['nik']);
+            $('#nama').val(step_1['nama']);
+            $('#gender').val(step_1['gender']);
+            $('#tmplhr').val(step_1['tempat_lahir']);
+            $('#tgllhr').val(step_1['tanggal_lahir']);
+            $('#agama').val(step_1['id_agama']);            
+            $('#citizenship').val(step_1['id_negara']+" - "+step_1['negara']);        
+            $('#id_negara').val(step_1['id_negara']);  
+            $('#lock_step_1').val(step_1['status_step']);  
+            disabledStep1();
+        }
+    }
+    function disabledStep1(){
+        $('#nkk').attr('disabled',true);
+        $('#nkk').addClass('read_only');
+        $('#nik').attr('disabled',true);
+        $('#nik').addClass('read_only');
+        $('#nama').attr('disabled',true);
+        $('#nama').addClass('read_only');
+        $('#gender').attr('disabled',true);
+        $('#gender').addClass('read_only');
+        $('#tmplhr').attr('disabled',true);
+        $('#tmplhr').addClass('read_only');
+        $('#tgllhr').attr('disabled',true);
+        $('#tgllhr').addClass('read_only');
+        $('#agama').attr('disabled',true);
+        $('#agama').addClass('read_only');
+        $('#citizenship').attr('disabled',true);
+        $('#citizenship').addClass('read_only');
+        $('#lock_step_1').attr('disabled',true);  
+        $('#lock_step_1').addClass('read_only');  
+    }
+    function enabledStep1(){
+        $('#nkk').attr('disabled',false);
+        $('#nkk').removeClass('read_only');
+        $('#nik').attr('disabled',false);
+        $('#nik').removeClass('read_only');
+        $('#nama').attr('disabled',false);
+        $('#nama').removeClass('read_only');
+        $('#gender').attr('disabled',false);
+        $('#gender').removeClass('read_only');
+        $('#tmplhr').attr('disabled',false);
+        $('#tmplhr').removeClass('read_only');
+        $('#tgllhr').attr('disabled',false);
+        $('#tgllhr').removeClass('read_only');
+        $('#agama').attr('disabled',false);
+        $('#agama').removeClass('read_only');
+        $('#citizenship').attr('disabled',false);
+        $('#citizenship').removeClass('read_only');
+        $('#lock_step_1').attr('disabled',false);  
+        $('#lock_step_1').removeClass('read_only');  
+    }
+    function ValidateStep1() {
+        var nkk = $('#nkk').val();
+        var nik = $('#nik').val();
+        var nama = $('#nama').val();
+        var gender = $('#gender option:selected').val();
+        var tmplhr = $('#tmplhr').val();
+        var tgllhr = $('#tgllhr').val();
+        var id_agama = $('#agama option:selected').val();        
+        var agama = $('#agama option:selected').text();        
+        var negara = $('#citizenship').val().split(" - ")[1];        
+        var id_negara = $('#id_negara').val();       
+        var status_step = $('#lock_step_1').val();       
+        
+        if(nkk!=""){
+            if(nik!=""){
+                if(nama!=""){
+                    if(gender!=-1){
+                        if(tmplhr!=""){
+                            if(tgllhr!=""){
+                                if(id_agama!=-1){
+                                    if(id_negara!=""){
+                                        // saveOrUpdateStep1(nkk,nik,nama,gender,tmplhr,tgllhr,id_agama,agama,negara,id_negara,status_step);
+                                    }else{
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: "Pilih kewarganegaraan dahulu!",
+                                        });
+                                    }
+                                }else{
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: "Pilih agama dahulu!",
+                                    });
+                                }
+                            }else{
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: "Isi tanggal lahir dahulu!",
+                                });
+                            }
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: "Isi tempat lahir dahulu!",
+                            });
+                        }
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: "Pilih jenis kelamin dahulu!",
+                        });
+                    }
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "Isi nama lengkap sesuai KTP dahulu!",
+                    });
+                }
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Isi nomor induk kependudukan dahulu!",
+                });
+            }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Isi nomor kartu keluarga dahulu!",
+            });
+        }
+    }
+    function saveOrUpdateStep1(nkk,nik,nama,gender,tmplhr,tgllhr,id_agama,agama,negara,id_negara,status_step) {
+        $('.containerr').show();
+        console.log("dd");
+        let datar = {};
+        datar['_method']='POST';
+        datar['_token']=$('._token').data('token');
+        datar['nkk']=nkk;
+        datar['nik']=nik;        
+        datar['nama']=nama;
+        datar['gender']=gender;
+        datar['tempat_lahir']=tmplhr;
+        datar['tanggal_lahir']=tgllhr;
+        datar['id_agama']=id_agama;
+        datar['agama']=agama;
+        datar['negara']=negara;
+        datar['id_negara']=id_negara;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#saveOrUpdateUrlStep1").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    // location.reload();
+                    window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=1" );
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
 </script>
 @endsection
