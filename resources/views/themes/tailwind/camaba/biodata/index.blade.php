@@ -311,7 +311,7 @@
         enabledStep1();      
     });
     function batalUpdateStep1(){
-        updateValueStep2();
+        updateValueStep1();
         $('#update_step_1').addClass("hidden");
         $('#edit_step_1').removeClass("hidden");  
         disabledStep1()
@@ -1577,7 +1577,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: "Isi alamat pengiriman surat pendidikan asal dahulu!",
+                text: "Isi alamat sekolah asal dahulu!",
             });
         }
         }else{

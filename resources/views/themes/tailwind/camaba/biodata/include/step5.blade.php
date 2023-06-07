@@ -39,10 +39,9 @@
                 placeholder="NISN">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="alamat_pendidikan_asal">Alamat Pengiriman Surat Pendidikan Asal <span
-                    class="text-red">*</span></label>
+            <label for="alamat_pendidikan_asal">Alamat Sekolah Asal <span class="text-red">*</span></label>
             <input type="text" name="alamat_pendidikan_asal" id="alamat_pendidikan_asal" class="form-control mt-1"
-                value="" placeholder="Alamat Pengiriman Surat Pendidikan Asal">
+                value="" placeholder="Alamat Sekolah Asal">
         </div>
     </div>
 </div>

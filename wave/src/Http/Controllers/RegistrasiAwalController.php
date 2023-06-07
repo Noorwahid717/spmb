@@ -174,8 +174,10 @@ class RegistrasiAwalController extends Controller
                 $step->save();
                 $res['message']="Validasi Pembayaran berhasil diubah.";
                 $file_path = public_path().'/storage/'.$old_foto;
-                if($old_foto!=""){
-                    unlink($file_path);
+                if($imageName!=null||$imageName!=""){
+                    if($old_foto!=""){
+                        unlink($file_path);
+                    }
                 }
             }else{
                 $res['error']=true;

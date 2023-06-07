@@ -54,6 +54,19 @@
 <input type="hidden" name="saveOrUpdateUrlStep1" id="saveOrUpdateUrlStep1"
     value="{{route('wave.biodata-update-data-pokok')}}">
 
+<div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="lock_step_1">Status Validasi Data Pokok CAMABA ?</label>
+            <select name="lock_step_1" id="lock_step_1" class="form-control mt-1">
+                <option value="-1">Belum Valid</option>
+                <option value="0" selected>Menunggu</option>
+                <option value="1">Sudah Valid</option>
+            </select>
+        </div>
+    </div>
+</div>
+
 {{-- button nav --}}
 @if($step_1!=null&&$step_1->status_step==1)
 @else
