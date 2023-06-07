@@ -509,7 +509,7 @@ class BiodataController extends Controller
 
     public static function UploadDokumenToStorage($imageData,$location)
     {
-        $initialization = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
+        // $initialization = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
         $jpegExtDataImage = 'data:image/jpeg;base64,';
         $pngExtDataImage = 'data:image/png;base64,';
         $pdfExtDataImage = 'data:application/pdf;base64,';

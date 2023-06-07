@@ -24,6 +24,9 @@ class CamabaDataPernyataan extends Model
             if($type=="pdf"){
                 $base64 = 'data:application/' . $type . ';base64,' . base64_encode($data);
             }else{
+                $data = Image::make($data)->resize(100, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream('jpg', 100);
                 $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             }
             return $base64;  
