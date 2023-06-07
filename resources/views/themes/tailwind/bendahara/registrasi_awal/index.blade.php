@@ -243,6 +243,7 @@
         let bukti_bayar = $('input[id=bukti_bayar]').val();
         let real_image_foto = $('input[id=img-value_slip]').val();
 
+        if(calc_image_size(real_image_foto)<=3000){                        
         if(nominal>0){
             if(tanggal_bayar!=""){
                 if(status_bayar!=-2){
@@ -267,6 +268,13 @@
                 title: 'Oops...',
                 text: "Nominal tidak boleh kosong!",
                 });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Ukuran bukti pembayaran melebihi 3 MB!!",
+            });
         }
     }
 
@@ -355,6 +363,15 @@
             $('#thumb_slip').attr('data-large-img-url', url);
             extm();
         }
+    }
+
+    function calc_image_size(image) {
+        let y =1;
+        if(image.endsWith('==')){
+            y = 2
+        }
+        const x_size = (image.length * (3/4)) - y
+        return Math.round(x_size / 1024)
     }
 </script>
 @endsection

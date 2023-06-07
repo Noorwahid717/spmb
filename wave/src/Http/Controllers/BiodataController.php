@@ -5,6 +5,7 @@ namespace Wave\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\SpmbConfig;
 use App\Models\UserSpmbStep;
+use App\Models\Fakultas;
 use App\Models\ProdiFakultas;
 use App\Models\PoinPernyataan;
 use App\Models\CamabaDataPokok;
@@ -15,6 +16,7 @@ use App\Models\CamabaDataDokumen;
 use App\Models\CamabaDataPernyataan;
 use App\Models\CamabaDataProgramStudi;
 use App\Models\CamabaDataRiwayatPendidikan;
+use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -125,8 +127,18 @@ class BiodataController extends Controller
             $data->agama = $req->agama;
             $data->id_negara = $req->id_negara;
             $data->negara = $req->negara;
+            if($data->note!=null&&$data->note!=""){
+                $data->last_note = $data->note;
+                $data->note = null;
+            }
+
             if($data->save()){
                 $res['message']="Data pokok berhasil disimpan.";
+                // update data user
+                $user = User::where('id',auth()->user()->id)->first();
+                $user->name = $data->nama; 
+                $user->nik = $data->nik;
+                $user->save(); 
             }else{
                 $res['error']=true;
                 $res['message']="Data pokok gagal disimpan!";
@@ -164,8 +176,18 @@ class BiodataController extends Controller
             $data->email = $req->email;
             $data->no_hp_camaba = $req->wa_camaba;
             $data->no_hp_ortu = $req->wa_wali;
+            if($data->note!=null&&$data->note!=""){
+                $data->last_note = $data->note;
+                $data->note = null;
+            }
+
             if($data->save()){
                 $res['message']="Data alamat berhasil disimpan.";
+                // update data user
+                $user = User::where('id',auth()->user()->id)->first();
+                $user->no_hp_camaba = $data->no_hp_camaba; 
+                $user->no_hp_ortu = $data->no_hp_ortu;
+                $user->save();
             }else{
                 $res['error']=true;
                 $res['message']="Data alamat gagal disimpan!";
@@ -210,6 +232,11 @@ class BiodataController extends Controller
             $data->pekerjaan_ibu = $req->pekerjaan_ibu;
             $data->id_penghasilan_ibu = $req->id_penghasilan_ibu;
             $data->penghasilan_ibu = $req->penghasilan_ibu;
+            if($data->note!=null&&$data->note!=""){
+                $data->last_note = $data->note;
+                $data->note = null;
+            }
+
             if($data->save()){
                 $res['message']="Data orang tua berhasil disimpan.";
             }else{
@@ -247,7 +274,12 @@ class BiodataController extends Controller
             $data->id_penghasilan_wali = $req->id_penghasilan_wali;
             $data->penghasilan_wali = $req->penghasilan_wali;
             $data->is_kps = $req->is_kps;
-            $data->no_kps = $req->no_kps;          
+            $data->no_kps = $req->no_kps;   
+            if($data->note!=null&&$data->note!=""){
+                $data->last_note = $data->note;
+                $data->note = null;
+            }
+
             if($data->save()){
                 $res['message']="Data wali & perlindungan sosial berhasil disimpan.";
             }else{
@@ -280,6 +312,11 @@ class BiodataController extends Controller
             $data->nama_pendidikan_asal = strtoupper($req->nama_pendidikan_asal);
             $data->nisn = $req->nisn;
             $data->alamat_pendidikan_asal = $req->alamat_pendidikan_asal;
+            if($data->note!=null&&$data->note!=""){
+                $data->last_note = $data->note;
+                $data->note = null;
+            }
+
             if($data->save()){
                 $res['message']="Data riwayat pendidikan berhasil disimpan.";
             }else{
@@ -309,6 +346,11 @@ class BiodataController extends Controller
             $data->tahun_akademik_registrasi = $req->tahun_akademik_registrasi;
             $data->id_program_studi_1 = $req->id_program_studi_1;
             $data->id_program_studi_2 = $req->id_program_studi_2;
+            if($data->note!=null&&$data->note!=""){
+                $data->last_note = $data->note;
+                $data->note = null;
+            }
+
             if($data->save()){
                 $res['message']="Data program studi berhasil disimpan.";
             }else{
@@ -385,7 +427,12 @@ class BiodataController extends Controller
             $oldDokNilaiRapor = $data->url_nilai_rapor;
             if($dataImageNilaiRapor!=null||$dataImageNilaiRapor!=""){
                 $data->url_nilai_rapor = 'nilai_rapor/'.$dataImageNilaiRapor;
-            }                        
+            }                       
+            if($data->note!=null&&$data->note!=""){
+                $data->last_note = $data->note;
+                $data->note = null;
+            }
+
             if($data->save()){
                 $res['message']="Data dokumen berhasil disimpan.";
                 $fpKTPCamaba = public_path().'/storage/'.$oldDokKTPCamaba;
@@ -489,11 +536,62 @@ class BiodataController extends Controller
         return $imageName;
     }
 
-    public function downloadSuratPernyataan()
+    public function updateDataPernyataan(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $dataImagePernyataan = self::UploadDokumenToStorage($req->dok_pernyataan,"surat_pernyataan");
+
+            $data = CamabaDataPernyataan::where('id_user','=',auth()->user()->id)->first();
+            if($data==null){
+                $data = new CamabaDataPernyataan();
+                $data->id_user = auth()->user()->id;           
+            }           
+            $oldDokPernyataan = $data->url_surat_pernyataan;
+            if($dataImagePernyataan!=null||$dataImagePernyataan!=""){
+                $data->url_surat_pernyataan = 'surat_pernyataan/'.$dataImagePernyataan;
+            }
+            $data->nomor_surat = auth()->user()->id;
+            $data->sanggup_mondok = $req->sanggup_mondok;
+            $data->sanggup_tidak_menikah = $req->sanggup_tidak_menikah;   
+            if($data->note!=null&&$data->note!=""){
+                $data->last_note = $data->note;
+                $data->note = null;
+            }
+
+            if($data->save()){
+                $res['message']="Data program studi berhasil disimpan.";
+                $fpPeryataan = public_path().'/storage/'.$oldDokPernyataan;
+                if($dataImagePernyataan!=null||$dataImagePernyataan!=""){
+                    if($oldDokPernyataan!=""){
+                        unlink($fpPeryataan);
+                    }
+                } 
+            }else{
+                $res['error']=true;
+                $res['message']="Data program studi gagal disimpan!";
+            }                    
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
+    }  
+
+    public function downloadSuratPernyataan(Request $req)
     {
         $poin_pernyataan = PoinPernyataan::where('is_active','1')->get();
-        $is_mondok = true;
-        // $data =json_decode($user->data_mahasiswa,true);
+        $data_wali = CamabaDataWaliPs::where('id_user',auth()->user()->id)->first();
+        $data_pokok = CamabaDataPokok ::where('id_user',auth()->user()->id)->first();
+        $data_alamat = CamabaDataAlamat ::where('id_user',auth()->user()->id)->first();
+        $data_prodi = CamabaDataProgramStudi ::where('id_user',auth()->user()->id)->first();
+        $data_fakultas = Fakultas ::where('id',$data_prodi->getProdiFakultas1->id_fakultas)->first();
+        $data_pernyataan = CamabaDataPernyataan ::where('id_user',auth()->user()->id)->first();
+        $is_mondok = $data_pernyataan->sanggup_mondok==0?false:true;
         // $krs=ProfilMhsHelper::getKRSMahasiswa($k,$kk);
 
         //Get Penanda Tangan
@@ -515,9 +613,12 @@ class BiodataController extends Controller
             'poin_pernyataan'=>$poin_pernyataan,
             'sign_date'=>$sign_date,
             'mondok'=>$is_mondok,
-            // 'nama'=>json_decode($user->data_mahasiswa,true)['nama_mahasiswa'],
-            // 'nim'=>$user->username,
-            // 'angkatan'=>substr(json_decode($user->data_mahasiswa,true)['id_periode'],0,-1),
+            'wali'=>$data_wali,
+            'pokok'=>$data_pokok,
+            'alamat'=>$data_alamat,
+            'pernyataan'=>$data_pernyataan,
+            'prodi'=>$data_prodi,
+            'fakultas'=>$data_fakultas,
             // 'jenjang'=>substr(json_decode($user->data_mahasiswa,true)['nama_program_studi'],0,2),
             // 'prodi'=>substr(json_decode($user->data_mahasiswa,true)['nama_program_studi'],3),
             // 'ta'=>$k.'/'.strval((int)$k+1),

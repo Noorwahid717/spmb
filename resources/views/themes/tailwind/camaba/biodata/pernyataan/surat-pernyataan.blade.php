@@ -3,6 +3,10 @@
 <head>
     <title>SURAT PERNYATAAN CALON MAHASISWA BARU</title>
     <style>
+        @page {
+            margin-bottom: 0px;
+        }
+
         /* * {
             box-sizing: border-box;
         } */
@@ -59,6 +63,14 @@
         .column40 {
             float: left;
             width: 40%;
+            padding: 5px;
+            height: 7px;
+            /* Should be removed. Only for demonstration */
+        }
+
+        .column75 {
+            float: left;
+            width: 75%;
             padding: 5px;
             height: 7px;
             /* Should be removed. Only for demonstration */
@@ -193,7 +205,7 @@
         <hr style="width:30%;
         margin:0 auto;border-bottom:solid 1.5px black">
         <span style="margin-top:-15px!important;font-size:14px;">
-            Nomor:../UNIWA/Um./../20..
+            Nomor:&nbsp;{{$pernyataan->nomor_surat}}/UNIWA/SP/{{numberToRomanRepresentation(date('m'))}}/{{date('Y')}}
         </span>
     </div>
 
@@ -207,21 +219,27 @@
     {{-- BIODATA --}}
     <div class="row" style="margin-left:-5px;font-size:14px;margin-top:-10px">
         <div class="column25">Nama Wali Mahasiswa</div>
-        <div class="column35">:
+        <div class="column75">: {{$wali->nama_wali}}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">Alamat</div>
-        <div class="column35">:
+        <div class="column75">: {{
+            // $alamat->jalan.
+            // ", Dsn.".$alamat->dusun.
+            // ", RT.".$alamat->rt.
+            // ", RW.".$alamat->rw.
+            "Kel. ".ucwords(strtolower($alamat->kelurahan)).
+            ", ".$alamat->kecamatan.
+            ", ".$alamat->kota_kabupaten.
+            ", ".$alamat->provinsi
+            }}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">No.HP/No.WA</div>
-        <div class="column35">:
+        <div class="column75">: {{$alamat->no_hp_ortu}}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;margin-top:10px">
         <div class="column25">Selaku Orang Tua Wali dari,</div>
@@ -231,19 +249,24 @@
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">Nama Mahasiswa</div>
-        <div class="column35">:
+        <div class="column75">: {{$pokok->nama}}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">Fakultas / Prodi</div>
-        <div class="column35">:
+        <div class="column75">:
+            {{$fakultas->nama_fakultas}} / {{$prodi->getProdiFakultas1->nama_program_studi}}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">Semester</div>
-        <div class="column35">:
+        <div class="column75">: I
+        </div>
+    </div>
+    <div class="row" style="margin-left:-5px;font-size:14px;">
+        <div class="column25">Jenis Tinggal</div>
+        <div class="column75">: {{$mondok==false?"Tinggal bersama orang tua kandung/wali (area karisidenan
+            kediri)":"Mondok"}}
         </div>
         <div class="column10"></div>
     </div>
@@ -293,21 +316,29 @@
             </span><br>
             <span style="text-align: left">Wali Mahasiswa,</span>
             <br><br>
-            <br><br>
-            <br><br>
-            <span style="text-align: right">Nama Wali</span>
+            <br>
+            <div style="border: 0px solid black;width:65px;padding-left:10px;padding-top:10px;padding-bottom:10px">
+                &nbsp;<br>&nbsp;
+
+            </div>
+            <br>
+            <span style="text-align: right">{{ucwords(strtolower($wali->nama_wali))}}</span>
         </div>
         <div style="width: 240px;float: right;display:block;font-size:14px;margin-right:-30px;">
             <span style="text-align: left">
             </span><br>
             <span style="text-align: left">Yang bersangkutan,</span>
             <br><br>
-            <br><br>
-            <br><br>
-            <span style="text-align: right">Nama Ybs</span>
+            <br>
+            <div style="border: 1px solid black;width:65px;padding-left:10px;padding-top:10px;padding-bottom:10px">
+                Materai<br>
+                Rp 10.000
+            </div>
+            <br>
+            <span style="text-align: right">{{ucwords(strtolower($pokok->nama))}}</span>
         </div>
     </div>
-    <div style="margin-top: 140px;text-align:center;">
+    <div style="margin-top: 160px;text-align:center;">
         <div style="width:100%;display:block;font-size:14px;">
             <span style="text-align: left">Menyetujui dan Mengesahkan
             </span><br>
@@ -365,7 +396,7 @@
         <hr style="width:30%;
         margin:0 auto;border-bottom:solid 1.5px black">
         <span style="margin-top:-15px!important;font-size:14px;">
-            Nomor:../UNIWA/Um./../20..
+            Nomor:&nbsp;{{$pernyataan->nomor_surat}}/UNIWA/SP-T/{{numberToRomanRepresentation(date('m'))}}/{{date('Y')}}
         </span>
     </div>
 
@@ -379,21 +410,27 @@
     {{-- BIODATA --}}
     <div class="row" style="margin-left:-5px;font-size:14px;margin-top:-10px">
         <div class="column25">Nama Wali Mahasiswa</div>
-        <div class="column35">:
+        <div class="column75">: {{$wali->nama_wali}}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">Alamat</div>
-        <div class="column35">:
+        <div class="column75">: {{
+            // $alamat->jalan.
+            // ", Dsn.".$alamat->dusun.
+            // ", RT.".$alamat->rt.
+            // ", RW.".$alamat->rw.
+            "Kel. ".ucwords(strtolower($alamat->kelurahan)).
+            ", ".$alamat->kecamatan.
+            ", ".$alamat->kota_kabupaten.
+            ", ".$alamat->provinsi
+            }}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">No.HP/No.WA</div>
-        <div class="column35">:
+        <div class="column75">: {{$alamat->no_hp_ortu}}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;margin-top:10px">
         <div class="column25">Selaku Orang Tua Wali dari,</div>
@@ -403,21 +440,19 @@
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">Nama Mahasiswa</div>
-        <div class="column35">:
+        <div class="column75">: {{$pokok->nama}}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">Fakultas / Prodi</div>
-        <div class="column35">:
+        <div class="column75">:
+            {{$fakultas->nama_fakultas}} / {{$prodi->getProdiFakultas1->nama_program_studi}}
         </div>
-        <div class="column10"></div>
     </div>
     <div class="row" style="margin-left:-5px;font-size:14px;">
         <div class="column25">Semester</div>
-        <div class="column35">:
+        <div class="column75">: I
         </div>
-        <div class="column10"></div>
     </div>
 
     <p style="font-weight:bold;font-size:14px;line-height: 1.5rem;text-align: justify;text-indent:5%;margin-top:10px">
@@ -451,7 +486,7 @@
                 Rp 10.000
             </div>
             <br>
-            <span style="text-align: right">Nama Wali</span>
+            <span style="text-align: right">{{ucwords(strtolower($wali->nama_wali))}}</span>
         </div>
     </div>
     @endif
@@ -459,6 +494,21 @@
 
 </html>
 <?php
+    function numberToRomanRepresentation($number) {
+        $map = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
+        $returnValue = '';
+        while ($number > 0) {
+            foreach ($map as $roman => $int) {
+                if($number >= $int) {
+                    $number -= $int;
+                    $returnValue .= $roman;
+                    break;
+                }
+            }
+        }
+        return $returnValue;
+    }
+
     function tgl_indo($tanggal){
         $bulan = array (
             1 =>   'Januari',

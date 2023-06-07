@@ -16,6 +16,11 @@ class CamabaDataProgramStudi extends Model
     {
         return $this->belongsTo('App\Models\ProdiFakultas','id_program_studi_1', 'id_prodi');
     }
+
+    public function getFakultas1()
+    {
+        return $this->belongsTo('App\Models\Fakultas','id_fakultas');
+    }
     
     public function getProdiFakultas2()
     {

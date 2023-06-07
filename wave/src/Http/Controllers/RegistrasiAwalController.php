@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RegistrasiAwalUser;
 use App\Models\UserSpmbStep;
 use App\Models\SpmbConfig;
+use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -178,6 +179,10 @@ class RegistrasiAwalController extends Controller
                     if($old_foto!=""){
                         unlink($file_path);
                     }
+                    // update data user
+                    $user = User::where('id',$req->id_user)->first();
+                    $user->bukti_pembayaran = $data->url_bukti_bayar; 
+                    $user->save();  
                 }
             }else{
                 $res['error']=true;
