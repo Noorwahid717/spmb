@@ -243,11 +243,27 @@
           content: "Loading...";
         }
       }
-      
+
       .no-cursor{
         cursor: not-allowed! important;
       }
 
       .thumb_doc{
         height:47px;width:auto;float:right;
+      }
+
+      .note-error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        text-align: center;
+        border-radius: 5px;
+      }
+      
+      .note-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        text-align: center;
+        border-radius: 5px;
       }

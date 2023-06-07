@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RegistrasiAwalUser;
 use App\Models\UserSpmbStep;
 use App\Models\SpmbConfig;
+use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -58,9 +59,10 @@ class TagihanCamabaController extends Controller
                 if($old_foto!=""){
                     unlink($file_path);
                 }
-                // dd($file_path);
-                // Storage::delete($file_path);
-                // File::delete(storage_path($old_foto));                                
+                // update data user
+                $user = User::where('id',$req->id_user)->first();
+                $user->bukti_pembayaran = $data->url_bukti_bayar; 
+                $user->save();                             
             }else{
                 $res['error']=true;
                 $res['message']="Upload bukti pembayaran gagal!";
