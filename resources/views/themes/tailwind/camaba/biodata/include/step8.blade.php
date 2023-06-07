@@ -48,7 +48,7 @@
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
                 <label for="dok_pernyataan">Unggah Surat Pernyataan
-                    <span class="text-red">*</span></label>
+                    <span class="text-red">*</span> (maks. ukuran 3 MB)</label>
                 <a target="_blank" id="link_pernyataan" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

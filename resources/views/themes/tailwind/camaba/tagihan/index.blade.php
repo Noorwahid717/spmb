@@ -36,7 +36,7 @@
                 @if($reg_awal->is_lunas!=1)
                 <div class="flex">
                     <div class="form-group mb-5 text-xs">
-                        <label for="bukti_bayar">Upload Bukti Pembayaran</label>
+                        <label for="bukti_bayar">Upload Bukti Pembayaran (maks. ukuran 3 MB)</label>
                         <input type="file" name="bukti_bayar" id="bukti_bayar" class="form-control mt-1" value=""
                             accept="image/*">
                         <input type="hidden" name="realimage_slip" id="img-value_slip">
@@ -186,20 +186,28 @@
                     text: "Pilih bukti pembayaran dahulu!",
                     });
         }else{
-            Swal.fire({
-                title: 'Are you sure!',
-                text: "Anda akan mengupload bukti pembayaran!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, simpan sekarang!',
-                cancelButtonText: 'Batal',
-                reverseButtons: true
+            if(calc_image_size(real_image_foto)<=3000){                        
+                Swal.fire({
+                    title: 'Are you sure!',
+                    text: "Anda akan mengupload bukti pembayaran!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, simpan sekarang!',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {       
                         // console.log(selected);         
                         UploadBuktiBayar(id_user,real_image_foto,ta_registrasi,bukti_bayar.files);
                     } 
                 }); 
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Ukuran bukti pembayaran melebihi 3 MB!",
+                });
+            }
         }
     }
 
@@ -269,5 +277,14 @@
         }
     }
     document.getElementById("bukti_bayar").addEventListener("change", readFileKK);
+
+    function calc_image_size(image) {
+        let y =1;
+        if(image.endsWith('==')){
+            y = 2
+        }
+        const x_size = (image.length * (3/4)) - y
+        return Math.round(x_size / 1024)
+    }
 </script>
 @endsection

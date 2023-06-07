@@ -2,7 +2,8 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ktp_camaba">Dokumen KTP Calon Mahasiswa <span class="text-red">*</span></label>
+                <label for="dok_ktp_camaba">Dokumen KTP Calon Mahasiswa <span class="text-red">*</span> (maks.
+                    ukuran 3 MB)</label>
                 <a target="_blank" id="link_ktp_camaba" class="text-wave-500" style="display:flex;" disabled="disabled">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -22,7 +23,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="pas_foto_camaba">Pas Foto Calon Mahasiswa <span class="text-red">*</span></label>
+                <label for="pas_foto_camaba">Pas Foto Calon Mahasiswa <span class="text-red">*</span> (maks.
+                    ukuran 3 MB)</label>
                 <a target="_blank" id="link_foto_camaba" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -42,7 +44,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ktp_ayah">Dokumen KTP Ayah <span class="text-red">*</span></label>
+                <label for="dok_ktp_ayah">Dokumen KTP Ayah <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_ktp_ayah" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -62,7 +65,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ktp_ibu">Dokumen KTP Ibu <span class="text-red">*</span></label>
+                <label for="dok_ktp_ibu">Dokumen KTP Ibu <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_ktp_ibu" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -82,7 +86,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_kk">Dokumen Kartu Keluarga <span class="text-red">*</span></label>
+                <label for="dok_kk">Dokumen Kartu Keluarga <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_kk" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -104,7 +109,8 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ktp_wali">Dokumen KTP Wali <span class="text-red">*</span></label>
+                <label for="dok_ktp_wali">Dokumen KTP Wali <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_ktp_wali" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -124,7 +130,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_akta">Dokumen Akta Kelahiran Calon Mahasiswa <span class="text-red">*</span></label>
+                <label for="dok_akta">Dokumen Akta Kelahiran Calon Mahasiswa <span class="text-red">*</span> (maks.
+                    ukuran 3 MB)</label>
                 <a target="_blank" id="link_akta" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -144,8 +151,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ijasah">Dokumen Ijasah SMA/Sederajat Calon Mahasiswa <span
-                        class="text-red">*</span></label>
+                <label for="dok_ijasah">Dokumen Ijasah SMA/Sederajat Calon Mahasiswa <span class="text-red">*</span>
+                    (maks. ukuran 3 MB)</label>
                 <a target="_blank" id="link_ijasah" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -165,7 +172,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_nilai_ujian">Dokumen Nilai Ujian Sekolah <span class="text-red">*</span></label>
+                <label for="dok_nilai_ujian">Dokumen Nilai Ujian Sekolah <span class="text-red">*</span> (maks.
+                    ukuran 3 MB)</label>
                 <a target="_blank" id="link_nilai_ujian_sekolah" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -185,7 +193,8 @@
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_nilai_rapor">Dokumen Nilai Rapor <span class="text-red">*</span></label>
+                <label for="dok_nilai_rapor">Dokumen Nilai Rapor <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_nilai_rapor" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

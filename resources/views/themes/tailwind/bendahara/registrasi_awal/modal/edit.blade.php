@@ -18,7 +18,7 @@
             <input type="hidden" name="id_user" value id="id_user" class="id_user">
             <input type="hidden" name="ta_registrasi" value id="ta_registrasi" class="ta_registrasi">
             <div class="form-group mb-5 text-xs">
-                <label for="bukti_bayar">Upload Bukti Pembayaran</label>
+                <label for="bukti_bayar">Upload Bukti Pembayaran (maks. ukuran 3 MB)</label>
                 <div class="flex">
                     <input type="file" name="bukti_bayar" id="bukti_bayar" class="form-control mt-1" value=""
                         accept="image/*">

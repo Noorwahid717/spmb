@@ -2013,19 +2013,36 @@
         var dok_nilai_rapor = $("#imgVal_dok_nilai_rapor").val();
 
         if(dok_ktp_camaba!=""){
+        if(calc_image_size(dok_ktp_camaba)<=3000){                        
         if(dok_pas_foto_camaba!=""){
+        if(calc_image_size(dok_pas_foto_camaba)<=3000){                        
         if(dok_ktp_ayah!=""){
+        if(calc_image_size(dok_ktp_ayah)<=3000){                        
         if(dok_ktp_ibu!=""){
+        if(calc_image_size(dok_ktp_ibu)<=3000){                        
         if(dok_kk!=""){
+        if(calc_image_size(dok_kk)<=3000){                        
         if(dok_ktp_wali!=""){
+        if(calc_image_size(dok_ktp_wali)<=3000){                        
         if(dok_akta!=""){
+        if(calc_image_size(dok_akta)<=3000){                        
         if(dok_ijasah!=""){
+        if(calc_image_size(dok_ijasah)<=3000){                        
         if(dok_nilai_ujian_sekolah!=""){
+        if(calc_image_size(dok_nilai_ujian_sekolah)<=3000){                        
         if(dok_nilai_rapor!=""){
+        if(calc_image_size(dok_nilai_rapor)<=3000){                        
             saveOrUpdateStep7(
                 dok_ktp_camaba,dok_pas_foto_camaba,dok_ktp_ayah,dok_ktp_ibu,dok_kk,
                 dok_ktp_wali,dok_akta,dok_ijasah,dok_nilai_ujian_sekolah,dok_nilai_rapor
             );
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Ukuran dokumen nilai rapor melebihi 3 MB!",
+            });
+        }
         }else{
             Swal.fire({
                 icon: 'error',
@@ -2037,9 +2054,23 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: "Pilih nilai ujian sekolah dahulu!",
+                text: "Ukuran dokumen nilai ujian sekolah melebihi 3 MB!",
+            });
+        }        
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Pilih dokumen nilai ujian sekolah dahulu!",
             });
         }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Ukuran dokumen ijasah melebihi 3 MB!",
+            });
+        }                
         }else{
             Swal.fire({
                 icon: 'error',
@@ -2051,14 +2082,35 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
+                text: "Ukuran dokumen akta kelahiran melebihi 3 MB!",
+            });
+        } 
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
                 text: "Pilih dokumen akta kelahiran dahulu!",
             });
-        }    
+        } 
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Ukuran dokumen ktp wali melebihi 3 MB!",
+            });
+        }   
         }else{
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: "Pilih dokumen ktp wali dahulu!",
+            });
+        }  
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Ukuran dokumen kartu keluarga melebihi 3 MB!",
             });
         }    
         }else{
@@ -2067,14 +2119,28 @@
                 title: 'Oops...',
                 text: "Pilih dokumen kartu keluarga dahulu!",
             });
-        }    
+        }   
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Ukuran dokumen ktp ibu melebihi 3 MB!",
+            });
+        }  
         }else{
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: "Pilih dokumen ktp ibu dahulu!",
             });
-        }                            
+        }   
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Ukuran dokumen ktp ayah melebihi 3 MB!",
+            });
+        }                           
         }else{
             Swal.fire({
                 icon: 'error',
@@ -2086,9 +2152,23 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
+                text: "Ukuran pas foto camaba melebihi 3 MB!",
+            });
+        } 
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
                 text: "Pilih pas foto camaba dahulu!",
             });
         }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Ukuran dokumen ktp camaba melebihi 3 MB!",
+            });
+        } 
         }else{
             Swal.fire({
                 icon: 'error',
@@ -2209,7 +2289,7 @@
         var sanggup_mondok = $("#sanggup_mondok option:selected").val();
         var sanggup_tidak_menikah = $("#sanggup_tidak_menikah option:selected").val();
         var dok_pernyataan = $("#imgVal_dok_pernyataan").val();
-
+        
         if(step_1!=null&&step_1['status_step']==1
         &&step_2!=null&&step_2['status_step']==1
         &&step_3!=null&&step_3['status_step']==1
@@ -2220,9 +2300,17 @@
         ){
             if(sanggup_mondok!=-1){
                 if(dok_pernyataan!=""){
-                    saveOrUpdateStep8(
-                        sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan                                    
-                    );
+                    if(calc_image_size(dok_pernyataan)<=3000){                        
+                        saveOrUpdateStep8(
+                            sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan                                    
+                        );
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: "Ukuran file yang diunggah melebihi 3 MB!",
+                        });
+                    }
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -2286,6 +2374,15 @@
         }); 
     }
     
+    function calc_image_size(image) {
+        let y =1;
+        if(image.endsWith('==')){
+            y = 2
+        }
+        const x_size = (image.length * (3/4)) - y
+        return Math.round(x_size / 1024)
+    }
+
     function downloadSuratPernyataan() {
         var step_1 = @json($step_1);
         var step_2 = @json($step_2);
@@ -2346,7 +2443,7 @@
                         saveOrUpdateStep8(
                             sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan                                    
                         ); 
-                        window.open($('#urlDownloadSuratPernyataan').val()+"?type="+sanggup_mondok, '_blank');           
+                        window.open($('#urlDownloadSuratPernyataan').val(), '_blank');           
                     } 
             });
     }

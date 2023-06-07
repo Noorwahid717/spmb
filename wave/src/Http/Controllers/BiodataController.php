@@ -5,6 +5,7 @@ namespace Wave\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\SpmbConfig;
 use App\Models\UserSpmbStep;
+use App\Models\Fakultas;
 use App\Models\ProdiFakultas;
 use App\Models\PoinPernyataan;
 use App\Models\CamabaDataPokok;
@@ -560,7 +561,7 @@ class BiodataController extends Controller
                 $data->last_note = $data->note;
                 $data->note = null;
             }
-                     
+
             if($data->save()){
                 $res['message']="Data program studi berhasil disimpan.";
                 $fpPeryataan = public_path().'/storage/'.$oldDokPernyataan;
@@ -581,11 +582,16 @@ class BiodataController extends Controller
         return response()->json($res);
     }  
 
-    public function downloadSuratPernyataan()
+    public function downloadSuratPernyataan(Request $req)
     {
         $poin_pernyataan = PoinPernyataan::where('is_active','1')->get();
-        $is_mondok = false;
-        // $data =json_decode($user->data_mahasiswa,true);
+        $data_wali = CamabaDataWaliPs::where('id_user',auth()->user()->id)->first();
+        $data_pokok = CamabaDataPokok ::where('id_user',auth()->user()->id)->first();
+        $data_alamat = CamabaDataAlamat ::where('id_user',auth()->user()->id)->first();
+        $data_prodi = CamabaDataProgramStudi ::where('id_user',auth()->user()->id)->first();
+        $data_fakultas = Fakultas ::where('id',$data_prodi->getProdiFakultas1->id_fakultas)->first();
+        $data_pernyataan = CamabaDataPernyataan ::where('id_user',auth()->user()->id)->first();
+        $is_mondok = $data_pernyataan->sanggup_mondok==0?false:true;
         // $krs=ProfilMhsHelper::getKRSMahasiswa($k,$kk);
 
         //Get Penanda Tangan
@@ -607,9 +613,12 @@ class BiodataController extends Controller
             'poin_pernyataan'=>$poin_pernyataan,
             'sign_date'=>$sign_date,
             'mondok'=>$is_mondok,
-            // 'nama'=>json_decode($user->data_mahasiswa,true)['nama_mahasiswa'],
-            // 'nim'=>$user->username,
-            // 'angkatan'=>substr(json_decode($user->data_mahasiswa,true)['id_periode'],0,-1),
+            'wali'=>$data_wali,
+            'pokok'=>$data_pokok,
+            'alamat'=>$data_alamat,
+            'pernyataan'=>$data_pernyataan,
+            'prodi'=>$data_prodi,
+            'fakultas'=>$data_fakultas,
             // 'jenjang'=>substr(json_decode($user->data_mahasiswa,true)['nama_program_studi'],0,2),
             // 'prodi'=>substr(json_decode($user->data_mahasiswa,true)['nama_program_studi'],3),
             // 'ta'=>$k.'/'.strval((int)$k+1),
