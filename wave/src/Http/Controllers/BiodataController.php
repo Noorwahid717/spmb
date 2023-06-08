@@ -373,17 +373,17 @@ class BiodataController extends Controller
         $res['message']="";
 
         try {
-            $data = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
-            $dataImageKTPCamaba = self::UploadDokumenToStorage($req->dok_ktp_camaba,"ktp_camaba","ktp_camaba",$data);
-            $dataImagePasFotoCamaba = self::UploadDokumenToStorage($req->dok_pas_foto_camaba,"foto_camaba","foto_camaba",$data);
-            $dataImageKTPAyah = self::UploadDokumenToStorage($req->dok_ktp_ayah,"ktp_ayah","ktp_ayah",$data);
-            $dataImageKTPIbu = self::UploadDokumenToStorage($req->dok_ktp_ibu,"ktp_ibu","ktp_ibu",$data);
-            $dataImageKK = self::UploadDokumenToStorage($req->dok_kk,"kartu_keluarga","kartu_keluarga",$data);
-            $dataImageKTPWali = self::UploadDokumenToStorage($req->dok_ktp_wali,"ktp_wali","ktp_wali",$data);
-            $dataImageAkta = self::UploadDokumenToStorage($req->dok_akta,"akta_kelahiran","akta_kelahiran",$data);
-            $dataImageIjasah = self::UploadDokumenToStorage($req->dok_ijasah,"ijasah","ijasah",$data);
-            $dataImageNilaiUjianSekolah = self::UploadDokumenToStorage($req->dok_nilai_ujian_sekolah,"nilai_ujian_sekolah","nilai_ujian_sekolah",$data);
-            $dataImageNilaiRapor = self::UploadDokumenToStorage($req->dok_nilai_rapor,"nilai_rapor","nilai_rapor",$data);            
+            $dataDok = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
+            $dataImageKTPCamaba = self::UploadDokumenToStorage($req->dok_ktp_camaba,"ktp_camaba","ktp_camaba",$dataDok);
+            $dataImagePasFotoCamaba = self::UploadDokumenToStorage($req->dok_pas_foto_camaba,"foto_camaba","foto_camaba",$dataDok);
+            $dataImageKTPAyah = self::UploadDokumenToStorage($req->dok_ktp_ayah,"ktp_ayah","ktp_ayah",$dataDok);
+            $dataImageKTPIbu = self::UploadDokumenToStorage($req->dok_ktp_ibu,"ktp_ibu","ktp_ibu",$dataDok);
+            $dataImageKK = self::UploadDokumenToStorage($req->dok_kk,"kartu_keluarga","kartu_keluarga",$dataDok);
+            $dataImageKTPWali = self::UploadDokumenToStorage($req->dok_ktp_wali,"ktp_wali","ktp_wali",$dataDok);
+            $dataImageAkta = self::UploadDokumenToStorage($req->dok_akta,"akta_kelahiran","akta_kelahiran",$dataDok);
+            $dataImageIjasah = self::UploadDokumenToStorage($req->dok_ijasah,"ijasah","ijasah",$dataDok);
+            $dataImageNilaiUjianSekolah = self::UploadDokumenToStorage($req->dok_nilai_ujian_sekolah,"nilai_ujian_sekolah","nilai_ujian_sekolah",$dataDok);
+            $dataImageNilaiRapor = self::UploadDokumenToStorage($req->dok_nilai_rapor,"nilai_rapor","nilai_rapor",$dataDok);            
 
             if($data==null){
                 $data = new CamabaDataDokumen();
