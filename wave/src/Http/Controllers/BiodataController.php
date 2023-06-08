@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 
 use PDF;
 use Str;
+use Image;
 
 class BiodataController extends Controller
 {
@@ -372,18 +373,18 @@ class BiodataController extends Controller
         $res['message']="";
 
         try {
-            $dataImageKTPCamaba = self::UploadDokumenToStorage($req->dok_ktp_camaba,"ktp_camaba");
-            $dataImagePasFotoCamaba = self::UploadDokumenToStorage($req->dok_pas_foto_camaba,"foto_camaba");
-            $dataImageKTPAyah = self::UploadDokumenToStorage($req->dok_ktp_ayah,"ktp_ayah");
-            $dataImageKTPIbu = self::UploadDokumenToStorage($req->dok_ktp_ibu,"ktp_ibu");
-            $dataImageKK = self::UploadDokumenToStorage($req->dok_kk,"kartu_keluarga");
-            $dataImageKTPWali = self::UploadDokumenToStorage($req->dok_ktp_wali,"ktp_wali");
-            $dataImageAkta = self::UploadDokumenToStorage($req->dok_akta,"akta_kelahiran");
-            $dataImageIjasah = self::UploadDokumenToStorage($req->dok_ijasah,"ijasah");
-            $dataImageNilaiUjianSekolah = self::UploadDokumenToStorage($req->dok_nilai_ujian_sekolah,"nilai_ujian_sekolah");
-            $dataImageNilaiRapor = self::UploadDokumenToStorage($req->dok_nilai_rapor,"nilai_rapor");            
-
             $data = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
+            $dataImageKTPCamaba = self::UploadDokumenToStorage($req->dok_ktp_camaba,"ktp_camaba","ktp_camaba",$data);
+            $dataImagePasFotoCamaba = self::UploadDokumenToStorage($req->dok_pas_foto_camaba,"foto_camaba","foto_camaba",$data);
+            $dataImageKTPAyah = self::UploadDokumenToStorage($req->dok_ktp_ayah,"ktp_ayah","ktp_ayah",$data);
+            $dataImageKTPIbu = self::UploadDokumenToStorage($req->dok_ktp_ibu,"ktp_ibu","ktp_ibu",$data);
+            $dataImageKK = self::UploadDokumenToStorage($req->dok_kk,"kartu_keluarga","kartu_keluarga",$data);
+            $dataImageKTPWali = self::UploadDokumenToStorage($req->dok_ktp_wali,"ktp_wali","ktp_wali",$data);
+            $dataImageAkta = self::UploadDokumenToStorage($req->dok_akta,"akta_kelahiran","akta_kelahiran",$data);
+            $dataImageIjasah = self::UploadDokumenToStorage($req->dok_ijasah,"ijasah","ijasah",$data);
+            $dataImageNilaiUjianSekolah = self::UploadDokumenToStorage($req->dok_nilai_ujian_sekolah,"nilai_ujian_sekolah","nilai_ujian_sekolah",$data);
+            $dataImageNilaiRapor = self::UploadDokumenToStorage($req->dok_nilai_rapor,"nilai_rapor","nilai_rapor",$data);            
+
             if($data==null){
                 $data = new CamabaDataDokumen();
                 $data->id_user = auth()->user()->id;           
@@ -507,9 +508,9 @@ class BiodataController extends Controller
         return response()->json($res);
     }
 
-    public static function UploadDokumenToStorage($imageData,$location)
+    public static function UploadDokumenToStorage($imageData,$location,$type,$data)
     {
-        $initialization = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
+        // $initialization = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
         $jpegExtDataImage = 'data:image/jpeg;base64,';
         $pngExtDataImage = 'data:image/png;base64,';
         $pdfExtDataImage = 'data:application/pdf;base64,';
@@ -523,15 +524,71 @@ class BiodataController extends Controller
         }else{
             $ext='png';
         }
+        $url = null;       
+        switch ($type) {
+            case 'pernyataan':
+                $url = $data->url_surat_pernyataan;
+                break;
+            case 'ktp_camaba':
+                $url = $data->url_ktp;
+                break;
+            case 'foto_camaba':
+                $url = $data->url_foto;
+                break;
+            case 'ktp_ayah':
+                $url = $data->url_ktp_ayah;
+                break;
+            case 'ktp_ibu':
+                $url = $data->url_ktp_ibu;
+                break;
+            case 'kartu_keluarga':
+                $url = $data->url_kk;
+                break;
+            case 'ktp_wali':
+                $url = $data->url_ktp_wali;
+                break;
+            case 'akta_kelahiran':
+                $url = $data->url_akta;
+                break;
+            case 'ijasah':
+                $url = $data->url_ijasah;
+                break;
+            case 'nilai_ujian_sekolah':
+                $url = $data->url_nilai_ujian_sekolah;
+                break;
+            case 'nilai_rapor':
+                $url = $data->url_nilai_rapor;
+                break;            
+            default:
+                $url = null;
+                break;
+        }
+        $old_thumbnail = null;
+        if($url!=null){
+            $path = 'storage/'.$url;
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            if($type=="pdf"){
+                $base64 = 'data:application/' . $type . ';base64,' . base64_encode($data);
+            }else{
+                $data = Image::make($data)->resize(100, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream('jpg', 100);
+                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            }
+            $old_thumbnail = $base64;  
+        }
         $imageName = null;
-        if($imageData){
-            $image = $imageData; 
-            $image = str_replace($jpegExtDataImage, '', $image);
-            $image = str_replace($pngExtDataImage, '', $image);
-            $image = str_replace($pdfExtDataImage, '', $image);            
-            $image = str_replace(' ', '+', $image);
-            $imageName = Str::random(50).'.'.$ext;
-            \File::put(storage_path(). '/app/public/'.$location.'/' . $imageName, base64_decode($image));
+        if($old_thumbnail!=$imageData){
+            if($imageData){
+                $image = $imageData; 
+                $image = str_replace($jpegExtDataImage, '', $image);
+                $image = str_replace($pngExtDataImage, '', $image);
+                $image = str_replace($pdfExtDataImage, '', $image);            
+                $image = str_replace(' ', '+', $image);
+                $imageName = Str::random(50).'.'.$ext;
+                \File::put(storage_path(). '/app/public/'.$location.'/' . $imageName, base64_decode($image));
+            }
         }
         return $imageName;
     }
@@ -543,9 +600,9 @@ class BiodataController extends Controller
         $res['message']="";
 
         try {
-            $dataImagePernyataan = self::UploadDokumenToStorage($req->dok_pernyataan,"surat_pernyataan");
-
             $data = CamabaDataPernyataan::where('id_user','=',auth()->user()->id)->first();
+            $dataImagePernyataan = self::UploadDokumenToStorage($req->dok_pernyataan,"surat_pernyataan",'pernyataan',$data);
+
             if($data==null){
                 $data = new CamabaDataPernyataan();
                 $data->id_user = auth()->user()->id;           
