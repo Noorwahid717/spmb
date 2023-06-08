@@ -527,37 +527,37 @@ class BiodataController extends Controller
         $url = null;       
         switch ($type) {
             case 'pernyataan':
-                $url = $data->url_surat_pernyataan;
+                $url = $data!=null?$data->url_surat_pernyataan:null;
                 break;
             case 'ktp_camaba':
-                $url = $data->url_ktp;
+                $url = $data!=null?$data->url_ktp:null;
                 break;
             case 'foto_camaba':
-                $url = $data->url_foto;
+                $url = $data!=null?$data->url_foto:null;
                 break;
             case 'ktp_ayah':
-                $url = $data->url_ktp_ayah;
+                $url = $data!=null?$data->url_ktp_ayah:null;
                 break;
             case 'ktp_ibu':
-                $url = $data->url_ktp_ibu;
+                $url = $data!=null?$data->url_ktp_ibu:null;
                 break;
             case 'kartu_keluarga':
-                $url = $data->url_kk;
+                $url = $data!=null?$data->url_kk:null;
                 break;
             case 'ktp_wali':
-                $url = $data->url_ktp_wali;
+                $url = $data!=null?$data->url_ktp_wali:null;
                 break;
             case 'akta_kelahiran':
-                $url = $data->url_akta;
+                $url = $data!=null?$data->url_akta:null;
                 break;
             case 'ijasah':
-                $url = $data->url_ijasah;
+                $url = $data!=null?$data->url_ijasah:null;
                 break;
             case 'nilai_ujian_sekolah':
-                $url = $data->url_nilai_ujian_sekolah;
+                $url = $data!=null?$data->url_nilai_ujian_sekolah:null;
                 break;
             case 'nilai_rapor':
-                $url = $data->url_nilai_rapor;
+                $url = $data!=null?$data->url_nilai_rapor:null;
                 break;            
             default:
                 $url = null;
