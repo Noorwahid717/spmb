@@ -51,10 +51,9 @@ class ValidasiPendaftaranController extends Controller
             ->with('getCamabaDataOrtu')
             ->with('getCamabaDataWaliPs')
             ->with('getCamabaDataRiwayatPendidikan')
-            ->with('getCamabaDataDokumen')
-            ->with('getCamabaDataPernyataan')
+            // ->with('getCamabaDataDokumen')
+            // ->with('getCamabaDataPernyataan')
             ->where('tahun_akademik_registrasi',$ta_aktif)        
-            // ->with('getUserSpmbStep')
             ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_lunas) {
                 if($is_lunas=="all"){
                     return $query;
@@ -86,10 +85,9 @@ class ValidasiPendaftaranController extends Controller
             ->with('getCamabaDataOrtu')
             ->with('getCamabaDataWaliPs')
             ->with('getCamabaDataRiwayatPendidikan')
-            ->with('getCamabaDataDokumen')
-            ->with('getCamabaDataPernyataan')
+            // ->with('getCamabaDataDokumen')
+            // ->with('getCamabaDataPernyataan')
             ->where('tahun_akademik_registrasi',$ta_aktif)        
-            // ->with('getUserSpmbStep')
             ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_lunas) {
                 if($is_lunas=="all"){
                     return $query;
@@ -121,9 +119,7 @@ class ValidasiPendaftaranController extends Controller
             })
             ->get();
         }
-        
-        // dd($reg_awal_data);
-        // $value = Arr::add($value, "globalInfo", $globalInfo);                
+                    
 
         if ($req->ajax()) {
             return DataTables::of($reg_awal_data)
