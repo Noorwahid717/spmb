@@ -373,59 +373,59 @@ class BiodataController extends Controller
         $res['message']="";
 
         try {
-            $dataDok = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
-            $dataImageKTPCamaba = self::UploadDokumenToStorage($req->dok_ktp_camaba,"ktp_camaba","ktp_camaba",$dataDok);
-            $dataImagePasFotoCamaba = self::UploadDokumenToStorage($req->dok_pas_foto_camaba,"foto_camaba","foto_camaba",$dataDok);
-            $dataImageKTPAyah = self::UploadDokumenToStorage($req->dok_ktp_ayah,"ktp_ayah","ktp_ayah",$dataDok);
-            $dataImageKTPIbu = self::UploadDokumenToStorage($req->dok_ktp_ibu,"ktp_ibu","ktp_ibu",$dataDok);
-            $dataImageKK = self::UploadDokumenToStorage($req->dok_kk,"kartu_keluarga","kartu_keluarga",$dataDok);
-            $dataImageKTPWali = self::UploadDokumenToStorage($req->dok_ktp_wali,"ktp_wali","ktp_wali",$dataDok);
-            $dataImageAkta = self::UploadDokumenToStorage($req->dok_akta,"akta_kelahiran","akta_kelahiran",$dataDok);
-            $dataImageIjasah = self::UploadDokumenToStorage($req->dok_ijasah,"ijasah","ijasah",$dataDok);
-            $dataImageNilaiUjianSekolah = self::UploadDokumenToStorage($req->dok_nilai_ujian_sekolah,"nilai_ujian_sekolah","nilai_ujian_sekolah",$dataDok);
-            $dataImageNilaiRapor = self::UploadDokumenToStorage($req->dok_nilai_rapor,"nilai_rapor","nilai_rapor",$dataDok);            
+            $data = CamabaDataDokumen::where('id_user','=',auth()->user()->id)->first();
+            $dataImageKTPCamaba = self::UploadDokumenToStorage($req->dok_ktp_camaba,"ktp_camaba","ktp_camaba",$data);
+            $dataImagePasFotoCamaba = self::UploadDokumenToStorage($req->dok_pas_foto_camaba,"foto_camaba","foto_camaba",$data);
+            $dataImageKTPAyah = self::UploadDokumenToStorage($req->dok_ktp_ayah,"ktp_ayah","ktp_ayah",$data);
+            $dataImageKTPIbu = self::UploadDokumenToStorage($req->dok_ktp_ibu,"ktp_ibu","ktp_ibu",$data);
+            $dataImageKK = self::UploadDokumenToStorage($req->dok_kk,"kartu_keluarga","kartu_keluarga",$data);
+            $dataImageKTPWali = self::UploadDokumenToStorage($req->dok_ktp_wali,"ktp_wali","ktp_wali",$data);
+            $dataImageAkta = self::UploadDokumenToStorage($req->dok_akta,"akta_kelahiran","akta_kelahiran",$data);
+            $dataImageIjasah = self::UploadDokumenToStorage($req->dok_ijasah,"ijasah","ijasah",$data);
+            $dataImageNilaiUjianSekolah = self::UploadDokumenToStorage($req->dok_nilai_ujian_sekolah,"nilai_ujian_sekolah","nilai_ujian_sekolah",$data);
+            $dataImageNilaiRapor = self::UploadDokumenToStorage($req->dok_nilai_rapor,"nilai_rapor","nilai_rapor",$data);            
 
             if($data==null){
                 $data = new CamabaDataDokumen();
                 $data->id_user = auth()->user()->id;           
             }           
-            $oldDokKTPCamaba = $data->url_ktp;
+            $oldDokKTPCamaba = $data!=null?$data->url_ktp:"";
             if($dataImageKTPCamaba!=null||$dataImageKTPCamaba!=""){
                 $data->url_ktp = 'ktp_camaba/'.$dataImageKTPCamaba;
             }
-            $oldDokFotoCamaba = $data->url_foto;
+            $oldDokFotoCamaba = $data!=null?$data->url_foto:"";
             if($dataImagePasFotoCamaba!=null||$dataImagePasFotoCamaba!=""){
                 $data->url_foto = 'foto_camaba/'.$dataImagePasFotoCamaba;
             }
-            $oldDokKTPAyah = $data->url_ktp_ayah;
+            $oldDokKTPAyah = $data!=null?$data->url_ktp_ayah:"";
             if($dataImageKTPAyah!=null||$dataImageKTPAyah!=""){
                 $data->url_ktp_ayah = 'ktp_ayah/'.$dataImageKTPAyah;
             }
-            $oldDokKTPIbu = $data->url_ktp_ibu;
+            $oldDokKTPIbu = $data!=null?$data->url_ktp_ibu:"";
             if($dataImageKTPIbu!=null||$dataImageKTPIbu!=""){
                 $data->url_ktp_ibu = 'ktp_ibu/'.$dataImageKTPIbu;
             }
-            $oldDokKTPWali = $data->url_ktp_wali;
+            $oldDokKTPWali = $data!=null?$data->url_ktp_wali:"";
             if($dataImageKTPWali!=null||$dataImageKTPWali!=""){
                 $data->url_ktp_wali = 'ktp_wali/'.$dataImageKTPWali;
             }
-            $oldDokKK = $data->url_kk;
+            $oldDokKK = $data!=null?$data->url_kk:"";
             if($dataImageKK!=null||$dataImageKK!=""){
                 $data->url_kk = 'kartu_keluarga/'.$dataImageKK;
             }
-            $oldDokAkta = $data->url_akta;
+            $oldDokAkta = $data!=null?$data->url_akta:"";
             if($dataImageAkta!=null||$dataImageAkta!=""){
                 $data->url_akta = 'akta_kelahiran/'.$dataImageAkta;
             }
-            $oldDokIjasah = $data->url_ijasah;
+            $oldDokIjasah = $data!=null?$data->url_ijasah:"";
             if($dataImageIjasah!=null||$dataImageIjasah!=""){
                 $data->url_ijasah = 'ijasah/'.$dataImageIjasah;
             }
-            $oldDokNilaiUjianSekolah = $data->url_nilai_ujian_sekolah;
+            $oldDokNilaiUjianSekolah = $data!=null?$data->url_nilai_ujian_sekolah:"";
             if($dataImageNilaiUjianSekolah!=null||$dataImageNilaiUjianSekolah!=""){
                 $data->url_nilai_ujian_sekolah = 'nilai_ujian_sekolah/'.$dataImageNilaiUjianSekolah;
             }
-            $oldDokNilaiRapor = $data->url_nilai_rapor;
+            $oldDokNilaiRapor = $data!=null?$data->url_nilai_rapor:"";
             if($dataImageNilaiRapor!=null||$dataImageNilaiRapor!=""){
                 $data->url_nilai_rapor = 'nilai_rapor/'.$dataImageNilaiRapor;
             }                       
