@@ -17,6 +17,8 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ktp_camaba" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ktp-camaba" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ktp_camaba" id="imgVal_dok_ktp_camaba">
@@ -38,6 +40,8 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_foto_camaba" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-foto" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_foto_camaba" id="imgVal_dok_foto_camaba">
@@ -59,6 +63,8 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ktp_ayah" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ktp-ayah" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ktp_ayah" id="imgVal_dok_ktp_ayah">
@@ -80,6 +86,8 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ktp_ibu" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ktp-ibu" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ktp_ibu" id="imgVal_dok_ktp_ibu">
@@ -101,6 +109,8 @@
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_kk" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}" class="w-10 rounded sm:mx-auto pdf-dok-kk"
+                        style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_kk" id="imgVal_dok_kk">
@@ -124,6 +134,8 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ktp_wali" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ktp-wali" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ktp_wali" id="imgVal_dok_ktp_wali">
@@ -145,6 +157,8 @@
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_akta" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-akta" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_akta" id="imgVal_dok_akta">
@@ -166,6 +180,8 @@
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ijasah" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ijasah" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ijasah" id="imgVal_dok_ijasah">
@@ -187,6 +203,8 @@
                     value="" accept="image/*, .pdf" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_nilai_ujian_sekolah" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ujian" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_nilai_ujian_sekolah" id="imgVal_dok_nilai_ujian_sekolah">
@@ -208,6 +226,8 @@
                     accept="image/*, .pdf" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_nilai_rapor" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-rapor" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_nilai_rapor" id="imgVal_dok_nilai_rapor">

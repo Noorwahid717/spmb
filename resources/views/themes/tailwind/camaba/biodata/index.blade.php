@@ -1780,6 +1780,16 @@
         disabledStep7()
     }
     function updateValueStep7(){
+        $('.pdf-dok-rapor').addClass('hidden');
+        $('.pdf-dok-ktp-camaba').addClass('hidden');
+        $('.pdf-dok-ktp-ayah').addClass('hidden');
+        $('.pdf-dok-ktp-ibu').addClass('hidden');
+        $('.pdf-dok-ktp-wali').addClass('hidden');
+        $('.pdf-dok-ijasah').addClass('hidden');
+        $('.pdf-dok-ujian').addClass('hidden');
+        $('.pdf-dok-akta').addClass('hidden');
+        $('.pdf-dok-kk').addClass('hidden');
+        $('.pdf-dok-foto').addClass('hidden');
         var step_7 = @json($step_7);
         if(step_7!=null){
             $("#link_ktp_camaba").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_ktp"]);
@@ -1794,33 +1804,64 @@
             $("#link_nilai_ujian_sekolah").attr('href',`{{ asset('') }}`+'storage/'+step_7["url_nilai_ujian_sekolah"]);
             $("#imgVal_dok_ktp_camaba").val(step_7["url_ktp_b64"]);    
             $("#thumb_ktp_camaba").attr('src',step_7["url_ktp_b64"]);    
+            if(step_7["url_ktp_b64"]!=null&&step_7["url_ktp_b64"]!=""&&step_7["url_ktp_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-ktp-camaba').removeClass('hidden');
+            }
 
             $("#imgVal_dok_foto_camaba").val(step_7["url_foto_b64"]);        
             $("#thumb_foto_camaba").attr('src',step_7["url_foto_b64"]);    
-            
+            if(step_7["url_foto_b64"]!=null&&step_7["url_foto_b64"]!=""&&step_7["url_foto_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-foto').removeClass('hidden');
+            }
+
             $("#imgVal_dok_ktp_ayah").val(step_7["url_ktp_ayah_b64"]);        
             $("#thumb_ktp_ayah").attr('src',step_7["url_ktp_ayah_b64"]);    
+            if(step_7["url_ktp_ayah_b64"]!=null&&step_7["url_ktp_ayah_b64"]!=""&&step_7["url_ktp_ayah_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-ktp-ayah').removeClass('hidden');
+            }
 
             $("#imgVal_dok_ktp_ibu").val(step_7["url_ktp_ibu_b64"]);        
             $("#thumb_ktp_ibu").attr('src',step_7["url_ktp_ibu_b64"]);    
+            if(step_7["url_ktp_ibu_b64"]!=null&&step_7["url_ktp_ibu_b64"]!=""&&step_7["url_ktp_ibu_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-ktp-ibu').removeClass('hidden');
+            }
 
             $("#imgVal_dok_kk").val(step_7["url_kk_b64"]);        
             $("#thumb_kk").attr('src',step_7["url_kk_b64"]);    
-           
+            if(step_7["url_kk_b64"]!=null&&step_7["url_kk_b64"]!=""&&step_7["url_kk_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-kk').removeClass('hidden');
+            }
+
             $("#imgVal_dok_ktp_wali").val(step_7["url_ktp_wali_b64"]);        
             $("#thumb_ktp_wali").attr('src',step_7["url_ktp_wali_b64"]);
+            if(step_7["url_ktp_wali_b64"]!=null&&step_7["url_ktp_wali_b64"]!=""&&step_7["url_ktp_wali_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-ktp-wali').removeClass('hidden');
+            }
 
             $("#imgVal_dok_akta").val(step_7["url_akta_b64"]);        
             $("#thumb_akta").attr('src',step_7["url_akta_b64"]);
+            if(step_7["url_akta_b64"]!=null&&step_7["url_akta_b64"]!=""&&step_7["url_akta_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-akta').removeClass('hidden');
+            }
 
             $("#imgVal_dok_ijasah").val(step_7["url_ijasah_b64"]);        
             $("#thumb_ijasah").attr('src',step_7["url_ijasah_b64"]);
+            if(step_7["url_ijasah_b64"]!=null&&step_7["url_ijasah_b64"]!=""&&step_7["url_ijasah_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-ijasah').removeClass('hidden');
+            }
 
             $("#imgVal_dok_nilai_ujian_sekolah").val(step_7["url_nilai_ujian_sekolah_b64"]);        
             $("#thumb_nilai_ujian_sekolah").attr('src',step_7["url_nilai_ujian_sekolah_b64"]);
+            if(step_7["url_nilai_ujian_sekolah_b64"]!=null&&step_7["url_nilai_ujian_sekolah_b64"]!=""&&step_7["url_nilai_ujian_sekolah_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-ujian').removeClass('hidden');
+            }
 
             $("#imgVal_dok_nilai_rapor").val(step_7["url_nilai_rapor_b64"]);
             $("#thumb_nilai_rapor").attr('src',step_7["url_nilai_rapor_b64"]);
+            if(step_7["url_nilai_rapor_b64"]!=null&&step_7["url_nilai_rapor_b64"]!=""&&step_7["url_nilai_rapor_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-rapor').removeClass('hidden');
+            }
+
 
             disabledStep7();
         }else{
@@ -2237,6 +2278,7 @@
         disabledStep8()
     }
     function updateValueStep8(){
+        $('.pdf-dok-pernyataan').addClass('hidden');
         var step_8 = @json($step_8);
         if(step_8!=null){
             $("#sanggup_mondok").val(step_8["sanggup_mondok"]);
@@ -2248,6 +2290,10 @@
             }
             $("#imgVal_dok_pernyataan").val(step_8["url_surat_pernyataan_b64"]);    
             $("#thumb_pernyataan").attr('src',step_8["url_surat_pernyataan_b64"]); 
+            if(step_7["url_surat_pernyataan_b64"]!=null&&step_7["url_surat_pernyataan_b64"]!=""&&step_7["url_surat_pernyataan_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+                $('.pdf-dok-pernyataan').removeClass('hidden');
+            }
+
             disabledStep8();
         }else{
             $("#link_pernyataan").removeAttr("href").css({'cursor': 'not-allowed', 'pointer-events' : 'default'});
