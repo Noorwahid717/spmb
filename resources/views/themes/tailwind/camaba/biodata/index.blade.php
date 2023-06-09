@@ -2290,7 +2290,7 @@
             }
             $("#imgVal_dok_pernyataan").val(step_8["url_surat_pernyataan_b64"]);    
             $("#thumb_pernyataan").attr('src',step_8["url_surat_pernyataan_b64"]); 
-            if(step_7["url_surat_pernyataan_b64"]!=null&&step_7["url_surat_pernyataan_b64"]!=""&&step_7["url_surat_pernyataan_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+            if(step_8["url_surat_pernyataan_b64"]!=null&&step_8["url_surat_pernyataan_b64"]!=""&&step_8["url_surat_pernyataan_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
                 $('.pdf-dok-pernyataan').removeClass('hidden');
             }
 

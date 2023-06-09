@@ -3,8 +3,8 @@
 namespace Wave\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\SpmbConfig;
 use App\Models\UserSpmbStep;
+use App\Models\SpmbConfig;
 use App\Models\Fakultas;
 use App\Models\ProdiFakultas;
 use App\Models\PoinPernyataan;

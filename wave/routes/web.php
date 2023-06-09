@@ -65,6 +65,15 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::get('validasi-pendaftaran', '\Wave\Http\Controllers\ValidasiPendaftaranController@index')->name('wave.validasi-pendaftaran');
 	Route::post('validasi-pendaftaran-getlist', '\Wave\Http\Controllers\ValidasiPendaftaranController@getList')->name('wave.validasi-pendaftaran-getlist');	
 	Route::get('validasi-pendaftaran-detail/{id}/{ta}', '\Wave\Http\Controllers\ValidasiPendaftaranController@detailValidasiPendaftaran')->name('wave.validasi-pendaftaran-detail');	
+	Route::post('validasi-pendaftaran-update-data-pokok', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataPokok')->name('wave.validasi-pendaftaran-update-data-pokok');
+	Route::post('validasi-pendaftaran-update-data-alamat', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataAlamat')->name('wave.validasi-pendaftaran-update-data-alamat');
+	Route::post('validasi-pendaftaran-update-data-ortu', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataOrtu')->name('wave.validasi-pendaftaran-update-data-ortu');
+	Route::post('validasi-pendaftaran-update-data-wali-ps', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataWaliPs')->name('wave.validasi-pendaftaran-update-data-wali-ps');
+	Route::post('validasi-pendaftaran-update-data-riwayat-pendidikan', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataRiwayatPendidikan')->name('wave.validasi-pendaftaran-update-data-riwayat-pendidikan');
+	Route::post('validasi-pendaftaran-update-data-program-studi', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataProgramStudi')->name('wave.validasi-pendaftaran-update-data-program-studi');
+	Route::post('validasi-pendaftaran-update-data-dokumen', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataDokumen')->name('wave.validasi-pendaftaran-update-data-dokumen');	
+	Route::post('validasi-pendaftaran-update-data-pernyataan', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataPernyataan')->name('wave.validasi-pendaftaran-update-data-pernyataan');	
+	Route::get('validasi-pendaftaran-download-surat-pernyataan', '\Wave\Http\Controllers\ValidasiPendaftaranController@downloadSuratPernyataan')->name('wave.validasi-pendaftaran-download-surat-pernyataan');
 	
 });
 

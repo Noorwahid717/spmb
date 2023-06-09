@@ -51,7 +51,7 @@
     </div>
 </div>
 <input type="hidden" name="saveOrUpdateUrlStep2" id="saveOrUpdateUrlStep2"
-    value="{{route('wave.biodata-update-data-alamat')}}">
+    value="{{route('wave.validasi-pendaftaran-update-data-alamat')}}">
 
 {{-- button nav --}}
 @if($step_2!=null&&$step_2->status_step==1)
@@ -76,6 +76,29 @@
     </strong>
 </div>
 @endif
+@endif
+
+
+<div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="note_step_2">Catatan Validasi</label>
+            <textarea name="note_step_2" id="note_step_2" cols="30" rows="1" class="form-control mt-1"></textarea>
+        </div>
+    </div>
+    <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
+        <div class="form-group mb-5 text-xs mb-4">
+            <label for="lock_step_2">Status Validasi Data Alamat ?</label>
+            <select name="lock_step_2" id="lock_step_2" class="form-control mt-1">
+                <option value="-1">Belum Valid</option>
+                <option value="0" selected>Menunggu</option>
+                <option value="1">Sudah Valid</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
 <div id="button_manipulation_step_2">
     @if($step_2==null)
     <div style="display:flex; align-items:center; justify-content:center" id="save_step_2">
@@ -123,7 +146,8 @@
         </button>
     </div>
 </div>
-@endif
+
+
 <div class="flex flex-col px-3 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
         <button onclick="document.getElementById('tablinks1').click()"
