@@ -62,6 +62,8 @@
                     accept="image/*, .pdf" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_pernyataan" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-pernyataan" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_pernyataan" id="imgVal_dok_pernyataan">
