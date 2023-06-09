@@ -321,7 +321,8 @@
             $('#agama').val(step_1['id_agama']);            
             $('#citizenship').val(step_1['id_negara']+" - "+step_1['negara']);        
             $('#id_negara').val(step_1['id_negara']);  
-            $('#lock_step_1').val(step_1['status_step']);              
+            $('#lock_step_1').val(step_1['status_step']);    
+            $('#note_step_1').val(step_1['note']);                          
             disabledStep1();
         }
     }
@@ -344,6 +345,8 @@
         $('#citizenship').addClass('read_only');
         $('#lock_step_1').attr('disabled',true);  
         $('#lock_step_1').addClass('read_only');  
+        $('#note_step_1').attr('disabled',true);            
+        $('#note_step_1').addClass('read_only');          
     }
     function enabledStep1(){
         $('#nkk').attr('disabled',false);
@@ -364,6 +367,8 @@
         $('#citizenship').removeClass('read_only');
         $('#lock_step_1').attr('disabled',false);  
         $('#lock_step_1').removeClass('read_only');  
+        $('#note_step_1').attr('disabled',false);  
+        $('#note_step_1').removeClass('read_only');          
     }
     function ValidateStep1() {
         var nkk = $('#nkk').val();
@@ -377,6 +382,7 @@
         var negara = $('#citizenship').val().split(" - ")[1];        
         var id_negara = $('#id_negara').val();       
         var status_step = $('#lock_step_1').val();   
+        var note = $('#note_step_1').val();   
 
         if(nkk!=""){
             if(nik!=""){
@@ -386,7 +392,7 @@
                             if(tgllhr!=""){
                                 if(id_agama!=-1){
                                     if(id_negara!=""){
-                                        // saveOrUpdateStep1(nkk,nik,nama,gender,tmplhr,tgllhr,id_agama,agama,negara,id_negara,status_step);
+                                        saveOrUpdateStep1(nkk,nik,nama,gender,tmplhr,tgllhr,id_agama,agama,negara,id_negara,status_step,note);
                                     }else{
                                         Swal.fire({
                                             icon: 'error',
@@ -444,7 +450,7 @@
             });
         }
     }
-    function saveOrUpdateStep1(nkk,nik,nama,gender,tmplhr,tgllhr,id_agama,agama,negara,id_negara,status_step) {
+    function saveOrUpdateStep1(nkk,nik,nama,gender,tmplhr,tgllhr,id_agama,agama,negara,id_negara,status_step,note) {
         $('.containerr').show();
         console.log("dd");
         let datar = {};
@@ -460,6 +466,9 @@
         datar['agama']=agama;
         datar['negara']=negara;
         datar['id_negara']=id_negara;
+        datar['status_step']=status_step;
+        datar['note']=note;
+        datar['id_user']=@json($id_user);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -517,6 +526,8 @@
             $('#email').val(step_2['email']);
             $('#wa_camaba').val(step_2['no_hp_camaba']);
             $('#wa_wali').val(step_2['no_hp_ortu']);
+            $('#lock_step_2').val(step_2['status_step']);    
+            $('#note_step_2').val(step_2['note']);   
             disabledStep2();
         }
     }
@@ -541,6 +552,10 @@
         $('#wa_camaba').addClass('read_only');
         $('#wa_wali').attr('disabled',true);
         $('#wa_wali').addClass('read_only');
+        $('#lock_step_2').attr('disabled',true);  
+        $('#lock_step_2').addClass('read_only');
+        $('#note_step_2').attr('disabled',true);            
+        $('#note_step_2').addClass('read_only'); 
     }
     function enabledStep2(){
         $('#jalan').attr('disabled',false);
@@ -563,6 +578,10 @@
         $('#wa_camaba').removeClass('read_only');
         $('#wa_wali').attr('disabled',false);
         $('#wa_wali').removeClass('read_only');
+        $('#lock_step_2').attr('disabled',false);  
+        $('#lock_step_2').removeClass('read_only');  
+        $('#note_step_2').attr('disabled',false);  
+        $('#note_step_2').removeClass('read_only'); 
     }
     function ValidateStep2() {
         var jalan = $('#jalan').val();
@@ -576,17 +595,19 @@
         var email = $('#email').val();
         var wa_camaba = $('#wa_camaba').val();
         var wa_wali = $('#wa_wali').val();
+        var status_step = $('#lock_step_2').val();   
+        var note = $('#note_step_2').val();
 
         if(kelurahan!=""){
             if(id_wilayah!=""){
                 if(email!=""){
                     if(wa_camaba!=""){
                         if(wa_wali!=""){                            
-                            // saveOrUpdateStep2(
-                            //     jalan,dusun,rt,rw,kelurahan,
-                            //     kodepos,kecamatan,id_wilayah,
-                            //     email,wa_camaba,wa_wali
-                            // );
+                            saveOrUpdateStep2(
+                                jalan,dusun,rt,rw,kelurahan,
+                                kodepos,kecamatan,id_wilayah,
+                                email,wa_camaba,wa_wali,status_step,note
+                            );
                         }else{
                             Swal.fire({
                                 icon: 'error',
@@ -623,7 +644,7 @@
             });
         }
     }
-    function saveOrUpdateStep2(jalan,dusun,rt,rw,kelurahan,kodepos,kecamatan,id_wilayah,email,wa_camaba,wa_wali) {
+    function saveOrUpdateStep2(jalan,dusun,rt,rw,kelurahan,kodepos,kecamatan,id_wilayah,email,wa_camaba,wa_wali,status_step,note) {
         $('.containerr').show();
         var kec_split = kecamatan.split(' - ');
         let datar = {};
@@ -641,7 +662,10 @@
         datar['id_wilayah'] = id_wilayah;        
         datar['email'] = email;
         datar['wa_camaba'] = wa_camaba;
-        datar['wa_wali'] = wa_wali;        
+        datar['wa_wali'] = wa_wali;  
+        datar['status_step']=status_step;
+        datar['note']=note;      
+        datar['id_user']=@json($id_user);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -718,7 +742,9 @@
             $('#tgllhr_ibu').val(step_3['tanggal_lahir_ibu']);            
             $('#pendidikan_ibu').val(step_3['id_jenjang_pendidikan_ibu']);
             $('#pekerjaan_ibu').val(step_3['id_pekerjaan_ibu']);
-            $('#penghasilan_ibu').val(step_3['id_penghasilan_ibu']);      
+            $('#penghasilan_ibu').val(step_3['id_penghasilan_ibu']); 
+            $('#lock_step_3').val(step_3['status_step']);    
+            $('#note_step_3').val(step_3['note']);        
             disabledStep3();            
         }
     }
@@ -751,6 +777,10 @@
         $('#pekerjaan_ibu').addClass('read_only');
         $('#penghasilan_ibu').attr('disabled',true);
         $('#penghasilan_ibu').addClass('read_only');
+        $('#lock_step_3').attr('disabled',true);  
+        $('#lock_step_3').addClass('read_only');
+        $('#note_step_3').attr('disabled',true);            
+        $('#note_step_3').addClass('read_only'); 
     }
     function disabledAyahStep3(){
         $('#nik_ayah').attr('disabled',true);
@@ -809,6 +839,10 @@
         $('#pekerjaan_ibu').removeClass('read_only');
         $('#penghasilan_ibu').attr('disabled',false);
         $('#penghasilan_ibu').removeClass('read_only');
+        $('#lock_step_3').attr('disabled',false);  
+        $('#lock_step_3').removeClass('read_only');  
+        $('#note_step_3').attr('disabled',false);  
+        $('#note_step_3').removeClass('read_only'); 
     }
     function enabledAyahStep3(){
         $('#nik_ayah').attr('disabled',false);
@@ -863,6 +897,8 @@
         var pekerjaan_ibu = $('#pekerjaan_ibu option:selected').text();
         var id_penghasilan_ibu = $('#penghasilan_ibu option:selected').val();
         var penghasilan_ibu = $('#penghasilan_ibu option:selected').text();
+        var status_step = $('#lock_step_3').val();   
+        var note = $('#note_step_3').val();
 
         if(kondisi_ayah!=-1){
             if(kondisi_ayah==1){
@@ -873,7 +909,7 @@
                     pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
                     tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
                     id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-                    id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+                    id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
                 );
             }else{
                 if(kondisi_ibu!=-1){
@@ -885,16 +921,16 @@
                             pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
                             tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
                             id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-                            id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+                            id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
                         );
                     }else{
                         if(nama_ibu!=""){                            
                             // ayah meninggal, ibu meninggal
-                            // saveOrUpdateStep3(
-                            //     kondisi_ayah,null,null,null,null,null,null,
-                            //     kondisi_ibu,null,nama_ibu,null,null,null,
-                            //     null,-1,-1,-1,-1,-1,-1
-                            // )
+                            saveOrUpdateStep3(
+                                kondisi_ayah,null,null,null,null,null,null,
+                                kondisi_ibu,null,nama_ibu,null,null,null,
+                                null,-1,-1,-1,-1,-1,-1,status_step,note
+                            )
                         }else{
                             Swal.fire({
                                 icon: 'error',
@@ -924,7 +960,7 @@
         pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
         tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
         id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
     ) {
         if(nik_ayah!=""){
         if(nama_ayah!=""){
@@ -937,7 +973,7 @@
                 pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
                 tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
                 id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-                id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+                id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
             );
         }else{
             Swal.fire({
@@ -987,7 +1023,7 @@
         pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
         tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
         id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
     ) {
         if(kondisi_ibu!=-1){
                     if(kondisi_ibu==1){
@@ -999,13 +1035,13 @@
                         if(id_jenjang_pendidikan_ibu!=-1){
                         if(id_pekerjaan_ibu!=-1){
                         if(id_penghasilan_ibu!=-1){ 
-                            // saveOrUpdateStep3(
-                            //     kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
-                            //     pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
-                            //     tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
-                            //     id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-                            //     id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
-                            // );
+                            saveOrUpdateStep3(
+                                kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+                                pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
+                                tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+                                id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+                                id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
+                            );
                         }else{
                             Swal.fire({
                                 icon: 'error',
@@ -1051,11 +1087,11 @@
                     }else{
                         if(nama_ibu!=""){                            
                             // ayah meninggal, ibu meninggal
-                            // saveOrUpdateStep3(
-                            //     kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
-                            //     pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,null,nama_ibu,null,null,null,
-                            //     null,-1,-1,-1,id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
-                            // )
+                            saveOrUpdateStep3(
+                                kondisi_ayah,nik_ayah,nama_ayah,tgllhr_ayah,pendidikan_ayah,
+                                pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,null,nama_ibu,null,null,null,
+                                null,-1,-1,-1,id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
+                            )
                         }else{
                             Swal.fire({
                                 icon: 'error',
@@ -1077,7 +1113,7 @@
         pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
         tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
         id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
     ) {
         if(nik_ibu!=""){
         if(nama_ibu!=""){
@@ -1085,13 +1121,13 @@
         if(id_jenjang_pendidikan_ibu!=-1){
         if(id_pekerjaan_ibu!=-1){
         if(id_penghasilan_ibu!=-1){ 
-        //     saveOrUpdateStep3(
-        //     kondisi_ayah,null,null,null,null,
-        //     null,null,kondisi_ibu,nik_ibu,nama_ibu,
-        //     tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
-        //     id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-        //     -1,-1,-1
-        // );
+            saveOrUpdateStep3(
+            kondisi_ayah,null,null,null,null,
+            null,null,kondisi_ibu,nik_ibu,nama_ibu,
+            tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
+            id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
+            -1,-1,-1,status_step,note
+        );
         }else{
             Swal.fire({
                 icon: 'error',
@@ -1140,7 +1176,7 @@
         pekerjaan_ayah,penghasilan_ayah,kondisi_ibu,nik_ibu,nama_ibu,
         tgllhr_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,
         id_jenjang_pendidikan_ibu,id_pekerjaan_ibu,id_penghasilan_ibu,
-        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah
+        id_jenjang_pendidikan_ayah,id_pekerjaan_ayah,id_penghasilan_ayah,status_step,note
     ) {
         $('.containerr').show();
         let datar = {};
@@ -1166,6 +1202,9 @@
         datar['pekerjaan_ibu'] = pekerjaan_ibu;
         datar['id_penghasilan_ibu'] = id_penghasilan_ibu;
         datar['penghasilan_ibu'] = penghasilan_ibu;
+        datar['status_step']=status_step;
+        datar['note']=note;
+        datar['id_user']=@json($id_user);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1230,6 +1269,8 @@
             }else{
                 $('#form_wali').addClass( "hidden" );
             }
+            $('#lock_step_4').val(step_4['status_step']);    
+            $('#note_step_4').val(step_4['note']);   
             disabledStep4();
         }
     }
@@ -1327,6 +1368,10 @@
         $("#penerima_kps").addClass('read_only');
         $("#nomor_kps").attr('disabled',true);
         $("#nomor_kps").addClass('read_only');
+        $('#lock_step_4').attr('disabled',true);  
+        $('#lock_step_4').addClass('read_only');
+        $('#note_step_4').attr('disabled',true);            
+        $('#note_step_4').addClass('read_only'); 
     }
     function enabledStep4(){
         $("#pilihan_wali").attr('disabled',false);
@@ -1347,6 +1392,10 @@
         $("#penerima_kps").removeClass('read_only');
         $("#nomor_kps").attr('disabled',false);
         $("#nomor_kps").removeClass('read_only');
+        $('#lock_step_4').attr('disabled',false);  
+        $('#lock_step_4').removeClass('read_only');  
+        $('#note_step_4').attr('disabled',false);  
+        $('#note_step_4').removeClass('read_only'); 
     }
     function ValidateStep4() {
         var pilihan_wali = $("#pilihan_wali option:selected").val();
@@ -1361,6 +1410,8 @@
         var penghasilan_wali = $("#penghasilan_wali option:selected").text();
         var penerima_kps = $("#penerima_kps option:selected").val();
         var nomor_kps = $("#nomor_kps").val();  
+        var status_step = $('#lock_step_4').val();   
+        var note = $('#note_step_4').val();
 
         if(pilihan_wali!=-1){
         if(nik_wali!=""){
@@ -1372,12 +1423,12 @@
         if(penerima_kps!=-1){
             if(penerima_kps==1){
                 if(nomor_kps!=""){                          
-                // saveOrUpdateStep4(
-                //     pilihan_wali,nik_wali,nama_wali,tgllhr_wali,
-                //     id_jenjang_pendidikan_wali,pendidikan_wali,
-                //     id_pekerjaan_wali,pekerjaan_wali,id_penghasilan_wali,
-                //     penghasilan_wali,penerima_kps,nomor_kps  
-                // );        
+                saveOrUpdateStep4(
+                    pilihan_wali,nik_wali,nama_wali,tgllhr_wali,
+                    id_jenjang_pendidikan_wali,pendidikan_wali,
+                    id_pekerjaan_wali,pekerjaan_wali,id_penghasilan_wali,
+                    penghasilan_wali,penerima_kps,nomor_kps,status_step,note
+                );        
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -1386,12 +1437,12 @@
                     });
                 }
             }else{
-                // saveOrUpdateStep4(
-                //     pilihan_wali,nik_wali,nama_wali,tgllhr_wali,
-                //     id_jenjang_pendidikan_wali,pendidikan_wali,
-                //     id_pekerjaan_wali,pekerjaan_wali,id_penghasilan_wali,
-                //     penghasilan_wali,penerima_kps,nomor_kps
-                // );   
+                saveOrUpdateStep4(
+                    pilihan_wali,nik_wali,nama_wali,tgllhr_wali,
+                    id_jenjang_pendidikan_wali,pendidikan_wali,
+                    id_pekerjaan_wali,pekerjaan_wali,id_penghasilan_wali,
+                    penghasilan_wali,penerima_kps,nomor_kps,status_step,note
+                );   
             }
         }else{
             Swal.fire({
@@ -1454,7 +1505,7 @@
         pilihan_wali,nik_wali,nama_wali,tgllhr_wali,
         id_jenjang_pendidikan_wali,pendidikan_wali,
         id_pekerjaan_wali,pekerjaan_wali,id_penghasilan_wali,
-        penghasilan_wali,penerima_kps,nomor_kps
+        penghasilan_wali,penerima_kps,nomor_kps,status_step,note
     ) {
         $('.containerr').show();
         let datar = {};
@@ -1472,6 +1523,9 @@
         datar['penghasilan_wali'] = penghasilan_wali;
         datar['is_kps'] = penerima_kps;
         datar['no_kps'] = nomor_kps;
+        datar['status_step']=status_step;
+        datar['note']=note;
+        datar['id_user']=@json($id_user);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1522,7 +1576,9 @@
             $("#jenis_pendidikan_asal").val(step_5['jenis_pendidikan_asal']);
             $("#nama_pendidikan_asal").val(step_5['nama_pendidikan_asal']);
             $("#nisn").val(step_5['nisn']);
-            $("#alamat_pendidikan_asal").val(step_5['alamat_pendidikan_asal']);            
+            $("#alamat_pendidikan_asal").val(step_5['alamat_pendidikan_asal']);  
+            $('#lock_step_5').val(step_5['status_step']);    
+            $('#note_step_5').val(step_5['note']);             
             disabledStep5();
         }
     }
@@ -1538,7 +1594,11 @@
         $("#nisn").attr('disabled',true);
         $("#nisn").addClass('read_only');
         $("#alamat_pendidikan_asal").attr('disabled',true);
-        $("#alamat_pendidikan_asal").addClass('read_only');        
+        $("#alamat_pendidikan_asal").addClass('read_only'); 
+        $('#lock_step_5').attr('disabled',true);  
+        $('#lock_step_5').addClass('read_only');    
+        $('#note_step_5').attr('disabled',true);            
+        $('#note_step_5').addClass('read_only');    
     }
     function enabledStep5(){
         $("#alumni_smawa").attr('disabled',false);
@@ -1553,6 +1613,10 @@
         $("#nisn").removeClass('read_only');
         $("#alamat_pendidikan_asal").attr('disabled',false);
         $("#alamat_pendidikan_asal").removeClass('read_only');
+        $('#lock_step_5').attr('disabled',false);  
+        $('#lock_step_5').removeClass('read_only');  
+        $('#note_step_5').attr('disabled',false);  
+        $('#note_step_5').removeClass('read_only'); 
     }
     function ValidateStep5() {
         var is_alumni = $("#alumni_smawa option:selected").val();
@@ -1561,6 +1625,8 @@
         var nama_pendidikan_asal = $("#nama_pendidikan_asal").val();
         var nisn = $("#nisn").val();
         var alamat_pendidikan_asal = $("#alamat_pendidikan_asal").val();        
+        var status_step = $('#lock_step_5').val();   
+        var note = $('#note_step_5').val();
 
         if(is_alumni!=-1){
         if(pendidikan_asal!=-1){
@@ -1568,10 +1634,10 @@
         if(nama_pendidikan_asal!=""){
         if(nisn!=""){
         if(alamat_pendidikan_asal!=""){
-            // saveOrUpdateStep5(
-            //     is_alumni,pendidikan_asal,jenis_pendidikan_asal,nama_pendidikan_asal,
-            //     nisn,alamat_pendidikan_asal                    
-            // );                
+            saveOrUpdateStep5(
+                is_alumni,pendidikan_asal,jenis_pendidikan_asal,nama_pendidikan_asal,
+                nisn,alamat_pendidikan_asal,status_step,note                    
+            );                
         }else{
             Swal.fire({
                 icon: 'error',
@@ -1617,7 +1683,7 @@
     }
     function saveOrUpdateStep5(
         is_alumni,pendidikan_asal,jenis_pendidikan_asal,
-        nama_pendidikan_asal,nisn,alamat_pendidikan_asal
+        nama_pendidikan_asal,nisn,alamat_pendidikan_asal,status_step,note
     ) {
         $('.containerr').show();
         let datar = {};
@@ -1629,6 +1695,9 @@
         datar['nama_pendidikan_asal'] = nama_pendidikan_asal;
         datar['nisn'] = nisn;
         datar['alamat_pendidikan_asal'] = alamat_pendidikan_asal;
+        datar['status_step']=status_step;
+        datar['note']=note;
+        datar['id_user']=@json($id_user);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1677,6 +1746,8 @@
             $("#ta").val(step_6['tahun_akademik_registrasi']);
             $("#prodi_1").val(step_6['id_program_studi_1']);
             $("#prodi_2").val(step_6['id_program_studi_2']);
+            $('#lock_step_6').val(step_6['status_step']);    
+            $('#note_step_6').val(step_6['note']);   
             disabledStep6();
         }
     }
@@ -1687,6 +1758,10 @@
         $("#prodi_1").addClass('read_only');
         $("#prodi_2").attr('disabled',true);
         $("#prodi_2").addClass('read_only');
+        $('#lock_step_6').attr('disabled',true);  
+        $('#lock_step_6').addClass('read_only');
+        $('#note_step_6').attr('disabled',true);            
+        $('#note_step_6').addClass('read_only'); 
     }
     function enabledStep6(){
         $("#ta").attr('disabled',false);
@@ -1695,19 +1770,25 @@
         $("#prodi_1").removeClass('read_only');
         $("#prodi_2").attr('disabled',false);
         $("#prodi_2").removeClass('read_only');
+        $('#lock_step_6').attr('disabled',false);  
+        $('#lock_step_6').removeClass('read_only');  
+        $('#note_step_6').attr('disabled',false);  
+        $('#note_step_6').removeClass('read_only'); 
     }
     function ValidateStep6() {
         var tahun_akademik_registrasi = $("#ta").val();
         var id_program_studi_1 = $("#prodi_1 option:selected").val();
         var id_program_studi_2 = $("#prodi_2 option:selected").val();
+        var status_step = $('#lock_step_6').val();   
+        var note = $('#note_step_6').val();
 
         if(id_program_studi_1!=-1){
         if(id_program_studi_2!=-1){
-            // saveOrUpdateStep6(
-            //     tahun_akademik_registrasi,
-            //     id_program_studi_1,
-            //     id_program_studi_2                                    
-            // );                        
+            saveOrUpdateStep6(
+                tahun_akademik_registrasi,
+                id_program_studi_1,
+                id_program_studi_2,status_step,note                                  
+            );                        
         }else{
             Swal.fire({
                 icon: 'error',
@@ -1726,7 +1807,7 @@
     function saveOrUpdateStep6(
         tahun_akademik_registrasi,
         id_program_studi_1,
-        id_program_studi_2 
+        id_program_studi_2,status_step,note 
     ) {
         $('.containerr').show();
         let datar = {};
@@ -1735,6 +1816,9 @@
         datar['tahun_akademik_registrasi'] = tahun_akademik_registrasi;
         datar['id_program_studi_1'] = id_program_studi_1;
         datar['id_program_studi_2'] = id_program_studi_2;
+        datar['status_step']=status_step;
+        datar['note']=note;
+        datar['id_user']=@json($id_user);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1859,7 +1943,8 @@
             if(step_7["url_nilai_rapor_b64"]!=null&&step_7["url_nilai_rapor_b64"]!=""&&step_7["url_nilai_rapor_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
                 $('.pdf-dok-rapor').removeClass('hidden');
             }
-
+            $('#lock_step_7').val(step_7['status_step']);    
+            $('#note_step_7').val(step_7['note']);   
 
             disabledStep7();
         }else{
@@ -1916,6 +2001,10 @@
         $("#dok_nilai_ujian_sekolah").addClass('read_only');
         $("#dok_nilai_rapor").attr('disabled',true);
         $("#dok_nilai_rapor").addClass('read_only');
+        $('#lock_step_7').attr('disabled',true);  
+        $('#lock_step_7').addClass('read_only');
+        $('#note_step_7').attr('disabled',true);            
+        $('#note_step_7').addClass('read_only'); 
     }
     function enabledStep7(){
         $("#dok_ktp_camaba").attr('disabled',false);
@@ -1938,6 +2027,10 @@
         $("#dok_nilai_ujian_sekolah").removeClass('read_only');
         $("#dok_nilai_rapor").attr('disabled',false);
         $("#dok_nilai_rapor").removeClass('read_only');
+        $('#lock_step_7').attr('disabled',false);  
+        $('#lock_step_7').removeClass('read_only');  
+        $('#note_step_7').attr('disabled',false);  
+        $('#note_step_7').removeClass('read_only'); 
     }
     function readDokKTPCamaba() {
         if (this.files && this.files[0]) {
@@ -2050,6 +2143,8 @@
         var dok_ijasah = $("#imgVal_dok_ijasah").val();
         var dok_nilai_ujian_sekolah = $("#imgVal_dok_nilai_ujian_sekolah").val();
         var dok_nilai_rapor = $("#imgVal_dok_nilai_rapor").val();
+        var status_step = $('#lock_step_7').val();   
+        var note = $('#note_step_7').val();
 
         if(dok_ktp_camaba!=""){
         if(calc_image_size(dok_ktp_camaba)<=3000){                        
@@ -2071,10 +2166,10 @@
         if(calc_image_size(dok_nilai_ujian_sekolah)<=3000){                        
         if(dok_nilai_rapor!=""){
         if(calc_image_size(dok_nilai_rapor)<=3000){                        
-            // saveOrUpdateStep7(
-            //     dok_ktp_camaba,dok_pas_foto_camaba,dok_ktp_ayah,dok_ktp_ibu,dok_kk,
-            //     dok_ktp_wali,dok_akta,dok_ijasah,dok_nilai_ujian_sekolah,dok_nilai_rapor
-            // );
+            saveOrUpdateStep7(
+                dok_ktp_camaba,dok_pas_foto_camaba,dok_ktp_ayah,dok_ktp_ibu,dok_kk,
+                dok_ktp_wali,dok_akta,dok_ijasah,dok_nilai_ujian_sekolah,dok_nilai_rapor,status_step,note
+            );
         }else{
             Swal.fire({
                 icon: 'error',
@@ -2218,7 +2313,7 @@
     }
     function saveOrUpdateStep7(
         dok_ktp_camaba,dok_pas_foto_camaba,dok_ktp_ayah,dok_ktp_ibu,dok_kk,
-        dok_ktp_wali,dok_akta,dok_ijasah,dok_nilai_ujian_sekolah,dok_nilai_rapor
+        dok_ktp_wali,dok_akta,dok_ijasah,dok_nilai_ujian_sekolah,dok_nilai_rapor,status_step,note
     ) {
         $('.containerr').show();
         let datar = {};
@@ -2234,6 +2329,9 @@
         datar['dok_ijasah'] = dok_ijasah;
         datar['dok_nilai_ujian_sekolah'] = dok_nilai_ujian_sekolah;
         datar['dok_nilai_rapor'] = dok_nilai_rapor;
+        datar['status_step']=status_step;
+        datar['note']=note;
+        datar['id_user']=@json($id_user);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2288,9 +2386,11 @@
             }
             $("#imgVal_dok_pernyataan").val(step_8["url_surat_pernyataan_b64"]);    
             $("#thumb_pernyataan").attr('src',step_8["url_surat_pernyataan_b64"]); 
-            if(step_7["url_surat_pernyataan_b64"]!=null&&step_7["url_surat_pernyataan_b64"]!=""&&step_7["url_surat_pernyataan_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
+            if(step_8["url_surat_pernyataan_b64"]!=null&&step_8["url_surat_pernyataan_b64"]!=""&&step_8["url_surat_pernyataan_b64"].match(/[^:/]\w+(?=;|,)/)[0]=="pdf"){
                 $('.pdf-dok-pernyataan').removeClass('hidden');
             }
+            $('#lock_step_8').val(step_8['status_step']);    
+            $('#note_step_8').val(step_8['note']);   
 
             disabledStep8();
         }else{
@@ -2304,12 +2404,20 @@
         $("#sanggup_mondok").addClass('read_only');
         $("#dok_pernyataan").attr('disabled',true);
         $("#dok_pernyataan").addClass('read_only');
+        $('#lock_step_8').attr('disabled',true);  
+        $('#lock_step_8').addClass('read_only');
+        $('#note_step_8').attr('disabled',true);            
+        $('#note_step_8').addClass('read_only'); 
     }
     function enabledStep8(){
         $("#sanggup_mondok").attr('disabled',false);
         $("#sanggup_mondok").removeClass('read_only');
         $("#dok_pernyataan").attr('disabled',false);
         $("#dok_pernyataan").removeClass('read_only');
+        $('#lock_step_8').attr('disabled',false);  
+        $('#lock_step_8').removeClass('read_only');  
+        $('#note_step_8').attr('disabled',false);  
+        $('#note_step_8').removeClass('read_only'); 
     }
     function readDokPernyataan() {
         if (this.files && this.files[0]) {
@@ -2333,6 +2441,8 @@
         var sanggup_mondok = $("#sanggup_mondok option:selected").val();
         var sanggup_tidak_menikah = $("#sanggup_tidak_menikah option:selected").val();
         var dok_pernyataan = $("#imgVal_dok_pernyataan").val();
+        var status_step = $('#lock_step_8').val();   
+        var note = $('#note_step_8').val();
         
         if(step_1!=null&&step_1['status_step']==1
         &&step_2!=null&&step_2['status_step']==1
@@ -2345,9 +2455,9 @@
             if(sanggup_mondok!=-1){
                 if(dok_pernyataan!=""){
                     if(calc_image_size(dok_pernyataan)<=3000){                        
-                        // saveOrUpdateStep8(
-                        //     sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan                                    
-                        // );
+                        saveOrUpdateStep8(
+                            sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan,status_step,note                                    
+                        );
                     }else{
                         Swal.fire({
                             icon: 'error',
@@ -2379,7 +2489,7 @@
         
     }
     function saveOrUpdateStep8(
-        sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan
+        sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan,status_step,note
     ) {
         $('.containerr').show();
         let datar = {};
@@ -2388,6 +2498,9 @@
         datar['sanggup_mondok'] = sanggup_mondok;
         datar['sanggup_tidak_menikah'] = sanggup_tidak_menikah;
         datar['dok_pernyataan'] = dok_pernyataan;
+        datar['status_step']=status_step;
+        datar['note']=note;
+        datar['id_user']=@json($id_user);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2439,6 +2552,8 @@
         var sanggup_mondok = $("#sanggup_mondok option:selected").val();
         var sanggup_tidak_menikah = $("#sanggup_tidak_menikah option:selected").val();
         var dok_pernyataan = $("#imgVal_dok_pernyataan").val();
+        var status_step = $('#lock_step_8').val();   
+        var note = $('#note_step_8').val();
 
         if(step_1!=null&&step_1['status_step']==1
         &&step_2!=null&&step_2['status_step']==1
@@ -2449,7 +2564,7 @@
         &&step_7!=null&&step_7['status_step']==1
         ){
             if(sanggup_mondok!=-1){
-                approveDownloadSuratPernyataan(sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan);
+                approveDownloadSuratPernyataan(sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan,status_step,note);
             }else{
                 Swal.fire({
                     icon: 'error',
@@ -2466,7 +2581,7 @@
         }
     }
 
-    function approveDownloadSuratPernyataan(sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan) {
+    function approveDownloadSuratPernyataan(sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan,status_step,note) {
         var contents = null;
         if(sanggup_mondok==0){
             contents = 'Dengan ini saya menyatakan <strong>tinggal bersama orang tua kandung/wali dalam area karisidenan kediri dan tidak tinggal ditempat lain, selain bersama orang tua kandung/wali</strong>, serta sanggup untuk tidak menikah selama kuliah!';            
@@ -2484,10 +2599,10 @@
                 reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {  
-                        // saveOrUpdateStep8(
-                        //     sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan                                    
-                        // ); 
-                        window.open($('#urlDownloadSuratPernyataan').val(), '_blank');           
+                        saveOrUpdateStep8(
+                            sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan,status_step,note                                 
+                        ); 
+                        window.open($('#urlDownloadSuratPernyataan').val()+'?id_user='+@json($id_user), '_blank');           
                     } 
             });
     }
