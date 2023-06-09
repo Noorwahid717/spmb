@@ -33,7 +33,27 @@
 
 {{-- button nav --}}
 @if($step_6!=null&&$step_6->status_step==1)
+<div class="note-success my-5 py-5">
+    <img src="{{ asset('/themes/tailwind/images/lock-check.png') }}" class="w-20 rounded sm:mx-auto">
+    <strong>
+        DATA TELAH DIVALIDASI ADMIN PENDAFTARAN
+    </strong>
+</div>
 @else
+@if($step_6!=null&&$step_6->note!=null&&$step_6->note!="")
+<div class="note-error mb-5 py-2">
+    <strong>
+        DATA/DOKUMEN BELUM VALID !!!
+    </strong>
+    <p>{{$step_6->note}}</p>
+</div>
+@elseif($step_6!=null&&$step_6->note==null&&$step_6->note=="")
+<div class="note-error mb-5 py-2">
+    <strong>
+        MENUNGGU VALIDASI DATA/DOKUMEN OLEH ADMIN PENDAFTARAN !!!
+    </strong>
+</div>
+@endif
 <div id="button_manipulation_step_6">
     @if($step_6==null)
     <div style="display:flex; align-items:center; justify-content:center" id="save_step_6">
