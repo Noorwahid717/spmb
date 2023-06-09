@@ -2,7 +2,8 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ktp_camaba">Dokumen KTP Calon Mahasiswa <span class="text-red">*</span></label>
+                <label for="dok_ktp_camaba">Dokumen KTP Calon Mahasiswa <span class="text-red">*</span> (maks.
+                    ukuran 3 MB)</label>
                 <a target="_blank" id="link_ktp_camaba" class="text-wave-500" style="display:flex;" disabled="disabled">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -16,13 +17,16 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ktp_camaba" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ktp-camaba" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ktp_camaba" id="imgVal_dok_ktp_camaba">
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="pas_foto_camaba">Pas Foto Calon Mahasiswa <span class="text-red">*</span></label>
+                <label for="pas_foto_camaba">Pas Foto Calon Mahasiswa <span class="text-red">*</span> (maks.
+                    ukuran 3 MB)</label>
                 <a target="_blank" id="link_foto_camaba" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -36,13 +40,16 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_foto_camaba" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-foto" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_foto_camaba" id="imgVal_dok_foto_camaba">
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ktp_ayah">Dokumen KTP Ayah <span class="text-red">*</span></label>
+                <label for="dok_ktp_ayah">Dokumen KTP Ayah <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_ktp_ayah" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -56,13 +63,16 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ktp_ayah" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ktp-ayah" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ktp_ayah" id="imgVal_dok_ktp_ayah">
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ktp_ibu">Dokumen KTP Ibu <span class="text-red">*</span></label>
+                <label for="dok_ktp_ibu">Dokumen KTP Ibu <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_ktp_ibu" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -76,13 +86,16 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ktp_ibu" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ktp-ibu" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ktp_ibu" id="imgVal_dok_ktp_ibu">
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_kk">Dokumen Kartu Keluarga <span class="text-red">*</span></label>
+                <label for="dok_kk">Dokumen Kartu Keluarga <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_kk" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -96,6 +109,8 @@
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_kk" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}" class="w-10 rounded sm:mx-auto pdf-dok-kk"
+                        style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_kk" id="imgVal_dok_kk">
@@ -104,7 +119,8 @@
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ktp_wali">Dokumen KTP Wali <span class="text-red">*</span></label>
+                <label for="dok_ktp_wali">Dokumen KTP Wali <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_ktp_wali" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -118,13 +134,16 @@
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ktp_wali" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ktp-wali" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ktp_wali" id="imgVal_dok_ktp_wali">
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_akta">Dokumen Akta Kelahiran Calon Mahasiswa <span class="text-red">*</span></label>
+                <label for="dok_akta">Dokumen Akta Kelahiran Calon Mahasiswa <span class="text-red">*</span> (maks.
+                    ukuran 3 MB)</label>
                 <a target="_blank" id="link_akta" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -138,14 +157,16 @@
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_akta" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-akta" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_akta" id="imgVal_dok_akta">
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_ijasah">Dokumen Ijasah SMA/Sederajat Calon Mahasiswa <span
-                        class="text-red">*</span></label>
+                <label for="dok_ijasah">Dokumen Ijasah SMA/Sederajat Calon Mahasiswa <span class="text-red">*</span>
+                    (maks. ukuran 3 MB)</label>
                 <a target="_blank" id="link_ijasah" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -159,13 +180,16 @@
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_ijasah" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ijasah" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_ijasah" id="imgVal_dok_ijasah">
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_nilai_ujian">Dokumen Nilai Ujian Sekolah <span class="text-red">*</span></label>
+                <label for="dok_nilai_ujian">Dokumen Nilai Ujian Sekolah <span class="text-red">*</span> (maks.
+                    ukuran 3 MB)</label>
                 <a target="_blank" id="link_nilai_ujian_sekolah" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -179,13 +203,16 @@
                     value="" accept="image/*, .pdf" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_nilai_ujian_sekolah" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-ujian" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_nilai_ujian_sekolah" id="imgVal_dok_nilai_ujian_sekolah">
         </div>
         <div class="form-group mb-5 text-xs">
             <div style="display:flex;justify-content: space-between;">
-                <label for="dok_nilai_rapor">Dokumen Nilai Rapor <span class="text-red">*</span></label>
+                <label for="dok_nilai_rapor">Dokumen Nilai Rapor <span class="text-red">*</span> (maks. ukuran 3
+                    MB)</label>
                 <a target="_blank" id="link_nilai_rapor" class="text-wave-500" style="display: flex">
                     <svg style="width: 18px;margin-right:3px" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -199,6 +226,8 @@
                     accept="image/*, .pdf" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
                     <img id="thumb_nilai_rapor" src="" alt="" class="thumb_doc">
+                    <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
+                        class="w-10 rounded sm:mx-auto pdf-dok-rapor" style="float: right">
                 </div>
             </div>
             <input type="hidden" name="imgVal_dok_nilai_rapor" id="imgVal_dok_nilai_rapor">
@@ -211,7 +240,27 @@
 
 {{-- button nav --}}
 @if($step_7!=null&&$step_7->status_step==1)
+<div class="note-success my-5 py-5">
+    <img src="{{ asset('/themes/tailwind/images/lock-check.png') }}" class="w-20 rounded sm:mx-auto">
+    <strong>
+        DATA TELAH DIVALIDASI ADMIN PENDAFTARAN
+    </strong>
+</div>
 @else
+@if($step_7!=null&&$step_7->note!=null&&$step_7->note!="")
+<div class="note-error mb-5 py-2">
+    <strong>
+        DATA/DOKUMEN BELUM VALID !!!
+    </strong>
+    <p>{{$step_7->note}}</p>
+</div>
+@elseif($step_7!=null&&$step_7->note==null&&$step_7->note=="")
+<div class="note-error mb-5 py-2">
+    <strong>
+        MENUNGGU VALIDASI DATA/DOKUMEN OLEH ADMIN PENDAFTARAN !!!
+    </strong>
+</div>
+@endif
 <div id="button_manipulation_step_7">
     @if($step_7==null)
     <div style="display:flex; align-items:center; justify-content:center" id="save_step_7">
