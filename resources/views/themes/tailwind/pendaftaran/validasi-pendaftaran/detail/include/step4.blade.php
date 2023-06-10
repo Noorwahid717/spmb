@@ -10,6 +10,12 @@
                 <option value="2">Berbeda</option>
             </select>
         </div>
+        <div class="note-warning mb-5 py-2 px-2">
+            <strong>Catatan:</strong>
+            Apabila salah satu dari kedua orang tua kandung masih hidup, maka isian data wali wajib mengambil salah satu
+            dari data orang tua kandung, tetapi bila kedua orang tua kandung sudah meninggal, maka data isian wali boleh
+            diisi dengan data orang lain atau keluarga terdekat yang bertanggung jawab atas isi dalam surat pernyataan.
+        </div>
         <div id="form_wali">
             <div class="form-group mb-5 text-xs">
                 <label for="nik_wali">Nomor Induk Kependudukan Wali <span class="text-red">*</span></label>
