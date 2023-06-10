@@ -46,8 +46,8 @@
                 <div class="form-group mb-5 text-xs ml-3" style="max-width: 250px">
                     <label for="is_valid_option">Filter <strong>VAL.PENDAFTARAN</strong>:</label>
                     <select name="is_valid_option" id="is_valid_option" class="form-control mt-1 is_valid_option">
-                        <option value="all">--Semua--</option>
-                        <option value="0" selected>Menunggu</option>
+                        <option value="all" selected>--Semua--</option>
+                        <option value="0">Menunggu</option>
                         <option value="1">Valid</option>
                         <option value="-1">Belum Valid</option>
                     </select>
