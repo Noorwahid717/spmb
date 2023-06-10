@@ -267,3 +267,11 @@
         text-align: center;
         border-radius: 5px;
       }
+
+      .note-warning{
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        text-align: justify;
+        border-radius: 5px;
+      }
