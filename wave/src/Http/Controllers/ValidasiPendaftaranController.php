@@ -296,6 +296,7 @@ class ValidasiPendaftaranController extends Controller
                 $user->name = $data->nama; 
                 $user->nik = $data->nik;
                 $user->save(); 
+                self::updateStatus($req->id_user);
             }else{
                 $res['error']=true;
                 $res['message']="Data pokok gagal disimpan!";
@@ -347,6 +348,7 @@ class ValidasiPendaftaranController extends Controller
                 $user->no_hp_camaba = $data->no_hp_camaba; 
                 $user->no_hp_ortu = $data->no_hp_ortu;
                 $user->save();
+                self::updateStatus($req->id_user);
             }else{
                 $res['error']=true;
                 $res['message']="Data alamat gagal disimpan!";
@@ -400,6 +402,7 @@ class ValidasiPendaftaranController extends Controller
 
             if($data->save()){
                 $res['message']="Data orang tua berhasil disimpan.";
+                self::updateStatus($req->id_user);
             }else{
                 $res['error']=true;
                 $res['message']="Data orang tua gagal disimpan!";
@@ -445,6 +448,7 @@ class ValidasiPendaftaranController extends Controller
 
             if($data->save()){
                 $res['message']="Data wali & perlindungan sosial berhasil disimpan.";
+                self::updateStatus($req->id_user);
             }else{
                 $res['error']=true;
                 $res['message']="Data wali & perlindungan sosial gagal disimpan!";
@@ -484,6 +488,7 @@ class ValidasiPendaftaranController extends Controller
 
             if($data->save()){
                 $res['message']="Data riwayat pendidikan berhasil disimpan.";
+                self::updateStatus($req->id_user);
             }else{
                 $res['error']=true;
                 $res['message']="Data riwayat pendidikan gagal disimpan!";
@@ -520,6 +525,7 @@ class ValidasiPendaftaranController extends Controller
 
             if($data->save()){
                 $res['message']="Data program studi berhasil disimpan.";
+                self::updateStatus($req->id_user);
             }else{
                 $res['error']=true;
                 $res['message']="Data program studi gagal disimpan!";
@@ -664,6 +670,7 @@ class ValidasiPendaftaranController extends Controller
                         unlink($fpNilaiRapor);
                     }
                 }
+                self::updateStatus($req->id_user);
             }else{
                 $res['error']=true;
                 $res['message']="Data dokumen gagal disimpan!";
@@ -801,7 +808,7 @@ class ValidasiPendaftaranController extends Controller
                     // save status
                     $data = UserSpmbStep::where('user_id',$req->id_user)->first();
                     $data->step_3 = 1;
-                    $data->step_4 = 1;
+                    // $data->step_4 = 1;
                     $data->step_5 = 1;
                     $data->step_6 = 1;
                     $data->save();
@@ -811,6 +818,7 @@ class ValidasiPendaftaranController extends Controller
                     $data->step_6 = 0;
                     $data->save();
                 }
+                self::updateStatus($req->id_user);
             }else{
                 $res['error']=true;
                 $res['message']="Data program studi gagal disimpan!";
@@ -1127,5 +1135,69 @@ class ValidasiPendaftaranController extends Controller
             $res['message']=$e->getMessage();
         }
         return response()->json($res);
+    }
+
+    public static function updateStatus($id_user)
+    {
+        $data = UserSpmbStep::where('user_id',$id_user)->first();
+        $step_1=CamabaDataPokok::where('id_user',$id_user)->first();
+        $step_2=CamabaDataAlamat::where('id_user',$id_user)->first();
+        $step_3=CamabaDataOrtu::where('id_user',$id_user)->first();
+        $step_4=CamabaDataWaliPs::where('id_user',$id_user)->first();
+        $step_5=CamabaDataRiwayatPendidikan::where('id_user',$id_user)->first();
+        $step_6=CamabaDataProgramStudi::where('id_user',$id_user)->first();
+        $step_7=CamabaDataDokumen::where('id_user',$id_user)->first();
+        $step_8=CamabaDataPernyataan::where('id_user',$id_user)->first();
+        
+        $status_step_1=null;
+        if($step_1!=null){
+            $status_step_1 = $step_1->status_step;
+        }
+        $status_step_2=null;
+        if($step_2!=null){
+            $status_step_2 = $step_2->status_step;
+        }
+        $status_step_3=null;
+        if($step_3!=null){
+            $status_step_3 = $step_3->status_step;
+        }
+        $status_step_4=null;
+        if($step_4!=null){
+            $status_step_4 = $step_4->status_step;
+        }
+        $status_step_5=null;
+        if($step_5!=null){
+            $status_step_5 = $step_5->status_step;
+        }
+        $status_step_6=null;
+        if($step_6!=null){
+            $status_step_6 = $step_6->status_step;
+        }
+        $status_step_7=null;
+        if($step_7!=null){
+            $status_step_7 = $step_7->status_step;
+        }
+        $status_step_8=null;
+        if($step_8!=null){
+            $status_step_8 = $step_8->status_step;
+        }
+
+        if(
+            $status_step_1==1&&
+            $status_step_2==1&&
+            $status_step_3==1&&
+            $status_step_4==1&&
+            $status_step_5==1&&
+            $status_step_6==1&&
+            $status_step_7==1
+        ){
+            $data->step_3 = 1;
+            $data->step_5 = 1;
+            $data->step_6 = $status_step_8==null?0:$status_step_8;
+        }else{
+            $data->step_5 = 0;
+            $data->step_6 = 0;
+        }
+        $data->save();
     }
 }
