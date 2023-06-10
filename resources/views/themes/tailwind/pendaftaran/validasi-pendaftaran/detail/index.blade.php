@@ -2606,5 +2606,47 @@
                     } 
             });
     }
+
+    function rotateImage(table,id_user,column) {        
+        $('.containerr').show();
+        let datar = {};
+        datar['_method']='POST';
+        datar['_token']=$('._token').data('token');
+        datar['id_user'] = id_user;
+        datar['table'] = table;
+        datar['column'] = column;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#rotateImageUrl").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    // location.reload();
+                    if(table=="pernyataan"){
+                        window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=8" );
+                    }else if(table=="dokumen"){
+                        window.location.href = window.location.href.replace( /[\?#].*|$/, "?tab=7" );                        
+                    }
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
 </script>
 @endsection

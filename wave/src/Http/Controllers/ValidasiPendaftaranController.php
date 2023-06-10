@@ -26,6 +26,7 @@ use Illuminate\Support\Arr;
 use Str;
 use Image;
 use PDF;
+use Storage;
 
 class ValidasiPendaftaranController extends Controller
 {
@@ -867,5 +868,264 @@ class ValidasiPendaftaranController extends Controller
             // 'ldate'=>CustomFormat::tgl_indo($keyy),
         ])->setPaper(array(0,0,609.4488,935.433), 'portrait');
         return $pdf->stream();
+    }
+
+    public function rotateImage(Request $req)
+    {        
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            if($req->table=="pernyataan"){
+                header( "Content-type: image/png" );
+                $data = CamabaDataPernyataan::where('id_user',$req->id_user)->first();
+                // define path to your image
+                $dataImage = storage_path(). '/app/public/'.$data->url_surat_pernyataan;
+                // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                $filename = file_get_contents($dataImage);            
+                // Load the image as jpeg
+                $source = imagecreatefromstring($filename);
+                // Rotate 90 degrees
+                $rotate = imagerotate($source, -90, 0);
+                // Save the image as jpeg to your system
+                $imageName = 'surat_pernyataan/'.Str::random(50).'.png';
+                imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                // Destroy loaded image to free memory
+                imagedestroy($source);
+                $old = public_path().'/storage/'.$data->url_surat_pernyataan;
+                unlink($old);
+                $data->url_surat_pernyataan = $imageName;
+                $data->save();
+                $res['message']="Berhasil rotate image.";
+            }else if($req->table=="dokumen"){
+                if($req->column=="ktp_camaba"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_ktp;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'ktp_camaba/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_ktp;
+                    unlink($old);
+                    $data->url_ktp = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="foto_camaba"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_foto;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'foto_camaba/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_foto;
+                    unlink($old);
+                    $data->url_foto = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="ktp_ayah"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_ktp_ayah;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'ktp_ayah/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_ktp_ayah;
+                    unlink($old);
+                    $data->url_ktp_ayah = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="ktp_ibu"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_ktp_ibu;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'ktp_ibu/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_ktp_ibu;
+                    unlink($old);
+                    $data->url_ktp_ibu = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="ktp_wali"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_ktp_wali;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'ktp_wali/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_ktp_wali;
+                    unlink($old);
+                    $data->url_ktp_wali = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="kartu_keluarga"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_kk;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'kartu_keluarga/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_kk;
+                    unlink($old);
+                    $data->url_kk = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="akta_kelahiran"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_akta;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'akta_kelahiran/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_akta;
+                    unlink($old);
+                    $data->url_akta = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="ijasah"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_ijasah;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'ijasah/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_ijasah;
+                    unlink($old);
+                    $data->url_ijasah = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="nilai_ujian_sekolah"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_nilai_ujian_sekolah;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'nilai_ujian_sekolah/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_nilai_ujian_sekolah;
+                    unlink($old);
+                    $data->url_nilai_ujian_sekolah = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+                if($req->column=="nilai_rapor"){
+                    header( "Content-type: image/png" );
+                    $data = CamabaDataDokumen::where('id_user',$req->id_user)->first();
+                    // define path to your image
+                    $dataImage = storage_path(). '/app/public/'.$data->url_nilai_rapor;
+                    // $dataImage = 'storage/app/public/'.$data->url_surat_pernyataan;
+                    $filename = file_get_contents($dataImage);            
+                    // Load the image as jpeg
+                    $source = imagecreatefromstring($filename);
+                    // Rotate 90 degrees
+                    $rotate = imagerotate($source, -90, 0);
+                    // Save the image as jpeg to your system
+                    $imageName = 'nilai_rapor/'.Str::random(50).'.png';
+                    imagepng($rotate, storage_path(). '/app/public/'.$imageName);
+                    // Destroy loaded image to free memory
+                    imagedestroy($source);
+                    $old = public_path().'/storage/'.$data->url_nilai_rapor;
+                    unlink($old);
+                    $data->url_nilai_rapor = $imageName;
+                    $data->save();
+                    $res['message']="Berhasil rotate image.";
+                }
+            }else if($req->table=="registrasi_awal"){
+
+            }
+        }catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+        }
+        return response()->json($res);
     }
 }

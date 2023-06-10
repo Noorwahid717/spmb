@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use PDF;
 use Str;
 use Image;
+use Storage;
 
 class BiodataController extends Controller
 {
@@ -685,4 +686,6 @@ class BiodataController extends Controller
         ])->setPaper(array(0,0,609.4488,935.433), 'portrait');
         return $pdf->stream();
     }
+
+   
 }

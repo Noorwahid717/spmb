@@ -61,6 +61,15 @@
                 <input type="file" name="dok_pernyataan" id="dok_pernyataan" class="form-control mt-1" value=""
                     accept="image/*, .pdf" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_8!=null)
+                    @if($step_8->url_surat_pernyataan!=null)
+                    @if(explode('.', $step_8->url_surat_pernyataan)[1]=='png')
+                    <button onclick="rotateImage('pernyataan',{{$id_user}},'pernyataan')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_pernyataan" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-pernyataan" style="float: right">
