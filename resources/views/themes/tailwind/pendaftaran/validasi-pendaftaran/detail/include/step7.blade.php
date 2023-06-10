@@ -16,6 +16,15 @@
                 <input type="file" name="dok_ktp_camaba" id="dok_ktp_camaba" class="form-control mt-1" value=""
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_ktp!=null)
+                    @if(explode('.', $step_7->url_ktp)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'ktp_camaba')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_ktp_camaba" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-ktp-camaba" style="float: right">
@@ -39,6 +48,15 @@
                 <input type="file" name="pas_foto_camaba" id="pas_foto_camaba" class="form-control mt-1" value=""
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_foto!=null)
+                    @if(explode('.', $step_7->url_foto)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'foto_camaba')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_foto_camaba" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-foto" style="float: right">
@@ -62,6 +80,15 @@
                 <input type="file" name="dok_ktp_ayah" id="dok_ktp_ayah" class="form-control mt-1" value=""
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_ktp_ayah!=null)
+                    @if(explode('.', $step_7->url_ktp_ayah)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'ktp_ayah')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_ktp_ayah" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-ktp-ayah" style="float: right">
@@ -85,6 +112,15 @@
                 <input type="file" name="dok_ktp_ibu" id="dok_ktp_ibu" class="form-control mt-1" value=""
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_ktp_ibu!=null)
+                    @if(explode('.', $step_7->url_ktp_ibu)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'ktp_ibu')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_ktp_ibu" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-ktp-ibu" style="float: right">
@@ -108,6 +144,15 @@
                 <input type="file" name="dok_kk" id="dok_kk" class="form-control mt-1" value="" accept="image/*"
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_kk!=null)
+                    @if(explode('.', $step_7->url_kk)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'kartu_keluarga')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_kk" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}" class="w-10 rounded sm:mx-auto pdf-dok-kk"
                         style="float: right">
@@ -133,6 +178,15 @@
                 <input type="file" name="dok_ktp_wali" id="dok_ktp_wali" class="form-control mt-1" value=""
                     accept="image/*" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_ktp_wali!=null)
+                    @if(explode('.', $step_7->url_ktp_wali)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'ktp_wali')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_ktp_wali" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-ktp-wali" style="float: right">
@@ -156,6 +210,15 @@
                 <input type="file" name="dok_akta" id="dok_akta" class="form-control mt-1" value="" accept="image/*"
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_akta!=null)
+                    @if(explode('.', $step_7->url_akta)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'akta_kelahiran')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_akta" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-akta" style="float: right">
@@ -179,6 +242,15 @@
                 <input type="file" name="dok_ijasah" id="dok_ijasah" class="form-control mt-1" value="" accept="image/*"
                     style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_ijasah!=null)
+                    @if(explode('.', $step_7->url_ijasah)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'ijasah')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_ijasah" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-ijasah" style="float: right">
@@ -202,6 +274,15 @@
                 <input type="file" name="dok_nilai_ujian_sekolah" id="dok_nilai_ujian_sekolah" class="form-control mt-1"
                     value="" accept="image/*, .pdf" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_nilai_ujian_sekolah!=null)
+                    @if(explode('.', $step_7->url_nilai_ujian_sekolah)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'nilai_ujian_sekolah')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_nilai_ujian_sekolah" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-ujian" style="float: right">
@@ -225,6 +306,15 @@
                 <input type="file" name="dok_nilai_rapor" id="dok_nilai_rapor" class="form-control mt-1" value=""
                     accept="image/*, .pdf" style="width: 75%!important;margin-right:5px;">
                 <div style="width:25%">
+                    @if($step_7!=null)
+                    @if($step_7->url_nilai_rapor!=null)
+                    @if(explode('.', $step_7->url_nilai_rapor)[1]=='png')
+                    <button onclick="rotateImage('dokumen',{{$id_user}},'nilai_rapor')">
+                        <img src="{{ asset('/themes/tailwind/images/rotate.png') }}" class="w-6 rounded sm:mx-auto">
+                    </button>
+                    @endif
+                    @endif
+                    @endif
                     <img id="thumb_nilai_rapor" src="" alt="" class="thumb_doc">
                     <img src="{{ asset('/themes/tailwind/images/pdf.png') }}"
                         class="w-10 rounded sm:mx-auto pdf-dok-rapor" style="float: right">
@@ -236,6 +326,8 @@
 </div>
 <input type="hidden" name="saveOrUpdateUrlStep7" id="saveOrUpdateUrlStep7"
     value="{{route('wave.validasi-pendaftaran-update-data-dokumen')}}">
+<input type="hidden" name="rotateImageUrl" id="rotateImageUrl"
+    value="{{route('wave.validasi-pendaftaran-rotate-image')}}">
 
 
 {{-- button nav --}}

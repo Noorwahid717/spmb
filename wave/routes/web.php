@@ -74,6 +74,7 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('validasi-pendaftaran-update-data-dokumen', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataDokumen')->name('wave.validasi-pendaftaran-update-data-dokumen');	
 	Route::post('validasi-pendaftaran-update-data-pernyataan', '\Wave\Http\Controllers\ValidasiPendaftaranController@updateDataPernyataan')->name('wave.validasi-pendaftaran-update-data-pernyataan');	
 	Route::get('validasi-pendaftaran-download-surat-pernyataan', '\Wave\Http\Controllers\ValidasiPendaftaranController@downloadSuratPernyataan')->name('wave.validasi-pendaftaran-download-surat-pernyataan');
+	Route::post('validasi-pendaftaran-rotate-image', '\Wave\Http\Controllers\ValidasiPendaftaranController@rotateImage')->name('wave.validasi-pendaftaran-rotate-image');	
 	
 });
 
