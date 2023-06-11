@@ -64,12 +64,12 @@
     </strong>
 </div>
 @else
-@if($step_1!=null&&$step_1->note!=null&&$step_1->note!="")
+@if($step_1!=null&&$step_1->last_note!=null&&$step_1->last_note!="")
 <div class="note-error mb-5 py-2">
     <strong>
-        DATA/DOKUMEN BELUM VALID !!!
+        HISTORI CATATAN VALIDASI SEBELUMNYA !!!
     </strong>
-    <p>{{$step_1->note}}</p>
+    <p>{{$step_1->last_note}}</p>
 </div>
 @elseif($step_1!=null&&$step_1->note==null&&$step_1->note=="")
 <div class="note-error mb-5 py-2">

@@ -43,16 +43,16 @@
                         <option value="-1">Belum Lunas</option>
                     </select>
                 </div>
-                <div class="form-group mb-5 text-xs ml-3" style="max-width: 250px">
+                {{-- <div class="form-group mb-5 text-xs ml-3" style="max-width: 250px">
                     <label for="is_valid_option">Filter <strong>VAL.PENDAFTARAN</strong>:</label>
                     <select name="is_valid_option" id="is_valid_option" class="form-control mt-1 is_valid_option">
-                        <option value="all">--Semua--</option>
-                        <option value="0" selected>Menunggu</option>
+                        <option value="all" selected>--Semua--</option>
+                        <option value="0">Menunggu</option>
                         <option value="1">Valid</option>
                         <option value="-1">Belum Valid</option>
                     </select>
-                </div>
-                <div class="form-group mb-5 text-xs ml-3" style="max-width: 250px">
+                </div> --}}
+                {{-- <div class="form-group mb-5 text-xs ml-3" style="max-width: 250px">
                     <label for="is_pernyataan_option">Filter <strong>VAL.PERYATAAN</strong>:</label>
                     <select name="is_pernyataan_option" id="is_pernyataan_option"
                         class="form-control mt-1 is_pernyataan_option">
@@ -61,7 +61,7 @@
                         <option value="1">Valid</option>
                         <option value="-1">Belum Valid</option>
                     </select>
-                </div>
+                </div> --}}
                 <div>
                     <button
                         class="inline-flex self-start items-center ml-3 px-4 py-3 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md"
@@ -78,8 +78,7 @@
                         <th>PRODI1</th>
                         <th>PRODI2</th>
                         <th>VAL.BIAYA.DAFTAR</th>
-                        <th>VAL.PENDAFTARAN</th>
-                        <th>VAL.PERNYATAAN</th>
+                        <th>STATUS BIODATA</th>
                         <th>UPDATED</th>
                         <th>ACT</th>
                     </tr>
@@ -131,8 +130,8 @@
             data:function(d){
                 d._token = $('._token').data('token')
                 d.is_lunas = $('#is_lunas_option option:selected').val()
-                d.is_valid = $('#is_valid_option option:selected').val()
-                d.is_pernyataan = $('#is_pernyataan_option option:selected').val()                
+                // d.is_valid = $('#is_valid_option option:selected').val()
+                // d.is_pernyataan = $('#is_pernyataan_option option:selected').val()                
                 d.is_prodi = $('#is_pil_prodi1_option option:selected').val()                
             }
         }, 
@@ -151,25 +150,10 @@
             }else if(data['get_user_spmb_step'].step_2=="-1"){
             $(cells[5]).addClass('text-sm redHeart text-center')                        
             }
-
-            if(data['get_user_spmb_step'].step_5=="0"){
-            $(cells[6]).addClass('text-sm gold text-center')        
-            }else if(data['get_user_spmb_step'].step_5=="1"){
-            $(cells[6]).addClass('text-sm greenYellow text-center')                        
-            }else if(data['get_user_spmb_step'].step_5=="-1"){
-            $(cells[6]).addClass('text-sm redHeart text-center')                        
-            }
-
-            if(data['get_user_spmb_step'].step_6=="0"){
-            $(cells[7]).addClass('text-sm gold text-center')        
-            }else if(data['get_user_spmb_step'].step_6=="1"){
-            $(cells[7]).addClass('text-sm greenYellow text-center')                        
-            }else if(data['get_user_spmb_step'].step_6=="-1"){
-            $(cells[7]).addClass('text-sm redHeart text-center')                        
-            }
-
+            
+            $(cells[6]).addClass('text-sm text-center')                        
+            $(cells[7]).addClass('text-center text-sm')
             $(cells[8]).addClass('text-center text-sm')
-            $(cells[9]).addClass('text-center text-sm')
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -178,8 +162,7 @@
             {data: 'get_camaba_data_program_studi.get_prodi_fakultas1.nama_program_studi', name: 'get_camaba_data_program_studi.get_prodi_fakultas1.nama_program_studi'},
             {data: 'get_camaba_data_program_studi.get_prodi_fakultas2.nama_program_studi', name: 'get_camaba_data_program_studi.get_prodi_fakultas2.nama_program_studi'},
             {data: 'is_lunas', name: 'is_lunas'},
-            {data: 'is_data_valid', name: 'is_data_valid'},
-            {data: 'is_pernyataan_valid', name: 'is_pernyataan_valid'},
+            {data: 'status_bio', name: 'status_bio'},
             {data: 'get_user_spmb_step.updated_at', name: 'get_user_spmb_step.updated_at'},
             {data: 'act', name:'act'},               
         ], 

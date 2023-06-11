@@ -46,8 +46,8 @@ class ValidasiPendaftaranController extends Controller
     public function getList(Request $req)
     {
         $is_lunas = $req->is_lunas;       
-        $is_valid = $req->is_valid;       
-        $is_pernyataan = $req->is_pernyataan;       
+        // $is_valid = $req->is_valid;       
+        // $is_pernyataan = $req->is_pernyataan;       
         $is_prodi1 = $req->is_prodi;       
         $ta_aktif = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
         if($is_prodi1=="null"){
@@ -57,8 +57,8 @@ class ValidasiPendaftaranController extends Controller
             ->with('getCamabaDataOrtu')
             ->with('getCamabaDataWaliPs')
             ->with('getCamabaDataRiwayatPendidikan')
-            // ->with('getCamabaDataDokumen')
-            // ->with('getCamabaDataPernyataan')
+            ->with('getCamabaDataDokumen')
+            ->with('getCamabaDataPernyataan')
             ->where('tahun_akademik_registrasi',$ta_aktif)        
             ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_lunas) {
                 if($is_lunas=="all"){
@@ -67,23 +67,32 @@ class ValidasiPendaftaranController extends Controller
                     return $query->where('step_2', '=', $is_lunas);
                 }
             })
-            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_valid) {            
-                if($is_valid=="all"){
-                    return $query;
-                }else{
-                    return $query->where('step_5', '=', $is_valid);
-                }
-            })
-            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_pernyataan) {            
-                if($is_pernyataan=="all"){
-                    return $query;
-                }else{
-                    return $query->where('step_6', '=', $is_pernyataan);
-                }
-            })
             ->with('getCamabaDataProgramStudi')
             ->doesntHave('getCamabaDataProgramStudi')
-            ->get();
+            ->get()
+            ->each(function ($items) {
+                if($items->getCamabaDataDokumen!=null){
+                    $items->getCamabaDataDokumen
+                    ->makeHidden([
+                        'url_ktp_b64',
+                        'url_foto_b64',
+                        'url_ktp_ayah_b64',
+                        'url_ktp_ibu_b64',
+                        'url_ktp_wali_b64',
+                        'url_kk_b64',
+                        'url_akta_b64',
+                        'url_ijasah_b64',
+                        'url_nilai_ujian_sekolah_b64',
+                        'url_nilai_rapor_b64'
+                    ]);
+                }
+                if($items->getCamabaDataPernyataan!=null){
+                    $items->getCamabaDataPernyataan
+                    ->makeHidden([
+                        'url_surat_pernyataan_b64'
+                    ]);
+                }
+            });
         }else{
             $reg_awal_data = RegistrasiAwalUser::with('getUser')
             ->with('getCamabaDataPokok')
@@ -91,28 +100,14 @@ class ValidasiPendaftaranController extends Controller
             ->with('getCamabaDataOrtu')
             ->with('getCamabaDataWaliPs')
             ->with('getCamabaDataRiwayatPendidikan')
-            // ->with('getCamabaDataDokumen')
-            // ->with('getCamabaDataPernyataan')
+            ->with('getCamabaDataDokumen')
+            ->with('getCamabaDataPernyataan')
             ->where('tahun_akademik_registrasi',$ta_aktif)        
             ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_lunas) {
                 if($is_lunas=="all"){
                     return $query;
                 }else{
                     return $query->where('step_2', '=', $is_lunas);
-                }
-            })
-            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_valid) {            
-                if($is_valid=="all"){
-                    return $query;
-                }else{
-                    return $query->where('step_5', '=', $is_valid);
-                }
-            })
-            ->withWhereHas('getUserSpmbStep',function ($query) use(&$is_pernyataan) {            
-                if($is_pernyataan=="all"){
-                    return $query;
-                }else{
-                    return $query->where('step_6', '=', $is_pernyataan);
                 }
             })
             ->with('getCamabaDataProgramStudi')
@@ -123,9 +118,31 @@ class ValidasiPendaftaranController extends Controller
                     return $query->where('id_program_studi_1', '=', $is_prodi1);
                 }
             })
-            ->get();
+            ->get()
+            ->each(function ($items) {
+                if($items->getCamabaDataDokumen!=null){
+                    $items->getCamabaDataDokumen
+                    ->makeHidden([
+                        'url_ktp_b64',
+                        'url_foto_b64',
+                        'url_ktp_ayah_b64',
+                        'url_ktp_ibu_b64',
+                        'url_ktp_wali_b64',
+                        'url_kk_b64',
+                        'url_akta_b64',
+                        'url_ijasah_b64',
+                        'url_nilai_ujian_sekolah_b64',
+                        'url_nilai_rapor_b64'
+                    ]);
+                }
+                if($items->getCamabaDataPernyataan!=null){
+                    $items->getCamabaDataPernyataan
+                    ->makeHidden([
+                        'url_surat_pernyataan_b64'
+                    ]);
+                }
+            });
         }
-                    
 
         if ($req->ajax()) {
             return DataTables::of($reg_awal_data)
@@ -183,25 +200,48 @@ class ValidasiPendaftaranController extends Controller
                         return "Belum Lunas";
                     }
                 })   
-                ->addColumn('is_data_valid', function($row){                    
-                    if($row->getUserSpmbStep->step_5==0){
-                        return "Menunggu";
-                    }else if($row->getUserSpmbStep->step_5==1){
-                        return "Valid";
-                    }else{
-                        return "Belum Valid";
-                    }
-                })         
-                ->addColumn('is_pernyataan_valid', function($row){                    
-                    if($row->getUserSpmbStep->step_6==0){
-                        return "Menunggu";
-                    }else if($row->getUserSpmbStep->step_6==1){
-                        return "Valid";
-                    }else{
-                        return "Belum Valid";
-                    }
-                })         
-                ->rawColumns(['act','is_lunas','is_data_valid','is_pernyataan_valid'])
+                // ->addColumn('is_data_valid', function($row){                    
+                //     if($row->getUserSpmbStep->step_5==0){
+                //         return "Menunggu";
+                //     }else if($row->getUserSpmbStep->step_5==1){
+                //         return "Valid";
+                //     }else{
+                //         return "Belum Valid";
+                //     }
+                // })         
+                // ->addColumn('is_pernyataan_valid', function($row){                    
+                //     if($row->getUserSpmbStep->step_6==0){
+                //         return "Menunggu";
+                //     }else if($row->getUserSpmbStep->step_6==1){
+                //         return "Valid";
+                //     }else{
+                //         return "Belum Valid";
+                //     }
+                // })         
+                ->addColumn('status_bio', function($row){
+                    $step1 = $row->getCamabaDataPokok==null?'grey_1':($row->getCamabaDataPokok->status_step==1?'green_1':($row->getCamabaDataPokok->status_step==0?'yellow_1':'red_1'));
+                    $step2 = $row->getCamabaDataAlamat==null?'grey_2':($row->getCamabaDataAlamat->status_step==1?'green_2':($row->getCamabaDataAlamat->status_step==0?'yellow_2':'red_2'));
+                    $step3 = $row->getCamabaDataOrtu==null?'grey_3':($row->getCamabaDataOrtu->status_step==1?'green_3':($row->getCamabaDataOrtu->status_step==0?'yellow_3':'red_3'));
+                    $step4 = $row->getCamabaDataWaliPs==null?'grey_4':($row->getCamabaDataWaliPs->status_step==1?'green_4':($row->getCamabaDataWaliPs->status_step==0?'yellow_4':'red_4'));
+                    $step5 = $row->getCamabaDataRiwayatPendidikan==null?'grey_5':($row->getCamabaDataRiwayatPendidikan->status_step==1?'green_5':($row->getCamabaDataRiwayatPendidikan->status_step==0?'yellow_5':'red_5'));
+                    $step6 = $row->getCamabaDataProgramStudi==null?'grey_6':($row->getCamabaDataProgramStudi->status_step==1?'green_6':($row->getCamabaDataProgramStudi->status_step==0?'yellow_6':'red_6'));
+                    $step7 = $row->getCamabaDataDokumen==null?'grey_7':($row->getCamabaDataDokumen->status_step==1?'green_7':($row->getCamabaDataDokumen->status_step==0?'yellow_7':'red_7'));
+                    $step8 = $row->getCamabaDataPernyataan==null?'grey_8':($row->getCamabaDataPernyataan->status_step==1?'green_8':($row->getCamabaDataPernyataan->status_step==0?'yellow_8':'red_8'));
+                    $circle = '<div class="flex justify-center">'.
+                    '<img src="'.asset('/themes/tailwind/images/circle/'.$step1.'.png').'" class="w-5">'.
+                    '<img src="'.asset('/themes/tailwind/images/circle/'.$step2.'.png').'" class="w-5">'.
+                    '<img src="'.asset('/themes/tailwind/images/circle/'.$step3.'.png').'" class="w-5">'.
+                    '<img src="'.asset('/themes/tailwind/images/circle/'.$step4.'.png').'" class="w-5">'.
+                    '</div>'.
+                    '<div class="flex justify-center">'.
+                    '<img src="'.asset('/themes/tailwind/images/circle/'.$step5.'.png').'" class="w-5">'.
+                    '<img src="'.asset('/themes/tailwind/images/circle/'.$step6.'.png').'" class="w-5">'.
+                    '<img src="'.asset('/themes/tailwind/images/circle/'.$step7.'.png').'" class="w-5">'.
+                    '<img src="'.asset('/themes/tailwind/images/circle/'.$step8.'.png').'" class="w-5">'.
+                    '</div>';
+                    return $circle;
+                })
+                ->rawColumns(['act','is_lunas','status_bio'])
                 ->make(true);
         }
     }
