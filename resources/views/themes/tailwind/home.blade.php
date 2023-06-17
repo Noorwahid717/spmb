@@ -18,7 +18,7 @@
             <button id="syarat_click"
                 class="mx-1 inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium"
                 style="border-bottom-right-radius: 20px;">
-                Persyaratan
+                Info Persyaratan
             </button>
         </div>
         <div class="flex flex-col items-center h-full pt-16 pb-56 lg:flex-row">
