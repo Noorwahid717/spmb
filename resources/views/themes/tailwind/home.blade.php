@@ -5,9 +5,23 @@
 
 <div class="relative flex items-center w-full">
     <div class="relative z-20 px-8 mx-auto xl:px-5 max-w-7xl">
-
+        <div class="flex justify-center">
+            <button id="alur_click"
+                class="mx-1 inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium"
+                style="border-bottom-left-radius: 20px;">
+                Pendaftaran
+            </button>
+            <button id="brosur_click"
+                class="mx-1 inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium">
+                Brosur
+            </button>
+            <button id="syarat_click"
+                class="mx-1 inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium"
+                style="border-bottom-right-radius: 20px;">
+                Persyaratan
+            </button>
+        </div>
         <div class="flex flex-col items-center h-full pt-16 pb-56 lg:flex-row">
-
             <div
                 class="flex flex-col items-start w-full mb-16 md:items-center lg:pr-12 lg:items-start lg:w-1/2 lg:mb-0">
 
@@ -84,7 +98,8 @@
         </svg>
     </div>
 
-    <div class="relative z-20 flex flex-col items-start justify-start px-8 mx-auto sm:items-center max-w-7xl xl:px-5">
+    <div id="alur_pendaftaran"
+        class="relative z-20 flex flex-col items-start justify-start px-8 mx-auto sm:items-center max-w-7xl xl:px-5">
         <h2 class="text-4xl font-medium leading-9 text-white">Alur Proses Penerimaan Mahasiswa Baru Universitas
             Wahidiyah</h2>
         {{-- <p class="mt-4 leading-6 sm:text-center text-wave-200">Keterangan<br class="hidden md:block"> Deskripsi</p>
@@ -138,93 +153,14 @@
     </g>
 </svg>
 
-{{--
+
 <!-- BEGINNING OF TESTIMONIALS SECTION -->
 <div id="testimonials">
     <div class="relative flex items-center justify-center pt-32 pb-12 bg-gray-100 md:pb-32 lg:pb-64 min-w-screen">
         <div class="max-w-6xl px-10 pb-20 mx-auto bg-gray-100">
             <div class="flex flex-col items-center lg:flex-row">
-                <div
-                    class="flex flex-col justify-center w-full h-full mb-10 lg:pr-8 sm:w-4/5 md:items-center lg:mb-0 lg:items-start md:w-3/5 lg:w-1/2">
-                    <p class="mb-2 text-base font-medium tracking-tight uppercase text-wave-500">Our customers love our
-                        product</p>
-                    <h2
-                        class="text-4xl font-extrabold leading-10 tracking-tight text-gray-900 sm:leading-none lg:text-5xl xl:text-6xl">
-                        Testimonials</h2>
-                    <p class="pr-5 my-6 text-lg text-gray-600 md:text-center lg:text-left">This is an example section of
-                        where you will add your testimonials for your Software as a Service.</p>
-                    <a href="#_"
-                        class="flex items-center justify-center px-8 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out border border-transparent rounded-md shadow bg-wave-600 hover:bg-wave-500 focus:outline-none focus:border-wave-700 focus:shadow-outline-wave md:py-4 md:text-lg md:px-10">View
-                        Case Studies</a>
-                </div>
-                <div class="w-full sm:w-4/5 lg:w-1/2">
-                    <blockquote
-                        class="flex flex-row-reverse items-center justify-between w-full col-span-1 p-6 bg-white rounded-lg shadow sm:flex-row">
-                        <div class="flex flex-col pl-5 sm:pr-8">
-                            <div class="relative sm:pl-12">
-                                <svg class="absolute left-0 hidden w-10 h-10 fill-current sm:block text-wave-500"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
-                                    <path
-                                        d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z" />
-                                </svg>
-                                <p class="mt-2 text-base text-gray-600">Wave allowed me to build the Software as a
-                                    Service of my dreams!
-                                </p>
-                            </div>
-
-                            <h3 class="mt-3 text-base font-medium leading-5 text-gray-800 truncate sm:pl-12">Jane Cooper
-                                <span class="mt-1 text-sm leading-5 text-gray-500 truncate">- CEO SomeCompany</span>
-                            </h3>
-                            <p class="mt-1 text-sm leading-5 text-gray-500 truncate"></p>
-                        </div>
-                        <img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-                            alt="">
-                    </blockquote>
-                    <blockquote
-                        class="flex flex-row-reverse items-center justify-between w-full col-span-1 p-6 my-5 bg-white rounded-lg shadow sm:flex-row">
-                        <div class="flex flex-col pl-5 sm:pr-10">
-                            <div class="relative sm:pl-12">
-                                <svg class="absolute left-0 hidden w-10 h-10 fill-current sm:block text-wave-500"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
-                                    <path
-                                        d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z" />
-                                </svg>
-                                <p class="mt-2 text-base text-gray-600">Wave saved us hundreds of development hours.
-                                    Creating a Software as a Service is now easier than ever with Wave.</p>
-                            </div>
-                            <h3 class="mt-3 text-base font-medium leading-5 text-gray-800 truncate sm:pl-12">John Doe
-                                <span class="mt-1 text-sm leading-5 text-gray-500 truncate">- CEO SomeCompany</span>
-                            </h3>
-                            <p class="mt-1 text-sm leading-5 text-gray-500 truncate"></p>
-                        </div>
-                        <img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full"
-                            src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&aauto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-                            alt="">
-                    </blockquote>
-                    <blockquote
-                        class="flex flex-row-reverse items-center justify-between w-full col-span-1 p-6 bg-white rounded-lg shadow sm:flex-row">
-                        <div class="flex flex-col pl-5 sm:pr-10">
-                            <div class="relative sm:pl-12">
-                                <svg class="absolute left-0 hidden w-10 h-10 fill-current sm:block text-wave-500"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
-                                    <path
-                                        d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z" />
-                                </svg>
-                                <p class="mt-2 text-base text-gray-600">This is the best solution available for creating
-                                    your own Software as a Service!</p>
-                            </div>
-
-                            <h3 class="mt-3 text-base font-medium leading-5 text-gray-800 truncate sm:pl-12">John Smith
-                                <span class="mt-1 text-sm leading-5 text-gray-500 truncate">- CEO SomeCompany</span>
-                            </h3>
-                            <p class="mt-1 text-sm leading-5 text-gray-500 truncate"></p>
-                        </div>
-                        <img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full"
-                            src="https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rrb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&aauto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-                            alt="">
-                    </blockquote>
-                </div>
+                <img id="brosur_pmb" src="{{ asset('/storage/brosur/brosur_2023.png') }}"
+                    class="w-200 rounded sm:mx-auto">
             </div>
         </div>
 
@@ -254,25 +190,96 @@
 
     </div>
 </div>
-<!-- END OF TESTIMONIALS SECTION --> --}}
+<!-- END OF TESTIMONIALS SECTION -->
 
-{{--
+
 <!-- BEGINNING OF PRICING SECTION -->
-<div id="pricing" class="relative">
+<div id="syarat_pendaftaran" class="relative">
 
     <div class="relative z-20 px-8 pb-8 mx-auto max-w-7xl xl:px-5">
         <div class="w-full text-left sm:text-center">
-            <h2 class="pt-12 text-4xl font-extrabold text-gray-900 lg:text-5xl">Example Pricing</h2>
-            <p class="w-full my-1 text-base text-left text-gray-900 opacity-75 sm:my-2 sm:text-center sm:text-xl">It's
-                easy to customize the pricing of your Software as a Service</p>
+            <h2 class="pt-12 text-4xl font-extrabold text-gray-900 lg:text-5xl">Persyaratan Pendaftaran</h2>
+            <p class="w-full my-1 text-base text-left text-gray-900 opacity-75 sm:my-2 sm:text-center sm:text-xl">
+
+            </p>
         </div>
 
-        @include('theme::partials.plans')
+        <div class="px-2 mx-auto mt-12 max-w-7xl">
+            <div class="w-full p-10 text-gray-600 bg-blue-50 rounded-xl">
+                <div class="flex items-center pb-4">
+                    <svg class="mr-2 w-14 h-14 text-wave-500" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+                        <path fill-rule="evenodd"
+                            d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <div class="relative">
+                        <h2 class="text-base font-bold text-wave-500">Persiapkan beberapa dokumen berikut untuk mulai
+                            melakukan pendaftaran online</h2>
+                        <p class="text-sm text-blue-400">Pastikan ukuran foto dokumen-dokumen tidak melebihi 3 MB, serta
+                            pastikan pula format dokumen yang diupload adalah format pdf atau format gambar (jpg, jpeg,
+                            png).</p>
+                    </div>
+                </div>
+                <div class="relative px-10 pt-0 pb-12 mt-auto text-gray-700 rounded-b-lg">
+                    <?php
+                    $features = [
+                        "Upload Foto Bukti Transfer Biaya Pendaftaran",
+                        "Upload Foto KTP Calon Mahasiswa",
+                        "Upload Pas Foto Calon Mahasiswa",
+                        "Upload Foto KTP Ayah",
+                        "Upload Foto KTP Ibu",
+                        "Upload Foto Kartu Keluarga",
+                        "Upload Foto KTP Wali",
+                        "Upload Foto Akta Kelahiran",
+                        "Upload Foto Ijasah",
+                        "Upload Foto Nilai Ujian Sekolah",
+                        "Upload Foto Nilai Rapor",
+                    ]
+                    ?>
+                    <ul class="flex flex-col space-y-2.5">
+                        @foreach($features as $feature)
+                        <li class="relative">
+                            <span class="flex items-center">
+                                <svg class="w-4 h-4 mr-3 text-green-500 fill-current" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"></path>
+                                </svg>
 
-        <p class="w-full my-8 text-left text-gray-500 sm:my-10 sm:text-center">All plans are fully configurable in the
-            Admin Area.</p>
+                                <span>
+                                    {{ $feature }}
+                                </span>
+                            </span>
+                        </li>
+                        @endforeach
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-<!-- END OF PRICING SECTION --> --}}
-
+<!-- END OF PRICING SECTION -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+<script>
+    $("#alur_click").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#alur_pendaftaran").offset().top
+        }, 1000);
+    });
+    $("#syarat_click").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#syarat_pendaftaran").offset().top
+        }, 1000);
+    });
+    $("#brosur_click").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#brosur_pmb").offset().top
+        }, 1000);
+    });
+    
+</script>
 @endsection
