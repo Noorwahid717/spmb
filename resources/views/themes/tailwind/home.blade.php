@@ -5,18 +5,18 @@
 
 <div class="relative flex items-center w-full">
     <div class="relative z-20 px-8 mx-auto xl:px-5 max-w-7xl">
-        <div style="float: right">
+        <div class="flex justify-center">
             <button id="alur_click"
-                class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium"
+                class="mx-1 inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium"
                 style="border-bottom-left-radius: 20px;">
                 Alur Pendaftaran
             </button>
             <button id="brosur_click"
-                class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium">
+                class="mx-1 inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium">
                 Brosur
             </button>
             <button id="syarat_click"
-                class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium"
+                class="mx-1 inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium"
                 style="border-bottom-right-radius: 20px;">
                 Persyaratan
             </button>
