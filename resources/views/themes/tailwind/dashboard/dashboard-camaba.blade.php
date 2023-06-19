@@ -1,60 +1,114 @@
-{{-- <div class="w-1/2"> --}}
-    @foreach($steps as $item)
-    @if($item['id']==4)
-    @if(\App\Models\SpmbConfig::where('id',1)->first()->kip_enable=="true")
-    <div class="flex">
-        <div class="flex flex-col items-center mr-4">
-            <div>
-                <div class="flex items-center justify-center w-10 h-10 border rounded-full">
+<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+    <div
+        class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white border rounded-lg lg:mr-3 lg:mb-0 border-gray-150">
+        <div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-150 sm:flex-no-wrap">
+            <div class="flex items-center justify-center w-12 h-12 mr-5 rounded-lg bg-wave-100">
+                <svg class="w-6 h-6 text-wave-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <div class="relative flex-1">
+                <h3 class="text-lg font-medium leading-6 text-gray-700">
+                    Status Penerimaan Mahasiswa Baru
+                </h3>
+                <p class="text-sm leading-5 text-gray-500 mt">
+                    Pelajari lebih lanjut
+                </p>
+            </div>
+
+        </div>
+        <div class="relative p-5">
+
+            @foreach($steps as $item)
+            @if($item['id']==4)
+            @if(\App\Models\SpmbConfig::where('id',1)->first()->kip_enable=="true")
+            <div class="flex">
+                <div class="flex flex-col items-center mr-4">
+                    <div>
+                        <div class="flex items-center justify-center w-10 h-10 border rounded-full">
 
 
+                        </div>
+                    </div>
+                    <div class="w-px h-full bg-gray-700" style="border-left: 6px solid gray;"></div>
+                </div>
+                <div class="pb-8 ">
+                    <p class="mb-2 text-xl font-bold text-gray-600">{{$item['title']}}</p>
+                    <img src="{{ $item['icon'] }}" class="w-16 rounded sm:mx-auto">
+                    <p class="text-gray-700">
+                        {{$item['description']}}
+                    </p>
                 </div>
             </div>
-            <div class="w-px h-full bg-gray-700" style="border-left: 6px solid gray;"></div>
-        </div>
-        <div class="pb-8 ">
-            <p class="mb-2 text-xl font-bold text-gray-600">{{$item['title']}}</p>
-            <img src="{{ $item['icon'] }}" class="w-16 rounded sm:mx-auto">
-            <p class="text-gray-700">
-                {{$item['description']}}
-            </p>
-        </div>
-    </div>
-    @endif
-    @else
-    <div class="flex">
-        <div class="flex flex-col items-center mr-4">
-            <div>
-                <div class="flex items-center justify-center w-10 h-10 border rounded-full">
-                    @if($item['status']==1)
-                    <img src="{{ asset('/themes/tailwind/images/checked.png') }}" class="w-18 rounded sm:mx-auto">
-                    @elseif($item['status']==0)
-                    <img src="{{ asset('/themes/tailwind/images/wait2.png') }}" class="w-18 rounded sm:mx-auto">
-                    @elseif($item['status']==2)
-                    <img src="{{ asset('/themes/tailwind/images/work-in-progress2.png') }}"
-                        class="w-18 rounded sm:mx-auto">
+            @endif
+            @else
+            <div class="flex">
+                <div class="flex flex-col items-center mr-4">
+                    <div>
+                        <div class="flex items-center justify-center w-10 h-10 border rounded-full">
+                            @if($item['status']==1)
+                            <img src="{{ asset('/themes/tailwind/images/checked.png') }}"
+                                class="w-18 rounded sm:mx-auto">
+                            @elseif($item['status']==0)
+                            <img src="{{ asset('/themes/tailwind/images/wait2.png') }}" class="w-18 rounded sm:mx-auto">
+                            @elseif($item['status']==2)
+                            <img src="{{ asset('/themes/tailwind/images/work-in-progress2.png') }}"
+                                class="w-18 rounded sm:mx-auto">
+                            @endif
+                        </div>
+                    </div>
+                    @if($item['id']==11)
+                    @else
+                    <div class="w-px h-full bg-gray-700" style="border-left: 6px solid gray;"></div>
                     @endif
                 </div>
+                <div class="pb-8 ">
+                    <p class="mb-2 text-xl font-bold text-gray-600">{{$item['title']}}</p>
+                    <img src="{{ $item['icon'] }}" class="w-16 rounded sm:mx-auto">
+                    <p class="text-gray-700">
+                        @if($item['id']==1)
+                        Kamu telah berhasil melakukan pendaftaran dan juga mengunggah bukti pembayaran formulir
+                        pendaftaran
+                        online.
+                        @else
+                        {{$item['description']}}
+                        @endif
+                    </p>
+                </div>
             </div>
-            @if($item['id']==11)
-            @else
-            <div class="w-px h-full bg-gray-700" style="border-left: 6px solid gray;"></div>
             @endif
-        </div>
-        <div class="pb-8 ">
-            <p class="mb-2 text-xl font-bold text-gray-600">{{$item['title']}}</p>
-            <img src="{{ $item['icon'] }}" class="w-16 rounded sm:mx-auto">
-            <p class="text-gray-700">
-                @if($item['id']==1)
-                Kamu telah berhasil melakukan pendaftaran dan juga mengunggah bukti pembayaran formulir pendaftaran
-                online.
-                @else
-                {{$item['description']}}
-                @endif
-            </p>
+            @endforeach
+
         </div>
     </div>
-    @endif
-    @endforeach
-    {{--
-</div> --}}
+
+
+
+    <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border rounded-lg lg:ml-3 border-gray-150">
+        <div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-150 sm:flex-no-wrap">
+            <div class="flex items-center justify-center w-12 h-12 mr-5 rounded-lg bg-wave-100">
+                <svg class="w-6 h-6 text-wave-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z">
+                    </path>
+                </svg>
+            </div>
+            <div class="relative flex-1">
+                <h3 class="text-lg font-medium leading-6 text-gray-700">
+                    Informasi
+                </h3>
+                <p class="text-sm leading-5 text-gray-500 mt">
+                    Informasi terbaru
+                </p>
+            </div>
+
+        </div>
+        <div class="relative p-5">
+
+        </div>
+    </div>
+
+</div>
