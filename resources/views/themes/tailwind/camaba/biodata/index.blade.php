@@ -2054,24 +2054,34 @@
         var dok_nilai_rapor = $("#imgVal_dok_nilai_rapor").val();
 
         if(dok_ktp_camaba!=""){
+        if(dok_ktp_camaba.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_ktp_camaba.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_ktp_camaba.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_ktp_camaba.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_ktp_camaba)<=3000){                        
         if(dok_pas_foto_camaba!=""){
+        if(dok_pas_foto_camaba.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_pas_foto_camaba.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_pas_foto_camaba.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_pas_foto_camaba.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_pas_foto_camaba)<=3000){                        
         if(dok_ktp_ayah!=""){
+        if(dok_ktp_ayah.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_ktp_ayah.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_ktp_ayah.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_ktp_ayah.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_ktp_ayah)<=3000){                        
         if(dok_ktp_ibu!=""){
+        if(dok_ktp_ibu.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_ktp_ibu.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_ktp_ibu.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_ktp_ibu.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_ktp_ibu)<=3000){                        
         if(dok_kk!=""){
+        if(dok_kk.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_kk.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_kk.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_kk.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_kk)<=3000){                        
         if(dok_ktp_wali!=""){
+        if(dok_ktp_wali.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_ktp_wali.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_ktp_wali.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_ktp_wali.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_ktp_wali)<=3000){                        
         if(dok_akta!=""){
+        if(dok_akta.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_akta.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_akta.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_akta.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_akta)<=3000){                        
         if(dok_ijasah!=""){
+        if(dok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_ijasah)<=3000){                        
         if(dok_nilai_ujian_sekolah!=""){
+        if(dok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_nilai_ujian_sekolahdok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_ijasahdok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_nilai_ujian_sekolah)<=3000){                        
         if(dok_nilai_rapor!=""){
+        if(dok_nilai_rapor.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_nilai_rapor.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_nilai_rapor.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_nilai_rapor.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_nilai_rapor)<=3000){                        
             saveOrUpdateStep7(
                 dok_ktp_camaba,dok_pas_foto_camaba,dok_ktp_ayah,dok_ktp_ibu,dok_kk,
@@ -2088,6 +2098,13 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
+                text: "Tipe dokumen nilai rapor harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
                 text: "Pilih dokumen nilai rapor dahulu!",
             });
         }
@@ -2096,6 +2113,13 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: "Ukuran dokumen nilai ujian sekolah melebihi 3 MB!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Tipe dokumen nilai ujian sekolah harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
             });
         }        
         }else{
@@ -2111,6 +2135,13 @@
                 title: 'Oops...',
                 text: "Ukuran dokumen ijasah melebihi 3 MB!",
             });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Tipe dokumen ijasah harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
+            });
         }                
         }else{
             Swal.fire({
@@ -2124,6 +2155,13 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: "Ukuran dokumen akta kelahiran melebihi 3 MB!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Tipe dokumen akta kelahiran harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
             });
         } 
         }else{
@@ -2139,6 +2177,13 @@
                 title: 'Oops...',
                 text: "Ukuran dokumen ktp wali melebihi 3 MB!",
             });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Tipe dokumen ktp wali harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
+            });
         }   
         }else{
             Swal.fire({
@@ -2152,6 +2197,13 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: "Ukuran dokumen kartu keluarga melebihi 3 MB!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Tipe dokumen kartu keluarga harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
             });
         }    
         }else{
@@ -2167,6 +2219,13 @@
                 title: 'Oops...',
                 text: "Ukuran dokumen ktp ibu melebihi 3 MB!",
             });
+        } 
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Tipe dokumen ktp ibu harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
+            });
         }  
         }else{
             Swal.fire({
@@ -2180,6 +2239,13 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: "Ukuran dokumen ktp ayah melebihi 3 MB!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Tipe dokumen ktp ayah harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
             });
         }                           
         }else{
@@ -2200,6 +2266,13 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
+                text: "Tipe dokumen pas foto camaba harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
+            });
+        } 
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
                 text: "Pilih pas foto camaba dahulu!",
             });
         }
@@ -2208,6 +2281,13 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: "Ukuran dokumen ktp camaba melebihi 3 MB!",
+            });
+        }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Tipe dokumen ktp camaba harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
             });
         } 
         }else{
@@ -2346,6 +2426,7 @@
         ){
             if(sanggup_mondok!=-1){
                 if(dok_pernyataan!=""){
+                    if(dok_pernyataan.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_pernyataan.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_pernyataan.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_pernyataan.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
                     if(calc_image_size(dok_pernyataan)<=3000){                        
                         saveOrUpdateStep8(
                             sanggup_mondok,sanggup_tidak_menikah,dok_pernyataan                                    
@@ -2357,6 +2438,13 @@
                             text: "Ukuran file yang diunggah melebihi 3 MB!",
                         });
                     }
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "Tipe dokumen surat pernyataan harus berekstensi .pdf ataupun file gambar (.jpg, .jpeg, .png)!",
+                    });
+                } 
                 }else{
                     Swal.fire({
                         icon: 'error',

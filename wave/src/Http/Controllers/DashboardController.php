@@ -13,8 +13,10 @@ use App\Models\CamabaDataDokumen;
 use App\Models\CamabaDataPernyataan;
 use App\Models\CamabaDataProgramStudi;
 use App\Models\CamabaDataRiwayatPendidikan;
+use App\Models\ProdiFakultas;
 // use Wave\SpmbConfig;
 
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -66,8 +68,12 @@ class DashboardController extends Controller
             ));
         }else if(!auth()->guest() && auth()->user()->role_id==8){
             $data = "dd";
+            $nama_ps = "nama_ps";
             return view('theme::dashboard.index',array(
-                "data" => $data
+                "data" => $data,
+                "nama_ps" => $nama_ps,
+                "label_populasi_prodi_periode"=>[],
+                "dataset_populasi_prodi_periode"=>[]
             ));
         }else{
             return view('theme::dashboard.index',array(
@@ -120,5 +126,28 @@ class DashboardController extends Controller
             array_push($step_with_status,$temp);
         }
         return $step_with_status;
+    }
+
+    public function pendaftaranGrafikByPeriode(Request $req)
+    {
+        $prodi = ProdiFakultas::all();
+        $nama_short = array();
+        $data_populasi = array();
+        foreach ($prodi as $key => $value) {
+            array_push($nama_short,$value->nama_short);
+            $camaba = CamabaDataProgramStudi::where("tahun_akademik_registrasi",$req->periode)
+            ->where("id_program_studi_1",$value->id_prodi)
+            ->get();
+            array_push($data_populasi,count($camaba));
+        }
+        $return['label_populasi_prodi_periode'] = $nama_short;              
+
+        $return['dataset_populasi_prodi_periode'] = 
+          [['label'=> '# Jumlah Camaba ',
+                    'data'=> $data_populasi,
+                    'borderWidth'=> 1
+          ]] ;
+    
+          return response()->json($return);
     }
 }

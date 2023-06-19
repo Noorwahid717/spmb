@@ -36,6 +36,9 @@ Route::get('test', '\Wave\Http\Controllers\SubscriptionController@test');
 Route::group(['middleware' => 'wave'], function () {
 	// route camaba
 	Route::get('dashboard', '\Wave\Http\Controllers\DashboardController@index')->name('wave.dashboard');
+	Route::post('dashboard-pendaftaran-grafik-by-periode', '\Wave\Http\Controllers\DashboardController@pendaftaranGrafikByPeriode')->name('wave.dashboard-pendaftaran-grafik-by-periode');
+	
+	
 	Route::get('biodata', '\Wave\Http\Controllers\BiodataController@index')->name('wave.biodata');
 	Route::get('biodata-kewarganegaraan', '\Wave\Http\Controllers\BiodataController@cariKewarganegaraan')->name('wave.biodata-kewarganegaraan');
 	Route::get('biodata-wilayah', '\Wave\Http\Controllers\BiodataController@cariWilayah')->name('wave.biodata-wilayah');
