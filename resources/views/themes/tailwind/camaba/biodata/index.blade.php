@@ -2078,7 +2078,7 @@
         if(dok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_ijasah)<=3000){                        
         if(dok_nilai_ujian_sekolah!=""){
-        if(dok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_nilai_ujian_sekolahdok_ijasah.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_ijasahdok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
+        if(dok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_nilai_ujian_sekolah.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
         if(calc_image_size(dok_nilai_ujian_sekolah)<=3000){                        
         if(dok_nilai_rapor!=""){
         if(dok_nilai_rapor.match(/[^:/]\w+(?=;|,)/)[0]=="pdf"||dok_nilai_rapor.match(/[^:/]\w+(?=;|,)/)[0]=="png"||dok_nilai_rapor.match(/[^:/]\w+(?=;|,)/)[0]=="jpg"||dok_nilai_rapor.match(/[^:/]\w+(?=;|,)/)[0]=="jpeg"){
