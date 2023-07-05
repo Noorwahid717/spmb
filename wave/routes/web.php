@@ -79,6 +79,14 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::get('validasi-pendaftaran-download-surat-pernyataan', '\Wave\Http\Controllers\ValidasiPendaftaranController@downloadSuratPernyataan')->name('wave.validasi-pendaftaran-download-surat-pernyataan');
 	Route::post('validasi-pendaftaran-rotate-image', '\Wave\Http\Controllers\ValidasiPendaftaranController@rotateImage')->name('wave.validasi-pendaftaran-rotate-image');	
 	
+
+	// route super admin seleksi
+	Route::get('bank-soal', '\Wave\Http\Controllers\BankSoalController@index')->name('wave.bank-soal');	
+	Route::post('bank-soal-getlist', '\Wave\Http\Controllers\BankSoalController@getList')->name('wave.bank-soal-getlist');	
+	Route::post('bank-soal-add', '\Wave\Http\Controllers\BankSoalController@addBankSoal')->name('wave.bank-soal-add');	
+	Route::post('bank-soal-delete', '\Wave\Http\Controllers\BankSoalController@deleteBankSoal')->name('wave.bank-soal-delete');	
+	Route::post('bank-soal-edit', '\Wave\Http\Controllers\BankSoalController@updateBankSoal')->name('wave.bank-soal-edit');	
+	
 });
 
 Route::group(['middleware' => 'auth'], function(){
