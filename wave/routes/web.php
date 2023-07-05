@@ -81,12 +81,23 @@ Route::group(['middleware' => 'wave'], function () {
 	
 
 	// route super admin seleksi
+	// bank-soal
 	Route::get('bank-soal', '\Wave\Http\Controllers\BankSoalController@index')->name('wave.bank-soal');	
 	Route::post('bank-soal-getlist', '\Wave\Http\Controllers\BankSoalController@getList')->name('wave.bank-soal-getlist');	
 	Route::post('bank-soal-add', '\Wave\Http\Controllers\BankSoalController@addBankSoal')->name('wave.bank-soal-add');	
 	Route::post('bank-soal-delete', '\Wave\Http\Controllers\BankSoalController@deleteBankSoal')->name('wave.bank-soal-delete');	
 	Route::post('bank-soal-edit', '\Wave\Http\Controllers\BankSoalController@updateBankSoal')->name('wave.bank-soal-edit');	
-	
+	// daftar-penguji
+	Route::get('daftar-penguji', '\Wave\Http\Controllers\DaftarPengujiController@index')->name('wave.daftar-penguji');	
+	Route::post('daftar-penguji-getlist', '\Wave\Http\Controllers\DaftarPengujiController@getList')->name('wave.daftar-penguji-getlist');	
+	Route::post('daftar-penguji-add', '\Wave\Http\Controllers\DaftarPengujiController@addDaftarPenguji')->name('wave.daftar-penguji-add');	
+	Route::post('daftar-penguji-delete', '\Wave\Http\Controllers\DaftarPengujiController@deleteDaftarPenguji')->name('wave.daftar-penguji-delete');	
+	Route::post('daftar-penguji-edit', '\Wave\Http\Controllers\DaftarPengujiController@updateDaftarPenguji')->name('wave.daftar-penguji-edit');	
+	// penjadwalan-ujian
+	Route::get('penjadwalan-ujian', '\Wave\Http\Controllers\PenjadwalanUjianController@index')->name('wave.penjadwalan-ujian');	
+	// ploting-ujian
+	Route::get('kelompok-ujian', '\Wave\Http\Controllers\KelompokUjianController@index')->name('wave.kelompok-ujian');	
+
 });
 
 Route::group(['middleware' => 'auth'], function(){
