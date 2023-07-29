@@ -79,6 +79,74 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::get('validasi-pendaftaran-download-surat-pernyataan', '\Wave\Http\Controllers\ValidasiPendaftaranController@downloadSuratPernyataan')->name('wave.validasi-pendaftaran-download-surat-pernyataan');
 	Route::post('validasi-pendaftaran-rotate-image', '\Wave\Http\Controllers\ValidasiPendaftaranController@rotateImage')->name('wave.validasi-pendaftaran-rotate-image');	
 	
+
+	// route super admin seleksi
+	// bank-soal
+	Route::get('bank-soal', '\Wave\Http\Controllers\BankSoalController@index')->name('wave.bank-soal');	
+	Route::post('bank-soal-getlist', '\Wave\Http\Controllers\BankSoalController@getList')->name('wave.bank-soal-getlist');	
+	Route::post('bank-soal-add', '\Wave\Http\Controllers\BankSoalController@addBankSoal')->name('wave.bank-soal-add');	
+	Route::post('bank-soal-delete', '\Wave\Http\Controllers\BankSoalController@deleteBankSoal')->name('wave.bank-soal-delete');	
+	Route::post('bank-soal-edit', '\Wave\Http\Controllers\BankSoalController@updateBankSoal')->name('wave.bank-soal-edit');	
+	// interview-question
+	Route::get('interview-question', '\Wave\Http\Controllers\InterviewQuestionController@index')->name('wave.interview-question');	
+	Route::post('interview-question-getlist', '\Wave\Http\Controllers\InterviewQuestionController@getList')->name('wave.interview-question-getlist');	
+	Route::post('interview-question-add', '\Wave\Http\Controllers\InterviewQuestionController@addInterviewQuestion')->name('wave.interview-question-add');	
+	Route::post('interview-question-delete', '\Wave\Http\Controllers\InterviewQuestionController@deleteInterviewQuestion')->name('wave.interview-question-delete');	
+	Route::post('interview-question-edit', '\Wave\Http\Controllers\InterviewQuestionController@updateInterviewQuestion')->name('wave.interview-question-edit');	
+	// daftar-penguji
+	Route::get('daftar-penguji', '\Wave\Http\Controllers\DaftarPengujiController@index')->name('wave.daftar-penguji');	
+	Route::post('daftar-penguji-getlist', '\Wave\Http\Controllers\DaftarPengujiController@getList')->name('wave.daftar-penguji-getlist');	
+	Route::post('daftar-penguji-add', '\Wave\Http\Controllers\DaftarPengujiController@addDaftarPenguji')->name('wave.daftar-penguji-add');	
+	Route::post('daftar-penguji-delete', '\Wave\Http\Controllers\DaftarPengujiController@deleteDaftarPenguji')->name('wave.daftar-penguji-delete');	
+	Route::post('daftar-penguji-edit', '\Wave\Http\Controllers\DaftarPengujiController@updateDaftarPenguji')->name('wave.daftar-penguji-edit');	
+	// penjadwalan-ujian
+	Route::get('penjadwalan-ujian', '\Wave\Http\Controllers\PenjadwalanUjianController@index')->name('wave.penjadwalan-ujian');	
+	Route::post('penjadwalan-ujian-getlist', '\Wave\Http\Controllers\PenjadwalanUjianController@getList')->name('wave.penjadwalan-ujian-getlist');	
+	Route::post('penjadwalan-ujian-add', '\Wave\Http\Controllers\PenjadwalanUjianController@addPenjadwalanUjian')->name('wave.penjadwalan-ujian-add');	
+	Route::post('penjadwalan-ujian-edit', '\Wave\Http\Controllers\PenjadwalanUjianController@updatePenjadwalanUjian')->name('wave.penjadwalan-ujian-edit');	
+	// ujian-interview
+	Route::get('exam-interview/{id}', '\Wave\Http\Controllers\ExamInterviewController@index')->name('wave.exam-interview');	
+	Route::post('exam-interview-getlist', '\Wave\Http\Controllers\ExamInterviewController@getList')->name('wave.exam-interview-getlist');	
+	Route::post('exam-interview-getlist-available-member', '\Wave\Http\Controllers\ExamInterviewController@getListAvailable')->name('wave.exam-interview-getlist-available-member');	
+	Route::post('exam-interview-getlist-joined-member', '\Wave\Http\Controllers\ExamInterviewController@getListJoined')->name('wave.exam-interview-getlist-joined-member');	
+	Route::post('exam-interview-add', '\Wave\Http\Controllers\ExamInterviewController@addExamInterview')->name('wave.exam-interview-add');	
+	Route::post('exam-interview-edit', '\Wave\Http\Controllers\ExamInterviewController@updateExamInterview')->name('wave.exam-interview-edit');	
+	Route::post('exam-interview-add-member', '\Wave\Http\Controllers\ExamInterviewController@addMember')->name('wave.exam-interview-add-member');	
+	Route::post('exam-interview-delete-member', '\Wave\Http\Controllers\ExamInterviewController@deleteMember')->name('wave.exam-interview-delete-member');	
+	Route::post('exam-interview-delete', '\Wave\Http\Controllers\ExamInterviewController@deleteExamInterview')->name('wave.exam-interview-delete');	
+	// ujian-baca-quran	
+	Route::get('exam-read-quran/{id}', '\Wave\Http\Controllers\ExamReadQuranController@index')->name('wave.exam-read-quran');	
+	Route::post('exam-read-quran-getlist', '\Wave\Http\Controllers\ExamReadQuranController@getList')->name('wave.exam-read-quran-getlist');	
+	Route::post('exam-read-quran-getlist-available-member', '\Wave\Http\Controllers\ExamReadQuranController@getListAvailable')->name('wave.exam-read-quran-getlist-available-member');	
+	Route::post('exam-read-quran-getlist-joined-member', '\Wave\Http\Controllers\ExamReadQuranController@getListJoined')->name('wave.exam-read-quran-getlist-joined-member');	
+	Route::post('exam-read-quran-add', '\Wave\Http\Controllers\ExamReadQuranController@addExamReadQuran')->name('wave.exam-read-quran-add');	
+	Route::post('exam-read-quran-edit', '\Wave\Http\Controllers\ExamReadQuranController@updateExamReadQuran')->name('wave.exam-read-quran-edit');	
+	Route::post('exam-read-quran-add-member', '\Wave\Http\Controllers\ExamReadQuranController@addMember')->name('wave.exam-read-quran-add-member');	
+	Route::post('exam-read-quran-delete-member', '\Wave\Http\Controllers\ExamReadQuranController@deleteMember')->name('wave.exam-read-quran-delete-member');	
+	Route::post('exam-read-quran-delete', '\Wave\Http\Controllers\ExamReadQuranController@deleteExamReadQuran')->name('wave.exam-read-quran-delete');	
+	// ujian-hafalan-shalawat-wahidiyah
+	Route::get('exam-read-shalawat/{id}', '\Wave\Http\Controllers\ExamReadShalawatController@index')->name('wave.exam-read-shalawat');	
+	Route::post('exam-read-shalawat-getlist', '\Wave\Http\Controllers\ExamReadShalawatController@getList')->name('wave.exam-read-shalawat-getlist');	
+	Route::post('exam-read-shalawat-getlist-available-member', '\Wave\Http\Controllers\ExamReadShalawatController@getListAvailable')->name('wave.exam-read-shalawat-getlist-available-member');	
+	Route::post('exam-read-shalawat-getlist-joined-member', '\Wave\Http\Controllers\ExamReadShalawatController@getListJoined')->name('wave.exam-read-shalawat-getlist-joined-member');	
+	Route::post('exam-read-shalawat-add', '\Wave\Http\Controllers\ExamReadShalawatController@addExamReadShalawat')->name('wave.exam-read-shalawat-add');	
+	Route::post('exam-read-shalawat-edit', '\Wave\Http\Controllers\ExamReadShalawatController@updateExamReadShalawat')->name('wave.exam-read-shalawat-edit');	
+	Route::post('exam-read-shalawat-add-member', '\Wave\Http\Controllers\ExamReadShalawatController@addMember')->name('wave.exam-read-shalawat-add-member');	
+	Route::post('exam-read-shalawat-delete-member', '\Wave\Http\Controllers\ExamReadShalawatController@deleteMember')->name('wave.exam-read-shalawat-delete-member');	
+	Route::post('exam-read-shalawat-delete', '\Wave\Http\Controllers\ExamReadShalawatController@deleteExamReadShalawat')->name('wave.exam-read-shalawat-delete');	
+	// ujian-akademik
+	Route::get('exam-academic/{id}', '\Wave\Http\Controllers\ExamAcademicController@index')->name('wave.exam-academic');	
+	Route::post('exam-academic-getlist', '\Wave\Http\Controllers\ExamAcademicController@getList')->name('wave.exam-academic-getlist');	
+	Route::post('exam-academic-getlist-available-member', '\Wave\Http\Controllers\ExamAcademicController@getListAvailable')->name('wave.exam-academic-getlist-available-member');	
+	Route::post('exam-academic-getlist-joined-member', '\Wave\Http\Controllers\ExamAcademicController@getListJoined')->name('wave.exam-academic-getlist-joined-member');	
+	Route::post('exam-academic-add', '\Wave\Http\Controllers\ExamAcademicController@addExamAcademic')->name('wave.exam-academic-add');	
+	Route::post('exam-academic-edit', '\Wave\Http\Controllers\ExamAcademicController@updateExamAcademic')->name('wave.exam-academic-edit');	
+	Route::post('exam-academic-add-member', '\Wave\Http\Controllers\ExamAcademicController@addMember')->name('wave.exam-academic-add-member');	
+	Route::post('exam-academic-delete-member', '\Wave\Http\Controllers\ExamAcademicController@deleteMember')->name('wave.exam-academic-delete-member');	
+	Route::post('exam-academic-delete', '\Wave\Http\Controllers\ExamAcademicController@deleteExamAcademic')->name('wave.exam-academic-delete');	
+	// ploting-ujian
+	Route::get('kelompok-ujian', '\Wave\Http\Controllers\KelompokUjianController@index')->name('wave.kelompok-ujian');	
+
 });
 
 Route::group(['middleware' => 'auth'], function(){

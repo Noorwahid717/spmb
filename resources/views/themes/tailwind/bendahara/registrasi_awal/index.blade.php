@@ -59,6 +59,7 @@
             <input type="hidden" id="reg_awal_url" class="reg_awal_url" name="reg_awal_url"
                 value="{{route('wave.registrasi-awal-getlist')}}">
             @include('theme::bendahara.registrasi_awal.modal.edit')
+
         </div>
     </div>
 </div>

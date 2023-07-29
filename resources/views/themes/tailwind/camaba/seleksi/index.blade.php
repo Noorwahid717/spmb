@@ -2,7 +2,22 @@
 
 
 @section('content')
-
+<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+    <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border rounded-lg lg:ml-3 border-gray-150">
+        <div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-150 sm:flex-no-wrap">
+            <div class="relative flex-1">
+                <h3 class="text-lg font-medium leading-6 text-gray-700">
+                    Ujian Seleksi Potensi Akademik
+                </h3>
+                <div class="grid grid-cols-3 gap-1" style="width: 250px">
+                    <div class="col">Prodi</div>
+                    <div class="col">: S1 - Teknik Informatika</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
     <div class="flex flex-col justify-start flex-1 overflow-hidden bg-white border rounded-lg lg:ml-3 border-gray-150">

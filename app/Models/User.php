@@ -48,4 +48,16 @@ class User extends Authenticatable
         'trial_ends_at' => 'datetime',
         
     ];
+
+    protected $appends = ['role_name'];
+
+    public function getProdiFakultas()
+    {
+        return $this->belongsTo('App\Models\Roles','role_id', 'id');
+    }
+
+    public function getRoleNameAttribute()
+    {
+        return $this->getProdiFakultas->display_name;
+    }
 }
