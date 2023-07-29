@@ -50,4 +50,29 @@ class RegistrasiAwalUser extends Model
     public function getUserSpmbStep(){
         return $this->belongsTo('App\Models\UserSpmbStep','id_user', 'user_id');    
     }
+
+
+
+    // available-member
+    protected $appends = ['nama','prodi','lunas','adm'];
+
+    public function getNamaAttribute()
+    {
+        return $this->getUser->name;    
+    }
+
+    public function getProdiAttribute()
+    {
+        return ($this->getCamabaDataProgramStudi==null?"Belum Memilih":$this->getCamabaDataProgramStudi->program_studi_1);
+    }
+
+    public function getLunasAttribute()
+    {
+        return ($this->is_lunas==null?"Unpaid":($this->is_lunas==1?"Paid":"Unpaid"));
+    }
+
+    public function getAdmAttribute()
+    {
+        return ($this->getCamabaDataDokumen==null?"Invalid":($this->getCamabaDataDokumen->status_step==1?"Valid":"Invalid"));
+    }
 }

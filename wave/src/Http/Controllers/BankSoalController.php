@@ -59,7 +59,8 @@ class BankSoalController extends Controller
                         \''.$row->jawaban_pelengkap_2.'\',
                         \''.$row->jawaban_pelengkap_3.'\',
                         \''.$row->jawaban_pelengkap_4.'\',
-                        \''.$row->status.'\');"'.  
+                        \''.$row->status.'\',
+                        \''.$row->nilai_poin_pengali.'\');"'.  
                     'data-modal="#detailBankSoalModal" rel="modal:open" href="#detailBankSoalModal"> '.
                     '<img src="'.asset('/themes/tailwind/images/search.png').'" class="w-6 rounded sm:mx-auto"> '.
                     '</a>'.
@@ -74,7 +75,8 @@ class BankSoalController extends Controller
                         \''.$row->jawaban_pelengkap_2.'\',
                         \''.$row->jawaban_pelengkap_3.'\',
                         \''.$row->jawaban_pelengkap_4.'\',
-                        \''.$row->status.'\');"'.
+                        \''.$row->status.'\',
+                        \''.$row->nilai_poin_pengali.'\');"'.
                         'data-modal="#editBankSoalModal" rel="modal:open" href="#editBankSoalModal">'.
                     '<img src="'.asset('/themes/tailwind/images/pen.png').'" class="w-6 rounded sm:mx-auto"> '.
                     '</a>'.
@@ -89,7 +91,8 @@ class BankSoalController extends Controller
                         \''.$row->jawaban_pelengkap_2.'\',
                         \''.$row->jawaban_pelengkap_3.'\',
                         \''.$row->jawaban_pelengkap_4.'\',
-                        \''.$row->status.'\');">'.  
+                        \''.$row->status.'\',
+                        \''.$row->nilai_poin_pengali.'\');">'.  
                     '<img src="'.asset('/themes/tailwind/images/delete.png').'" class="w-6 rounded sm:mx-auto"> '.
                     '</button>';
                     return $actionBtn;
@@ -138,6 +141,7 @@ class BankSoalController extends Controller
             $data->jawaban_pelengkap_3 = $req->jawaban_pelengkap_3;
             $data->jawaban_pelengkap_4 = $req->jawaban_pelengkap_4;
             $data->status = $req->status_soal;
+            $data->nilai_poin_pengali = $req->nilai_poin_pengali;
 
             if($data->save()){
                 $res['message']="Data soal berhasil disimpan.";
@@ -191,6 +195,7 @@ class BankSoalController extends Controller
             $data->jawaban_pelengkap_3 = $req->jawaban_pelengkap_3;
             $data->jawaban_pelengkap_4 = $req->jawaban_pelengkap_4;
             $data->status = $req->status_soal;
+            $data->nilai_poin_pengali = $req->nilai_poin_pengali;
 
             if($data->save()){
                 $res['message']="Data soal berhasil diupdate.";

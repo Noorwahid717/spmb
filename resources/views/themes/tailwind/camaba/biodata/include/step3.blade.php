@@ -7,7 +7,7 @@
             <select name="kondisi_ayah" id="kondisi_ayah" class="form-control mt-1 kondisi_ayah">
                 <option value="-1" selected>--Pilih Kondisi Ayah--</option>
                 <option value="1">Masih Hidup</option>
-                <option value="0">Sudah Meninggal</option>
+                <option value="0">Sudah Meninggal/Cerai</option>
             </select>
         </div>
         <div class="form-group mb-5 text-xs">
@@ -55,31 +55,31 @@
     </div>
     <div class="flex flex-col justify-start flex-1 mb-5 xl:px-5 md:px-2 overflow-hidden bg-white">
         <div class="form-group mb-5 text-xs">
-            <label for="kondisi_ibu">Kondisi Ibu <span class="text-red">*</span></label>
+            <label for="kondisi_ibu">Kondisi Ibu Kandung <span class="text-red">*</span></label>
             {{-- <input type="text" name="kondisi_ibu" id="kondisi_ibu" class="form-control mt-1" value=""
                 placeholder="Kondisi Ibu"> --}}
             <select name="kondisi_ibu" id="kondisi_ibu" class="form-control mt-1 kondisi_ibu">
                 <option value="-1" selected>--Pilih Kondisi Ibu--</option>
                 <option value="1">Masih Hidup</option>
-                <option value="0">Sudah Meninggal</option>
+                <option value="0">Sudah Meninggal/Cerai</option>
             </select>
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="nik_ibu">Nomor Induk Kependudukan Ibu <span class="text-red">*</span></label>
+            <label for="nik_ibu">Nomor Induk Kependudukan Ibu Kandung <span class="text-red">*</span></label>
             <input type="text" name="nik_ibu" id="nik_ibu" class="form-control mt-1" value="" maxlength="16"
                 placeholder="Nomor Induk Kependudukan Ibu">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="nama_ibu">Nama Ibu <span class="text-red">*</span></label>
+            <label for="nama_ibu">Nama Ibu Kandung <span class="text-red">*</span></label>
             <input type="text" name="nama_ibu" id="nama_ibu" class="form-control mt-1" value="" placeholder="Nama Ibu">
         </div>
         <div class="form-group mb-5 text-xs">
-            <label for="tgllhr_ibu">Tanggal Lahir Ibu<span class="text-red">*</span></label>
+            <label for="tgllhr_ibu">Tanggal Lahir Ibu Kandung <span class="text-red">*</span></label>
             <input type="date" name="tgllhr_ibu" id="tgllhr_ibu" class="form-control mt-1" value=""
                 placeholder="Tanggal Lahir Ibu">
         </div>
         <div class="form-group mb-5 text-xs mb-4">
-            <label for="pendidikan_ibu">Pendidikan Terakhir Ibu <span class="text-red">*</span></label>
+            <label for="pendidikan_ibu">Pendidikan Terakhir Ibu Kandung <span class="text-red">*</span></label>
             <select name="pendidikan_ibu" id="pendidikan_ibu" class="form-control mt-1">
                 <option value="-1" selected>--Pilih Pendidikan Terakhir--</option>
                 @foreach ($pendidikan as $item)
@@ -88,7 +88,7 @@
             </select>
         </div>
         <div class="form-group mb-5 text-xs mb-4">
-            <label for="pekerjaan_ibu">Pekerjaan Ibu <span class="text-red">*</span></label>
+            <label for="pekerjaan_ibu">Pekerjaan Ibu Kandung <span class="text-red">*</span></label>
             <select name="pekerjaan_ibu" id="pekerjaan_ibu" class="form-control mt-1">
                 <option value="-1" selected>--Pilih Pekerjaan--</option>
                 @foreach ($pekerjaan as $item)
@@ -97,7 +97,7 @@
             </select>
         </div>
         <div class="form-group mb-5 text-xs mb-4">
-            <label for="penghasilan_ibu">Penghasilan Ibu <span class="text-red">*</span></label>
+            <label for="penghasilan_ibu">Penghasilan Ibu Kandung <span class="text-red">*</span></label>
             <select name="penghasilan_ibu" id="penghasilan_ibu" class="form-control mt-1">
                 <option value="-1" selected>--Pilih Penghasilan--</option>
                 @foreach ($penghasilan as $item)

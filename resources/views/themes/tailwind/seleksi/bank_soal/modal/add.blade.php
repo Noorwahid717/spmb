@@ -47,6 +47,11 @@
                     value="" placeholder="Opsi Jawaban Lain (4)">
             </div>
             <div class="form-group mb-5 text-xs mb-4">
+                <label for="nilai_poin_pengali">Nilai Poin Pengali <span class="text-red">*</span></label>
+                <input type="number" min="1" name="nilai_poin_pengali" id="nilai_poin_pengali" class="form-control mt-1"
+                    value="" placeholder="Nilai Poin Pengali">
+            </div>
+            <div class="form-group mb-5 text-xs mb-4">
                 <label for="status_soal">Status Soal</label>
                 <select name="status_soal" id="status_soal" class="form-control mt-1">
                     <option value="1">Aktif</option>

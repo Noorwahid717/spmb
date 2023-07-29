@@ -12,20 +12,21 @@
             </div>
             <div class="relative flex-1">
                 <h3 class="text-lg font-medium leading-6 text-gray-700">
-                    Data Bank Soal Ujian Seleksi Akademik
+                    Data Soal Interview
                 </h3>
                 <p class="text-sm leading-5 text-gray-500 mt">
-                    Lakukan manipulasi data soal untuk memenuhi bank soal ujian seleksi akademik.
+                    Lakukan manipulasi data soal interview.
                 </p>
             </div>
             <a class="inline-flex self-start items-center ml-3 px-4 py-3 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md"
-                data-modal="#addBankSoalModal" rel="modal:open" href="#addBankSoalModal" onclick="modalAddClick()">
+                data-modal="#addInterviewQuestionModal" rel="modal:open" href="#addInterviewQuestionModal"
+                onclick="modalAddClick()">
                 <img src="{{asset('/themes/tailwind/images/add.png')}}" class="w-6 rounded sm:mx-auto">
                 &nbsp;Tambah Data</a>
         </div>
         <div class="relative p-5">
             <div class="flex items-center">
-                <div class="form-group mb-5 text-xs" style="max-width: 250px">
+                {{-- <div class="form-group mb-5 text-xs" style="max-width: 250px">
                     <label for="filter_prodi_option">Filter <strong>Program Studi</strong>:</label>
                     <select name="filter_prodi_option" id="filter_prodi_option"
                         class="form-control mt-1 filter_prodi_option">
@@ -42,29 +43,25 @@
                         onclick="execFil()">
                         <img src="{{asset('/themes/tailwind/images/loupe.png')}}" class="w-6 rounded sm:mx-auto">
                         &nbsp;Tampilkan Data</button>
-                </div>
+                </div> --}}
             </div>
-            <table id="bank_soal" class="display bank_soal" style="width:100%;">
+            <table id="interview_question" class="display interview_question" style="width:100%;">
                 <thead>
                     <tr>
                         <th style="text-align: center!important">NO</th>
-                        <th>PRODI</th>
-                        <th>PERTANYAAN</th>
-                        <th>KUNCI</th>
-                        <th style="text-align: center!important">STATUS</th>
+                        <th>PERTANYAAN INTERVIEW</th>
                         <th style="width: 130px;text-align: center!important">ACT</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
-            <input type="hidden" id="bank_soal_url" class="bank_soal_url" name="bank_soal_url"
-                value="{{route('wave.bank-soal-getlist')}}">
-            <input type="hidden" id="detele_bank_soal_url" class="detele_bank_soal_url" name="detele_bank_soal_url"
-                value="{{route('wave.bank-soal-delete')}}">
-            @include('theme::seleksi.bank_soal.modal.add')
-            @include('theme::seleksi.bank_soal.modal.detail')
-            @include('theme::seleksi.bank_soal.modal.edit')
+            <input type="hidden" id="interview_question_url" class="interview_question_url"
+                name="interview_question_url" value="{{route('wave.interview-question-getlist')}}">
+            <input type="hidden" id="detele_interview_question_url" class="detele_interview_question_url"
+                name="detele_interview_question_url" value="{{route('wave.interview-question-delete')}}">
+            @include('theme::seleksi.interview_soal.modal.add')
+            @include('theme::seleksi.interview_soal.modal.edit')
         </div>
     </div>
 </div>
@@ -92,7 +89,7 @@
             
     } );
 
-    var table = $('.bank_soal').DataTable({
+    var table = $('.interview_question').DataTable({
         pageLength : 10,
         dom: 'lfrtip',        
         processing: true,
@@ -101,11 +98,10 @@
         "scrollX":true,
         rowId:  'id',
         ajax: {
-            url:$('#bank_soal_url').val(),
+            url:$('#interview_question_url').val(),
             type:"POST",
             data:function(d){
                 d._token = $('._token').data('token')
-                d.filter_prodi = $('#filter_prodi_option option:selected').val()                
             }
         }, 
         createdRow: function(row, data, dataIndex, cells) {
@@ -113,17 +109,11 @@
             $(row).addClass('transparentClass') 
             $(cells[0]).addClass('text-center text-sm')
             $(cells[1]).addClass('text-sm')
-            $(cells[2]).addClass('text-sm')
-            $(cells[3]).addClass('text-sm')
-            $(cells[4]).addClass('text-sm text-center')
-            $(cells[5]).addClass('text-sm text-center')                        
+            $(cells[2]).addClass('text-sm text-center')                        
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'program_studi', name: 'program_studi'},
-            {data: 'pertanyaan', name: 'pertanyaan'},
-            {data: 'kunci_jawaban', name: 'kunci_jawaban'},            
-            {data: 'status', name: 'status'},
+            {data: 'question', name: 'question'},
             {data: 'act', name:'act'},               
         ], 
     });
@@ -133,63 +123,12 @@
     }
 </script>
 <script>
-    function addBankSoal() {
-        const id_prodi = $("#soal_prodi_option option:selected").val();
+    function addInterviewQuestion() {
         const deskripsi_pertanyaan = $("#deskripsi_pertanyaan").val();
-        const kunci_jawaban = $("#kunci_jawaban").val();
-        const jawaban_pelengkap_1 = $("#jawaban_pelengkap_1").val();
-        const jawaban_pelengkap_2 = $("#jawaban_pelengkap_2").val();
-        const jawaban_pelengkap_3 = $("#jawaban_pelengkap_3").val();
-        const jawaban_pelengkap_4 = $("#jawaban_pelengkap_4").val();
-        const status_soal = $("#status_soal").val();
-        const nilai_poin_pengali = $("#nilai_poin_pengali").val();        
+        const params = {deskripsi_pertanyaan}
 
-        const params = {id_prodi,deskripsi_pertanyaan,kunci_jawaban,jawaban_pelengkap_1,
-            jawaban_pelengkap_2,jawaban_pelengkap_3,jawaban_pelengkap_4,status_soal,nilai_poin_pengali}
-
-        if(id_prodi!=-1){                        
         if(deskripsi_pertanyaan!=""){
-        if(kunci_jawaban!=""){
-        if(jawaban_pelengkap_1!=""){
-        if(jawaban_pelengkap_2!=""){
-        if(jawaban_pelengkap_3!=""){
-        if(jawaban_pelengkap_4!=""){
-            saveBankSoal(params);                    
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Opsi jawaban lain (4) wajib diisi!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Opsi jawaban lain (3) wajib diisi!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Opsi jawaban lain (2) wajib diisi!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Opsi jawaban lain (1) wajib diisi!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Kunci jawaban wajib diisi!",
-            });
-        }
+            saveInterviewQuestion(params);                    
         }else{
             Swal.fire({
                 icon: 'error',
@@ -197,15 +136,8 @@
                 text: "Deskripsi pertanyaan wajib diisi!",
                 });
         }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Pilih program studi terlebih dahulu!",
-            });
-        }
     }
-    function saveBankSoal(params) {
+    function saveInterviewQuestion(params) {
         $('.containerr').show();
         let header = {};
         header['_method']='POST';
@@ -218,7 +150,7 @@
         });
         $.ajax({
             type: 'post',
-            url: $("#addBankSoalUrl").val(),
+            url: $("#addInterviewQuestionUrl").val(),
             data:datar,
             success: function(data) {
                 if (data.error==false) {
@@ -241,31 +173,11 @@
         }); 
     }
     function modalAddClick(){          
-        $("#soal_prodi_option").val(-1);
         $("#deskripsi_pertanyaan").val("");
-        $("#kunci_jawaban").val("");
-        $("#jawaban_pelengkap_1").val("");
-        $("#jawaban_pelengkap_2").val("");
-        $("#jawaban_pelengkap_3").val("");
-        $("#jawaban_pelengkap_4").val("");
-        $("#status_soal").val(1);
-        $("#nilai_poin_pengali").val(1);        
     }
 
-    function detailModalClick(a,b,c,d,e,f,g,h,i,j){          
-        $("#detail_soal_prodi_option").val(b);
-        $("#detail_deskripsi_pertanyaan").val(c);
-        $("#detail_kunci_jawaban").val(d);
-        $("#detail_jawaban_pelengkap_1").val(e);
-        $("#detail_jawaban_pelengkap_2").val(f);
-        $("#detail_jawaban_pelengkap_3").val(g);
-        $("#detail_jawaban_pelengkap_4").val(h);
-        $("#detail_status_soal").val(i);
-        $("#detail_nilai_poin_pengali").val(j);        
-
-    }
-    function deleteModalClick(a,b,c,d,e,f,g,h,i,j){
-        const contents = `Anda akan menghapus soal berikut: <strong><br>${c}</strong>`;          
+    function deleteModalClick(a,b){
+        const contents = `Anda akan menghapus soal berikut: <strong><br>${b}</strong><br>cek lagi menghapus relasi`;          
         Swal.fire({
             title: 'Apakah anda yakin!',
             // text: teks,
@@ -277,11 +189,11 @@
             reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {  
-                    deleteBankSoal(a);
+                    // deleteInterviewQuestion(a);
                 } 
         });
     }
-    function deleteBankSoal(a){        
+    function deleteInterviewQuestion(a){        
         $('.containerr').show();
         let datar = {};
         datar['_method']='POST';
@@ -294,7 +206,7 @@
         });
         $.ajax({
             type: 'post',
-            url: $("#detele_bank_soal_url").val(),
+            url: $("#detele_interview_question_url").val(),
             data:datar,
             success: function(data) {
                 if (data.error==false) {
@@ -316,76 +228,18 @@
         }); 
     }
 
-    function editModalClick(a,b,c,d,e,f,g,h,i,j) {
-        $("#edit_soal_prodi_id").val(a);
-        $("#edit_soal_prodi_option").val(b);
-        $("#edit_deskripsi_pertanyaan").val(c);
-        $("#edit_kunci_jawaban").val(d);
-        $("#edit_jawaban_pelengkap_1").val(e);
-        $("#edit_jawaban_pelengkap_2").val(f);
-        $("#edit_jawaban_pelengkap_3").val(g);
-        $("#edit_jawaban_pelengkap_4").val(h);
-        $("#edit_status_soal").val(i);
-        $("#edit_nilai_poin_pengali").val(j);        
+    function editModalClick(a,b) {
+        $("#edit_soal_interview_id").val(a);
+        $("#edit_deskripsi_pertanyaan").val(b);
     }
-    function editBankSoal() {
-        const id = $("#edit_soal_prodi_id").val();
-        const id_prodi = $("#edit_soal_prodi_option option:selected").val();
+    function editInterviewQuestion() {
+        const id = $("#edit_soal_interview_id").val();
         const deskripsi_pertanyaan = $("#edit_deskripsi_pertanyaan").val();
-        const kunci_jawaban = $("#edit_kunci_jawaban").val();
-        const jawaban_pelengkap_1 = $("#edit_jawaban_pelengkap_1").val();
-        const jawaban_pelengkap_2 = $("#edit_jawaban_pelengkap_2").val();
-        const jawaban_pelengkap_3 = $("#edit_jawaban_pelengkap_3").val();
-        const jawaban_pelengkap_4 = $("#edit_jawaban_pelengkap_4").val();
-        const status_soal = $("#edit_status_soal").val();
-        const nilai_poin_pengali = $("#edit_nilai_poin_pengali").val();        
 
-        const params = {id,id_prodi,deskripsi_pertanyaan,kunci_jawaban,jawaban_pelengkap_1,
-            jawaban_pelengkap_2,jawaban_pelengkap_3,jawaban_pelengkap_4,status_soal,nilai_poin_pengali}
+        const params = {id,deskripsi_pertanyaan}
 
-        if(id_prodi!=-1){                        
         if(deskripsi_pertanyaan!=""){
-        if(kunci_jawaban!=""){
-        if(jawaban_pelengkap_1!=""){
-        if(jawaban_pelengkap_2!=""){
-        if(jawaban_pelengkap_3!=""){
-        if(jawaban_pelengkap_4!=""){
-            updateBankSoal(params);                    
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Opsi jawaban lain (4) wajib diisi!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Opsi jawaban lain (3) wajib diisi!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Opsi jawaban lain (2) wajib diisi!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Opsi jawaban lain (1) wajib diisi!",
-            });
-        }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Kunci jawaban wajib diisi!",
-            });
-        }
+            updateInterviewQuestion(params);                    
         }else{
             Swal.fire({
                 icon: 'error',
@@ -393,15 +247,8 @@
                 text: "Deskripsi pertanyaan wajib diisi!",
                 });
         }
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Pilih program studi terlebih dahulu!",
-            });
-        }
     }
-    function updateBankSoal(params) {
+    function updateInterviewQuestion(params) {
         $('.containerr').show();
         let header = {};
         header['_method']='POST';
@@ -414,7 +261,7 @@
         });
         $.ajax({
             type: 'post',
-            url: $("#editBankSoalUrl").val(),
+            url: $("#editInterviewQuestionUrl").val(),
             data:datar,
             success: function(data) {
                 if (data.error==false) {
