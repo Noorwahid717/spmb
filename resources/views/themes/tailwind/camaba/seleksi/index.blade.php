@@ -54,6 +54,11 @@
                                 value="{{$examAca!=null?substr($examAca->waktu_selesai, 0, 5):'belum terjadwal'}}"
                                 readonly>
                         </div>
+                        <button
+                            class="mt-2 inline-flex xl:self-start self-center items-center px-4 py-2 bg-red-500 hover:bg-red-700 text-white text-sm font-medium rounded-md"
+                            onclick="mulaiUjian({{$examAcaMem==null?null:$examAcaMem->id}})">
+                            Mulai Ujian Sekarang
+                        </button>
                     </div>
                 </div>
                 <div
@@ -328,4 +333,36 @@
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+    })
+</script>
+<script src="{{ asset('themes/' . $theme->folder . '/js/Magnifier.js') }}"></script>
+<script src="{{ asset('themes/' . $theme->folder . '/js/Event.js') }}"></script>
+<script>
+    $(document).ready( function () {
+            
+    } );
+
+    function mulaiUjian(id_exam_academic_member){
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Under Maintenance!",
+            });
+    }
+</script>
 @endsection

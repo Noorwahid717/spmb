@@ -41,6 +41,7 @@ class SeleksiController extends Controller
                 'examInt'=>$examInt,
                 'examRQ'=>$examRQ,
                 'examRS'=>$examRS,
+                'examAcaMem'=>$examAcaMem,
             ));
         }else{
             return abort(404);
