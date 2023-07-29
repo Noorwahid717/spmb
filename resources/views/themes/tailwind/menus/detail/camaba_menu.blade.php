@@ -14,7 +14,11 @@
     class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none border-b-2 @if(Request::is('tagihan-camaba')){{ 'border-b-3 border-indigo-500 text-gray-900 focus:border-indigo-700' }}@else{{ 'text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:text-gray-700 focus:border-gray-300 border-transparent' }}@endif">
     Tagihan
 </a>
-<div x-data="{ dropdown: false }" @mouseenter="dropdown = true" @mouseleave="dropdown=false"
+<a href="{{route('wave.seleksi-info')}}"
+    class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none border-b-2 @if(Request::is('seleksi-info')){{ 'border-b-3 border-indigo-500 text-gray-900 focus:border-indigo-700' }}@else{{ 'text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:text-gray-700 focus:border-gray-300 border-transparent' }}@endif">
+    Seleksi
+</a>
+{{-- <div x-data="{ dropdown: false }" @mouseenter="dropdown = true" @mouseleave="dropdown=false"
     @click.away="dropdown=false"
     class="relative inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 @if(Request::is('seleksi-info')||Request::is('pelaksanaan-seleksi')||Request::is('hasil-seleksi')){{ 'border-b-2 border-indigo-500 text-gray-900 focus:border-indigo-700' }}@else{{ 'text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:text-gray-700 focus:border-gray-300 border-transparent' }}@endif">
     <span>Seleksi</span>
@@ -34,13 +38,7 @@
                     <a href={{route("wave.seleksi-info")}}
                         class="block px-5 py-3 -m-3 space-y-1 transition duration-150 ease-in-out hover:border-blue-500 hover:border-l-2 rounded-xl hover:bg-gray-100">
                         <p class="text-base font-medium leading-6 text-gray-900">
-                            Info
-                        </p>
-                    </a>
-                    <a href="#"
-                        class="block px-5 py-3 -m-3 space-y-1 transition duration-150 ease-in-out hover:border-blue-500 hover:border-l-2 rounded-xl hover:bg-gray-100">
-                        <p class="text-base font-medium leading-6 text-gray-900">
-                            Pelaksanaan Seleksi
+                            Info dan Jadwal
                         </p>
                     </a>
                     <a href="#"
@@ -53,5 +51,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endif
