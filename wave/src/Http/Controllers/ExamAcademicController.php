@@ -340,7 +340,7 @@ class ExamAcademicController extends Controller
             $memberResult = ExamAcademicMemberResult::where('id_exam_academic_member',$data->id)
             ->get();
                         
-            if($memberResult){
+            if(count($memberResult)!=0){
                 $res['error']=true;
                 $res['message']="Data peserta ujian akademik gagal dihapus, sudah terdapat hasil ujian pada peserta ini!";
             }else{               
