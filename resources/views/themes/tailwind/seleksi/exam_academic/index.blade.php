@@ -70,6 +70,9 @@
                 value="{{route('wave.exam-academic-getlist')}}">
             <input type="hidden" id="detele_exam_academic_url" class="detele_exam_academic_url"
                 name="detele_exam_academic_url" value="{{route('wave.exam-academic-delete')}}">
+            <input type="hidden" id="validate_exam_academic_url" class="validate_exam_academic_url"
+                name="validate_exam_academic_url" value="{{route('wave.exam-academic-validate')}}">
+
 
             @include('theme::seleksi.exam_academic.modal.add')
             @include('theme::seleksi.exam_academic.modal.edit')
@@ -178,6 +181,59 @@
         $.ajax({
             type: 'post',
             url: $("#detele_exam_academic_url").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    table.ajax.reload();
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
+
+    function validateExamModalClick(id,sesi,ta,gelombang){
+        const contents = `Anda akan memvalidasi semua jawaban ujian akademik berikut: <strong>${ta} ${gelombang} ${sesi}</strong>`;          
+        Swal.fire({
+            title: 'Apakah anda yakin!',
+            // text: teks,
+            html: contents,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, validasi sekarang!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {  
+                    validateExamAcademic(id);
+                } 
+        });
+    }
+
+    function validateExamAcademic(id) {
+        $('.containerr').show();
+        let datar = {};
+        datar['_method']='POST';
+        datar['_token']=$('._token').data('token');
+        datar['id']=id;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#validate_exam_academic_url").val(),
             data:datar,
             success: function(data) {
                 if (data.error==false) {

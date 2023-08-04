@@ -281,7 +281,7 @@ class ExamReadShalawatController extends Controller
         $joined = ExamReadShalawatMember::where('id_exam_read_shalawat',$req->id_exam_read_shalawat)
         ->get()
         ->each(function ($items) {
-            $items->makeHidden(['getInfoAdm','getInfoLunas','getPilihanProdi','getUsers']);            
+            $items->makeHidden(['getInfoAdm','getInfoLunas','getPilihanProdi','getUsers','getNilaiKelancaran','getNilaiTajwid','getNilaiMakhraj']);            
         });        
         if ($req->ajax()) {
             return DataTables::of($joined)

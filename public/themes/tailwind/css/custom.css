@@ -289,3 +289,10 @@
         padding-top: 3px;
         padding-bottom: 6px;
       }
+
+      .powderblue{
+        background: powderblue;
+      }
+      .lightsteelblue{
+        background: lightsteelblue!important;
+      }
