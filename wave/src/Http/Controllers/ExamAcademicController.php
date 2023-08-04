@@ -7,17 +7,20 @@ use App\Models\RegistrasiAwalUser;
 use App\Models\UserSpmbStep;
 use App\Models\SpmbConfig;
 use App\Models\User;
+use App\Models\BankSoal;
 use App\Models\InterviewQuestion;
 use App\Models\ExamSchedules;
 use App\Models\ExamAcademic;
 use App\Models\ExamAcademicMember;
 use App\Models\ExamAcademicMemberResult;
 use App\Models\ProdiFakultas;
+use App\Models\ExamConvertionResult;
 use App\Models\CamabaDataProgramStudi;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
 use DataTables;
+use DateTime;
 use Illuminate\Support\Arr;
 use Str;
 
@@ -73,6 +76,15 @@ class ExamAcademicController extends Controller
                         \''.$req->ta_long.'\',
                         \''.$req->keterangan.'\');">'.  
                     '<img src="'.asset('/themes/tailwind/images/delete.png').'" class="w-6 rounded sm:mx-auto"> '.
+                    '</button>'.
+                    '<button '.
+                    'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.
+                    'onClick="validateExamModalClick(
+                        \''.$row->id.'\',
+                        \''.$row->nama_sesi.'\',
+                        \''.$req->ta_long.'\',
+                        \''.$req->keterangan.'\');">'.  
+                    '<img src="'.asset('/themes/tailwind/images/horn.png').'" class="w-6 rounded sm:mx-auto"> '.
                     '</button>';
                     return $actionBtn;
                 })              
@@ -249,7 +261,8 @@ class ExamAcademicController extends Controller
         $res['message']="";
 
         try {
-            if(CamabaDataProgramStudi::where('id_user',$req->id_camaba)->first()==null){
+            $camaba_prodi = CamabaDataProgramStudi::where('id_user',$req->id_camaba)->first();
+            if($camaba_prodi==null){
                 $res['error']=true;
                 $res['message']="Gagal menambah peserta ujian akademik, peserta belum memilih program studi!";
             }else{
@@ -260,6 +273,24 @@ class ExamAcademicController extends Controller
     
                 if($data->save()){
                     $res['message']="Peserta ujian akademik berhasil disimpan.";
+                    $soal = BankSoal::where("id_prodi",$camaba_prodi->id_program_studi_1)
+                    ->inRandomOrder()
+                            ->limit(50)
+                            ->get();
+                    foreach ($soal as $key => $value) {
+                        $plot = new ExamAcademicMemberResult();
+                        $plot->id_exam_academic_member = $data->id;
+                        $plot->id_bank_soal = $value->id;
+                        $idx_ans = array(1,2,3,4,5);
+                        shuffle($idx_ans);
+                        $plot->rand_idx_ans_a = $idx_ans[0];
+                        $plot->rand_idx_ans_b = $idx_ans[1];
+                        $plot->rand_idx_ans_c = $idx_ans[2];
+                        $plot->rand_idx_ans_d = $idx_ans[3];
+                        $plot->rand_idx_ans_e = $idx_ans[4];
+                        $plot->save();
+                    }
+                    // self::addRandomExamAcademicMemberResult($data->id,$camaba_prodi->id_program_studi_1);
                 }else{
                     $res['error']=true;
                     $res['message']="Peserta ujian akademik gagal disimpan!";
@@ -272,6 +303,8 @@ class ExamAcademicController extends Controller
 
         return response()->json($res);
     }
+
+   
 
     public function getListJoined(Request $req)
     {
@@ -336,8 +369,8 @@ class ExamAcademicController extends Controller
         try {
             $data = ExamAcademicMember::where('id_exam_academic',$req->id_exam_academic)
                 ->where('id_camaba',$req->id_camaba)->where('tahun_akademik_seleksi',$req->ta_seleksi)->first();
-
-            $memberResult = ExamAcademicMemberResult::where('id_exam_academic_member',$data->id)
+            $id_del = $data->id;
+            $memberResult = ExamAcademicMemberResult::where('id_exam_academic_member',$data->id)->whereNotNull('selected_answer')
             ->get();
                         
             if(count($memberResult)!=0){
@@ -346,6 +379,10 @@ class ExamAcademicController extends Controller
             }else{               
                 if($data->delete()){
                     $res['message']="Peserta ujian akademik berhasil dihapus.";
+                    $del = ExamAcademicMemberResult::where('id_exam_academic_member',$id_del)->get();
+                    foreach ($del as $key => $value) {
+                        $value->delete();
+                    }
                 }else{
                     $res['error']=true;
                     $res['message']="Peserta ujian akademik gagal dihapus!";
@@ -380,6 +417,53 @@ class ExamAcademicController extends Controller
                     $res['error']=true;
                     $res['message']="Data ujian akademik gagal dihapus!";
                 }                    
+            }
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
+    }
+
+    public function validateExamAcademic(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $examAca = ExamAcademic::where('id',$req->id)->first();
+            $examAcaMem = ExamAcademicMember::where('id_exam_academic',$examAca->id)->get();
+            $date_now = new DateTime();
+            $date_end    = new DateTime($examAca->tanggal.' '.$examAca->waktu_selesai);    
+            if ($date_end < $date_now ) {
+                foreach ($examAcaMem as $key => $value) {
+                    $examAcaMemRes = ExamAcademicMemberResult::where('id_exam_academic_member',$value->id)
+                    ->where('selected_answer',1)->get();
+                    
+                    $total_poin = 0;
+                    foreach ($examAcaMemRes as $key => $val) {
+                        $total_poin += $val->poin;  
+                    }
+                    
+                    $convertion = ExamConvertionResult::all();
+                    $matched_convertion = null;
+                    foreach ($convertion as $key => $v) {
+                        if($total_poin >= $v->range_nilai_awal&&$total_poin <= $v->range_nilai_akhir){
+                            $matched_convertion = $v;
+                        }
+                    }
+
+                    $examAcaMem = ExamAcademicMember::where('id',$value->id)->first();
+                    $examAcaMem->catatan = $matched_convertion->keterangan;
+                    $examAcaMem->status_lolos = $matched_convertion->status;
+                    $examAcaMem->save();
+                }
+                $res['message']="Berhasil memvalidasi semua jawaban ujian akademik!";
+            }else{
+                $res['error']=true;
+                $res['message']="Gagal memvalidasi semua jawaban ujian akademik, waktu ujian belum dimulai/masih berlangsung!";
             }
         } catch (\Exception $e) {
             $res['error']=true;

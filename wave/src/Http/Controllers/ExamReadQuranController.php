@@ -281,7 +281,7 @@ class ExamReadQuranController extends Controller
         $joined = ExamReadQuranMember::where('id_exam_read_quran',$req->id_exam_read_quran)
         ->get()
         ->each(function ($items) {
-            $items->makeHidden(['getInfoAdm','getInfoLunas','getPilihanProdi','getUsers']);            
+            $items->makeHidden(['getInfoAdm','getInfoLunas','getPilihanProdi','getUsers','getNilaiKelancaran','getNilaiTajwid','getNilaiMakhraj']);            
         });          
         if ($req->ajax()) {
             return DataTables::of($joined)

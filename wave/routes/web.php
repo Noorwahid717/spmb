@@ -38,6 +38,10 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::get('dashboard', '\Wave\Http\Controllers\DashboardController@index')->name('wave.dashboard');
 	Route::post('dashboard-pendaftaran-grafik-by-periode', '\Wave\Http\Controllers\DashboardController@pendaftaranGrafikByPeriode')->name('wave.dashboard-pendaftaran-grafik-by-periode');
 	
+	// ujian 
+	Route::get('do-exam-academic', '\Wave\Http\Controllers\DoExamAcademicController@index')->name('wave.do-exam-academic');
+	Route::post('do-exam-academic-updatelist', '\Wave\Http\Controllers\DoExamAcademicController@updateList')->name('wave.do-exam-academic-updatelist');
+
 	
 	Route::get('biodata', '\Wave\Http\Controllers\BiodataController@index')->name('wave.biodata');
 	Route::get('biodata-kewarganegaraan', '\Wave\Http\Controllers\BiodataController@cariKewarganegaraan')->name('wave.biodata-kewarganegaraan');
@@ -93,6 +97,12 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('interview-question-add', '\Wave\Http\Controllers\InterviewQuestionController@addInterviewQuestion')->name('wave.interview-question-add');	
 	Route::post('interview-question-delete', '\Wave\Http\Controllers\InterviewQuestionController@deleteInterviewQuestion')->name('wave.interview-question-delete');	
 	Route::post('interview-question-edit', '\Wave\Http\Controllers\InterviewQuestionController@updateInterviewQuestion')->name('wave.interview-question-edit');	
+	// konversi-nilai-akademik	
+	Route::get('exam-convertion-result', '\Wave\Http\Controllers\ExamConvertionResultController@index')->name('wave.exam-convertion-result');	
+	Route::post('exam-convertion-result-getlist', '\Wave\Http\Controllers\ExamConvertionResultController@getList')->name('wave.exam-convertion-result-getlist');	
+	Route::post('exam-convertion-result-add', '\Wave\Http\Controllers\ExamConvertionResultController@addExamConvertionResult')->name('wave.exam-convertion-result-add');	
+	Route::post('exam-convertion-result-delete', '\Wave\Http\Controllers\ExamConvertionResultController@deleteExamConvertionResult')->name('wave.exam-convertion-result-delete');	
+	Route::post('exam-convertion-result-edit', '\Wave\Http\Controllers\ExamConvertionResultController@updateExamConvertionResult')->name('wave.exam-convertion-result-edit');	
 	// daftar-penguji
 	Route::get('daftar-penguji', '\Wave\Http\Controllers\DaftarPengujiController@index')->name('wave.daftar-penguji');	
 	Route::post('daftar-penguji-getlist', '\Wave\Http\Controllers\DaftarPengujiController@getList')->name('wave.daftar-penguji-getlist');	
@@ -144,6 +154,7 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('exam-academic-add-member', '\Wave\Http\Controllers\ExamAcademicController@addMember')->name('wave.exam-academic-add-member');	
 	Route::post('exam-academic-delete-member', '\Wave\Http\Controllers\ExamAcademicController@deleteMember')->name('wave.exam-academic-delete-member');	
 	Route::post('exam-academic-delete', '\Wave\Http\Controllers\ExamAcademicController@deleteExamAcademic')->name('wave.exam-academic-delete');	
+	Route::post('exam-academic-validate', '\Wave\Http\Controllers\ExamAcademicController@validateExamAcademic')->name('wave.exam-academic-validate');	
 	// ploting-ujian
 	Route::get('kelompok-ujian', '\Wave\Http\Controllers\KelompokUjianController@index')->name('wave.kelompok-ujian');	
 
