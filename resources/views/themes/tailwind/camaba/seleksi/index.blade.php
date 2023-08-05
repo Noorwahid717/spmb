@@ -336,7 +336,7 @@
                     <div class="relative p-3">
                         <h3>Hasil Seleksi</h3>
                         <hr class="mb-3 mt-1">
-                        @if($examRQMem->id_nilai_kelancaran==null||$examRQMem->id_nilai_tajwid==null||$examRQMem->id_nilai_makhraj==null)
+                        @if($examRQMem==null||$examRQMem->id_nilai_kelancaran==null||$examRQMem->id_nilai_tajwid==null||$examRQMem->id_nilai_makhraj==null)
                         <p class="text-sm leading-5 text-gray-500 mt">
                             Hasil seleksi belum rilis.
                         </p>
@@ -457,7 +457,7 @@
                     <div class="relative p-3">
                         <h3>Hasil Seleksi</h3>
                         <hr class="mb-3 mt-1">
-                        @if($examRSMem->id_nilai_kelancaran==null||$examRSMem->id_nilai_tajwid==null||$examRSMem->id_nilai_makhraj==null)
+                        @if($examRSMem==null||$examRSMem->id_nilai_kelancaran==null||$examRSMem->id_nilai_tajwid==null||$examRSMem->id_nilai_makhraj==null)
                         <p class="text-sm leading-5 text-gray-500 mt">
                             Hasil seleksi belum rilis.
                         </p>
