@@ -85,6 +85,10 @@ Route::group(['middleware' => 'wave'], function () {
 	
 
 	// route super admin seleksi
+	// pengujian
+	Route::get('examination', '\Wave\Http\Controllers\ExaminationController@index')->name('wave.examination');	
+
+	// route super admin seleksi
 	// bank-soal
 	Route::get('bank-soal', '\Wave\Http\Controllers\BankSoalController@index')->name('wave.bank-soal');	
 	Route::post('bank-soal-getlist', '\Wave\Http\Controllers\BankSoalController@getList')->name('wave.bank-soal-getlist');	

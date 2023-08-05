@@ -55,6 +55,7 @@
         @include('theme::menus.detail.bendahara_menu')
         @include('theme::menus.detail.pendaftaran_menu')
         @include('theme::menus.detail.super_admin_seleksi_menu')
+        @include('theme::menus.detail.penguji_seleksi_menu')
     </div>
 
 
