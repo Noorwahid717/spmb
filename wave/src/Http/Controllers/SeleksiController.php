@@ -25,8 +25,8 @@ class SeleksiController extends Controller
         if(!auth()->guest() && auth()->user()->role_id==3){
             $ta = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
             $examCat = ExamCategories::all();
-            $prodi = CamabaDataProgramStudi::where('id_user',auth()->user()->id)->first()
-            ->makeHidden(['getProdiFakultas1','getProdiFakultas2','getFakultas']);
+            $prodi = CamabaDataProgramStudi::where('id_user',auth()->user()->id)->first();
+            $prodi = $prodi==null?null:$prodi->makeHidden(['getProdiFakultas1','getProdiFakultas2','getFakultas']);
 
             $examAcaMem = ExamAcademicMember::where('id_camaba',auth()->user()->id)->where('tahun_akademik_seleksi',$ta)->first();
             $examAca = $examAcaMem==null?null:ExamAcademic::where('id',$examAcaMem->id_exam_academic)->first();
