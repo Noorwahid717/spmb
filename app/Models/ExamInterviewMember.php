@@ -52,6 +52,16 @@ class ExamInterviewMember extends Model
         return ($this->getInfoAdm==null?"Invalid":($this->getInfoAdm->status_step==1?"Valid":"Invalid"));
     }
 
+    public function getExamInterviewMemberResult()
+    {
+        return $this->hasMany('App\Models\ExamInterviewMemberResult','id_exam_interview_member', 'id');
+    }
+
+    public function getCamabaDataPokok()
+    {
+        return $this->hasOne('App\Models\CamabaDataPokok','id_user', 'id_camaba');
+    }
+
     // public function getRoleUser(){
     // return $this->belongsTo('App\Models\RoleUsers', 'id','user_id');    
     // }

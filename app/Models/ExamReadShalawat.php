@@ -10,7 +10,7 @@ class ExamReadShalawat extends Model
     use HasFactory;
     protected $fillable = [''];
     protected $table = 'exam_read_shalawat';
-    protected $appends = ['nama_penguji','jumlah_peserta',    
+    protected $appends = ['nama_penguji','jumlah_peserta','nama_schedule'
 ];
 
     public function getUsers()
@@ -32,5 +32,15 @@ class ExamReadShalawat extends Model
     {
         $camaba = count($this->getExamReadShalawatMember);
         return $camaba.' Camaba';    
+    }
+
+    public function ExamSchedules()
+    {
+        return $this->hasOne('App\Models\ExamSchedules', 'id','id_exam_schedule');
+    }
+
+    public function getNamaScheduleAttribute()
+    {
+        return $this->ExamSchedules->keterangan;
     }
 }

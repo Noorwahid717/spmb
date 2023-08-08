@@ -84,9 +84,20 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('validasi-pendaftaran-rotate-image', '\Wave\Http\Controllers\ValidasiPendaftaranController@rotateImage')->name('wave.validasi-pendaftaran-rotate-image');	
 	
 
-	// route super admin seleksi
+	// route penguji seleksi
 	// pengujian
 	Route::get('examination', '\Wave\Http\Controllers\ExaminationController@index')->name('wave.examination');	
+
+	// pengujian interview 
+	Route::get('examination-interview/{id}', '\Wave\Http\Controllers\ExaminationInterviewController@index')->name('wave.examination-interview');
+	Route::post('examination-interview-updatelist', '\Wave\Http\Controllers\ExaminationInterviewController@updateListQuestion')->name('wave.examination-interview-updatelist');
+	Route::post('examination-interview-updatelist-member', '\Wave\Http\Controllers\ExaminationInterviewController@updateListMember')->name('wave.examination-interview-updatelist-member');
+
+	// pengujian quran 
+	Route::get('examination-quran/{id}', '\Wave\Http\Controllers\ExaminationQuranController@index')->name('wave.examination-quran');
+
+	// pengujian shalawat 
+	Route::get('examination-shalawat/{id}', '\Wave\Http\Controllers\ExaminationShalawatController@index')->name('wave.examination-shalawat');
 
 	// route super admin seleksi
 	// bank-soal

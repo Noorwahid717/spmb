@@ -11,7 +11,7 @@ class ExamInterview extends Model
     protected $fillable = [''];
     protected $table = 'exam_interviews';
     protected $appends = ['nama_penguji','jumlah_peserta',
-    'jumlah_ikut_ujian'
+    'jumlah_ikut_ujian','nama_schedule'
 ];
 
     public function getUsers()
@@ -44,5 +44,15 @@ class ExamInterview extends Model
     {
         $camaba = $this->getExamInterviewMemberResult()->distinct()->count('id_exam_interview_member');
         return $camaba.' Camaba';    
+    }
+
+    public function ExamSchedules()
+    {
+        return $this->hasOne('App\Models\ExamSchedules', 'id','id_exam_schedule');
+    }
+
+    public function getNamaScheduleAttribute()
+    {
+        return $this->ExamSchedules->keterangan;
     }
 }
