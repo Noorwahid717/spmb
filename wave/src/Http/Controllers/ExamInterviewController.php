@@ -48,7 +48,7 @@ class ExamInterviewController extends Controller
         }])
         ->get()      
         ->each(function ($items) {
-            $items->makeHidden(['getExamInterviewMember','getUsers']);            
+            $items->makeHidden(['getExamInterviewMember','getUsers','ExamSchedules']);            
         });
 
         if ($req->ajax()) {
@@ -113,6 +113,7 @@ class ExamInterviewController extends Controller
         $joined = ExamInterviewMember::where('tahun_akademik_seleksi',$ta_aktif)->where('status_lolos','<>','-1')->pluck('id_camaba')->toArray();
         $available = RegistrasiAwalUser::where('tahun_akademik_registrasi',$ta_aktif)
         ->whereNotIn('id_user',$joined)
+        ->where('is_lunas',1)
         ->get()
         ->each(function ($items) {
             $items->makeHidden(['getCamabaDataProgramStudi','getCamabaDataDokumen','getUser']);            
@@ -267,6 +268,13 @@ class ExamInterviewController extends Controller
     
                 if($data->save()){
                     $res['message']="Peserta interview berhasil disimpan.";
+                    $soal = InterviewQuestion::all();
+                    foreach ($soal as $key => $value) {
+                        $plot = new ExamInterviewMemberResult();
+                        $plot->id_exam_interview_member = $data->id;
+                        $plot->id_interview_question = $value->id;                        
+                        $plot->save();
+                    }
                 }else{
                     $res['error']=true;
                     $res['message']="Peserta interview gagal disimpan!";
@@ -373,8 +381,8 @@ class ExamInterviewController extends Controller
         try {
             $data = ExamInterviewMember::where('id_exam_interview',$req->id_exam_interview)
             ->where('id_camaba',$req->id_camaba)->where('tahun_akademik_seleksi',$req->ta_seleksi)->first();
-
-            $memberResult = ExamInterviewMemberResult::where('id_exam_interview_member',$data->id)
+            $id_del = $data->id;
+            $memberResult = ExamInterviewMemberResult::where('id_exam_interview_member',$data->id)->whereNotNull('jawaban_interviewer')            
             ->get();
                         
             if(count($memberResult)!=0){
@@ -383,6 +391,10 @@ class ExamInterviewController extends Controller
             }else{  
                 if($data->delete()){
                     $res['message']="Peserta interview berhasil dihapus.";
+                    $del = ExamInterviewMemberResult::where('id_exam_interview_member',$id_del)->get();
+                    foreach ($del as $key => $value) {
+                        $value->delete();
+                    }
                 }else{
                     $res['error']=true;
                     $res['message']="Peserta interview gagal dihapus!";

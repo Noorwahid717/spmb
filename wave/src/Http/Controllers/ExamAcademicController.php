@@ -121,6 +121,7 @@ class ExamAcademicController extends Controller
         $joined = ExamAcademicMember::where('tahun_akademik_seleksi',$ta_aktif)->where('status_lolos','<>','-1')->pluck('id_camaba')->toArray();
         $available = RegistrasiAwalUser::where('tahun_akademik_registrasi',$ta_aktif)
         ->whereNotIn('id_user',$joined)
+        ->where('is_lunas',1)
         ->get()
         ->each(function ($items) {
             $items->makeHidden(['getCamabaDataProgramStudi','getCamabaDataDokumen','getUser']);            
