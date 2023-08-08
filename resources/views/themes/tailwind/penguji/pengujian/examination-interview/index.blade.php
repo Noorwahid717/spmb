@@ -45,7 +45,7 @@
                                     class="p-1 bg-blue-500 text-white text-sm font-bold rounded-md">1</span>
                             </h3>
                             <hr class="mb-3 mt-1">
-                            <div class="bg-gray-100 rounded-md">
+                            <div class="bg-gray-100 rounded-md p-2">
                                 <div class="flex flex-col mx-auto my-3 lg:flex-row max-w-7xl">
                                     <div class="flex flex-col justify-start flex-1 overflow-hidden rounded-lg">
                                         <footer class="flex items-center justify-between leading-none p-1 md:p-1">
@@ -173,9 +173,9 @@
                             <h3>Nomor Peserta Wawancara</h3>
                             <hr class="mb-3 mt-1">
                             <div class="grid grid-cols-5 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 gap-4"
-                                id="navigation-answer">
+                                id="navigation-answer-member">
                                 @foreach ($peserta as $key => $item)
-                                <button onclick="refresh_navigation_member('curr',{{$item->id_camaba}},'')"
+                                <button onclick="refresh_navigation_member('curr',{{$key}},{{$item->id_camaba}})"
                                     class="p-2 {{$item->get_exam_interview_member_result_count==0?'bg-gray-100':($item->get_exam_interview_member_result_count==30?'bg-blue-300':'bg-yellow-300')}} rounded-md text-center">
                                     <span>{{$key+1}}</span>
                                 </button>
@@ -359,11 +359,13 @@
 
 </script>
 <script>
-    function refresh_navigation_member(direction,currIdx,is_editable) {
+    function refresh_navigation_member(direction,currIdx,targetedUserId) {
         $('.containerr').show();
         let datar = {};
         datar['_method']='POST';
-        datar['_token']=$('._token').data('token');        
+        datar['_token']=$('._token').data('token');     
+        datar['id']=@json($id_exam_interview);   
+        datar['targeted_id_camaba']=targetedUserId;
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -371,12 +373,12 @@
         });
         $.ajax({
             type: 'post',
-            url: $("#do_exam_academic_update_list_member_url").val(),
+            url: $("#examination_interview_update_list_member_url").val(),
             data:datar,
             success: function(data) {
                 if (data.error==false) {
                     $('.containerr').hide();
-                    let body = document.getElementById("body-soal");
+                    let body = document.getElementById("body-member");
                     if(direction=='next'){
                         targetIdx = currIdx+1;
                     }else if(direction=='prev'){
@@ -384,20 +386,26 @@
                     }else if(direction=='curr'){
                         targetIdx = currIdx;
                     }
-                    if(currIdx+1==data.data.length&&direction=='next'){
+                    if(currIdx+1==data.member.length&&direction=='next'){
                         targetIdx = currIdx
                     }
-                    body.innerHTML = bodySoal(targetIdx,data.data,data.is_editable);  
+                    body.innerHTML = bodyMember(targetIdx,data.member);  
                     // -------------------------------------------
-                    let nue = data.data.map(function (item,index) {
-                        return element(item,index);
+                    let nue = data.member.map(function (item,index) {
+                        return elementMember(item,index);
                     }).join('');
-                    $('#navigation-answer').html(nue);
+                    $('#navigation-answer-member').html(nue);
                 }
             },
         }); 
     }
 
+    function elementMember(data,i) {
+        return `<button onclick="refresh_navigation_member('curr',${i},${data.id_camaba})"
+            class="p-2 ${data.get_exam_interview_member_result_count==0?'bg-gray-100':(data.get_exam_interview_member_result_count==30?'bg-blue-300':'bg-yellow-300')} rounded-md text-center">
+            <span>${i+1}</span>
+        </button>`;
+    }
 
     function refresh_navigation_answer(direction,currIdx,is_editable) {
         $('.containerr').show();
@@ -453,10 +461,10 @@
     function bodyMember(idx,data) {
         return `<h3>Peserta Wawancara No.
             <span id="no_peserta"
-                class="p-1 bg-blue-500 text-white text-sm font-bold rounded-md">1</span>
+                class="p-1 bg-blue-500 text-white text-sm font-bold rounded-md">${idx+1}</span>
         </h3>
         <hr class="mb-3 mt-1">
-        <div class="bg-gray-100 rounded-md">
+        <div class="bg-gray-100 rounded-md p-2">
             <div class="flex flex-col mx-auto my-3 lg:flex-row max-w-7xl">
                 <div class="flex flex-col justify-start flex-1 overflow-hidden rounded-lg">
                     <footer class="flex items-center justify-between leading-none p-1 md:p-1">
@@ -466,7 +474,7 @@
                                     NIK:
                                 </div>
                                 <div class="dark:text-gray-500">
-                                    {{$peserta[0]->getCamabaDataPokok->nik}}
+                                    ${data[idx].get_camaba_data_pokok.nik}
                                 </div>
                             </div>
                         </figcaption>
@@ -478,7 +486,7 @@
                                     Nama Peserta:
                                 </div>
                                 <div class="dark:text-gray-500">
-                                    {{$peserta[0]->getCamabaDataPokok->nama}}
+                                    ${data[idx].get_camaba_data_pokok.nama}
                                 </div>
                             </div>
                         </figcaption>
@@ -490,7 +498,7 @@
                                     Jenis Kelamin:
                                 </div>
                                 <div class="dark:text-gray-500">
-                                    {{$peserta[0]->getCamabaDataPokok->gender=='l'?'Laki-laki':'Perempuan'}}
+                                    ${data[idx].get_camaba_data_pokok.gender=='l'?'Laki-laki':'Perempuan'}
                                 </div>
                             </div>
                         </figcaption>
@@ -504,7 +512,7 @@
                                     Tempat Lahir:
                                 </div>
                                 <div class="dark:text-gray-500">
-                                    {{$peserta[0]->getCamabaDataPokok->tempat_lahir}}
+                                    ${data[idx].get_camaba_data_pokok.tempat_lahir}
                                 </div>
                             </div>
                         </figcaption>
@@ -516,7 +524,7 @@
                                     Tanggal Lahir:
                                 </div>
                                 <div class="dark:text-gray-500">
-                                    {{$peserta[0]->getCamabaDataPokok->tanggal_lahir}}
+                                    ${data[idx].get_camaba_data_pokok.tanggal_lahir}
                                 </div>
                             </div>
                         </figcaption>
@@ -527,7 +535,8 @@
                                 <div class="text-sm text-black">
                                     Pilihan Prodi (1):
                                 </div>
-                                <div class="dark:text-gray-500">{{$peserta[0]->prodi}}
+                                <div class="dark:text-gray-500">
+                                    ${data[idx].prodi}
                                 </div>
                             </div>
                         </figcaption>
@@ -539,8 +548,8 @@
             <div class="navigation_question">
                 <div class="flex flex-col px-3 mx-auto mt-6 lg:flex-row max-w-7xl xl:px-5">
                     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden">
-                        <button
-                            class="hidden inline-flex xl:self-start self-center items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
+                        <button onclick="refresh_navigation_member('prev',${idx},${idx==0?data[idx].id_camaba:data[idx-1].id_camaba})"
+                        class="${idx==0?'hidden':''} inline-flex xl:self-start self-center items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -556,11 +565,11 @@
                     <div
                         class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden rounded-md">
                         <button disabled>Peserta Nomor</button>
-                        <button disabled>1 dari {{count($peserta)}}</button>
+                        <button disabled>${idx+1} dari ${data.length}</button>
                     </div>
                     <div class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden">
-                        <button onclick="refresh_navigation_member()"
-                            class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
+                        <button onclick="refresh_navigation_member('next',${idx},${idx==data.length-1?data[idx].id_camaba:data[idx+1].id_camaba})"
+                            class="${idx==data.length-1?'hidden':''} inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
                             Next &nbsp;
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
