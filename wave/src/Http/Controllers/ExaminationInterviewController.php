@@ -47,7 +47,11 @@ class ExaminationInterviewController extends Controller
             ->withCount(['getExamInterviewMemberResult'=>function($q){
                 return $q->where('jawaban_interviewer','!=',null);
             }])
-            ->with(['getCamabaDataPokok'])->get(); 
+            ->with(['getCamabaDataPokok'])
+            ->get()
+            ->each(function ($items) {
+                $items->makeHidden(['getPilihanProdi','getUsers','getInfoLunas','getInfoAdm']);            
+            }); 
             // dd($peserta);                       
         }
 
@@ -57,19 +61,55 @@ class ExaminationInterviewController extends Controller
                 'soal'=>$soal,
                 'is_time_now'=>$is_time_now,
                 'peserta'=>$peserta,
+                'id_exam_interview'=>$id,
             ));
         }else{
             return abort(404);
         }
     }
 
-    public function updateList(Request $req)
+    public function updateListMember(Request $req)
     {
         $res['error']=false;
-        $res['data']=array();
+        $res['member']=array();
+        $res['soal']=array();
         $res['is_time_now']=false;
         $res['message']="";
 
+        try{
+            $ta = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
+            $examInt = ExamInterview::where('id',$req->id)->first();
+
+            $date_now = new DateTime();
+            $date_start    = new DateTime($examInt->tanggal.' '.$examInt->waktu);  
+            $soal = null;
+            $is_time_now = false;
+            if ($date_now >= $date_start) {
+                $is_time_now = true;            
+                // $examIntMem = ExamInterviewMember::where('id_exam_interview',$examInt->id)->first();
+                // $soal = ExamInterviewMemberResult::where('id_exam_interview_member',$examIntMem->id)
+                // ->get();
+                // ->each(function ($items) {
+                //     $items->makeHidden(['getBankSoal']);            
+                // });
+                $peserta = ExamInterviewMember::where('id_exam_interview',$req->id)
+                ->withCount(['getExamInterviewMemberResult'=>function($q){
+                    return $q->where('jawaban_interviewer','!=',null);
+                }])
+                ->with(['getCamabaDataPokok'])
+                ->get()
+                ->each(function ($items) {
+                    $items->makeHidden(['getPilihanProdi','getUsers','getInfoLunas','getInfoAdm']);            
+                }); 
+            }
+            $res['member']=$peserta;
+            $res['soal']=$soal;
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+        }
+        
+        return response()->json($res);
     }
     
     static function left($str, $length) {

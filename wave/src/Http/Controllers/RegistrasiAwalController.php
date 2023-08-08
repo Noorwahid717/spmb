@@ -56,7 +56,11 @@ class RegistrasiAwalController extends Controller
                 return $query->where('is_lunas', '=', $is_lunas);
             }
         })
-        ->get();
+        ->get()
+        ->each(function ($items) {
+            $items->makeHidden(['getCamabaDataPokok','getCamabaDataAlamat','getCamabaDataOrtu','getCamabaDataWaliPs',
+        'getCamabaDataRiwayatPendidikan','getCamabaDataProgramStudi','getCamabaDataDokumen','getCamabaDataPernyataan','getUserSpmbStep']);            
+        });
         // $value = Arr::add($value, "globalInfo", $globalInfo);                
 
         if ($req->ajax()) {
@@ -171,7 +175,7 @@ class RegistrasiAwalController extends Controller
             $data->id_user_admin = auth()->user()->id;
             if($data->save()){
                 $step = UserSpmbStep::where('user_id',$req->id_user)->first();
-                $step->step_2 = $req->status_bayar==-1?"0":$req->status_bayar;
+                $step->step_2 = $req->status_bayar;
                 $step->save();
                 $res['message']="Validasi Pembayaran berhasil diubah.";
                 $file_path = public_path().'/storage/'.$old_foto;
