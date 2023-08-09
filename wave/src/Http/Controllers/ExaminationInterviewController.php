@@ -37,12 +37,19 @@ class ExaminationInterviewController extends Controller
         $is_time_now = false;
         if ($date_now >= $date_start) {
             $is_time_now = true;            
-            $examIntMem = ExamInterviewMember::where('id_exam_interview',$examInt->id)->first();
+            $examIntMem = ExamInterviewMember::where('id_exam_interview',$examInt->id)->first()
+            ->makeHidden([
+                'getUsers',
+                'getPilihanProdi',
+                'getInfoLunas',
+                'getInfoAdm',
+                'getExamInterviewMemberResult',
+                'getCamabaDataPokok'
+            ]);
             $soal = ExamInterviewMemberResult::where('id_exam_interview_member',$examIntMem->id)
-            ->get();
-            // ->each(function ($items) {
-            //     $items->makeHidden(['getBankSoal']);            
-            // });
+            ->get()->each(function($items){
+                $items->makeHidden(['getInterviewQuestion']);
+            });
             $peserta = ExamInterviewMember::where('id_exam_interview',$id)
             ->withCount(['getExamInterviewMemberResult'=>function($q){
                 return $q->where('jawaban_interviewer','!=',null);
@@ -52,7 +59,6 @@ class ExaminationInterviewController extends Controller
             ->each(function ($items) {
                 $items->makeHidden(['getPilihanProdi','getUsers','getInfoLunas','getInfoAdm']);            
             }); 
-            // dd($peserta);                       
         }
 
         if(!auth()->guest() && auth()->user()->role_id==10){
@@ -84,14 +90,43 @@ class ExaminationInterviewController extends Controller
             $date_start    = new DateTime($examInt->tanggal.' '.$examInt->waktu);  
             $soal = null;
             $is_time_now = false;
+            $is_editable = false;
+            if ($date_start <= $date_now) {
+                $is_editable = true;
+            }
+
+            if($is_editable){
+                $jawaban = ExamInterviewMemberResult::where('id',$req->id_exam_interview_member_result)->first();                            
+                $jawaban->jawaban_interviewer = $req->selected_answer;
+                $jawaban->save();
+
+                $tes = ExamInterviewMember::where('id',$req->id_exam_interview_member)->first() ;
+                if($tes){
+                    if($req->targeted_id_camaba==$tes->id_camaba){
+                        $tes->status_lolos = $req->status_ujian;
+                        $tes->catatan_penguji = $req->catatan_penguji;
+                        $tes->save();
+                    }
+                }
+            }
+
             if ($date_now >= $date_start) {
                 $is_time_now = true;            
-                // $examIntMem = ExamInterviewMember::where('id_exam_interview',$examInt->id)->first();
-                // $soal = ExamInterviewMemberResult::where('id_exam_interview_member',$examIntMem->id)
-                // ->get();
-                // ->each(function ($items) {
-                //     $items->makeHidden(['getBankSoal']);            
-                // });
+                $examIntMem = ExamInterviewMember::where('id_exam_interview',$examInt->id)
+                ->where('id_camaba',$req->targeted_id_camaba)
+                ->first()
+                ->makeHidden([
+                    'getUsers',
+                    'getPilihanProdi',
+                    'getInfoLunas',
+                    'getInfoAdm',
+                    'getExamInterviewMemberResult',
+                    'getCamabaDataPokok'
+                ]);
+                $soal = ExamInterviewMemberResult::where('id_exam_interview_member',$examIntMem->id)
+                ->get()->each(function($items){
+                    $items->makeHidden(['getInterviewQuestion']);
+                });
                 $peserta = ExamInterviewMember::where('id_exam_interview',$req->id)
                 ->withCount(['getExamInterviewMemberResult'=>function($q){
                     return $q->where('jawaban_interviewer','!=',null);
@@ -104,6 +139,8 @@ class ExaminationInterviewController extends Controller
             }
             $res['member']=$peserta;
             $res['soal']=$soal;
+            $res['is_time_now']=$is_time_now;
+            
         } catch (\Exception $e) {
             $res['error']=true;
             $res['message']=$e->getMessage();
