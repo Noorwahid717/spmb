@@ -23,6 +23,7 @@ use DataTables;
 use DateTime;
 use Illuminate\Support\Arr;
 use Str;
+use PDF;
 
 class ExamAcademicController extends Controller
 {
@@ -56,7 +57,12 @@ class ExamAcademicController extends Controller
             return DataTables::of($academic)
                 ->addIndexColumn()                                 
                 ->addColumn('act', function($row)use(&$req){   
-                    $actionBtn =                    
+                    $actionBtn =          
+                    '<a href="'.url('exam-academic-laporan'.'/'.$row->id).'" target="_blank"'.
+                    'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.                    
+                    '>'.
+                    '<img src="'.asset('/themes/tailwind/images/file.png').'" class="w-6 rounded sm:mx-auto"> '.                    
+                    '</a>'.         
                     '<a '.
                     'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.
                     'onClick="editModalClick(
@@ -472,6 +478,66 @@ class ExamAcademicController extends Controller
           }
 
         return response()->json($res);
+    }
+
+    public function cetakHasilUjian($id)
+    {
+        $sign_date = \Carbon\Carbon::now();
+        $examAca = ExamAcademic::where('id',$id)->first();
+        setlocale (LC_TIME, 'id_ID');
+        date_default_timezone_set('Asia/Jakarta');
+        $examAcaMem = ExamAcademicMember::where('id_exam_academic',$id)->get()->each(function($item){
+            $item->makeHidden(['getUsers',
+            'getPilihanProdi',
+            'getInfoLunas',
+            'getInfoAdm']);
+            $hasil = ExamAcademicMemberResult::where('id_exam_academic_member',$item->id)
+            ->get();
+            $temp=0;
+            $benar=0;
+            $salah=0;
+            $tak_terjawab=0;
+            foreach ($hasil as $key => $value) {
+                if($value->selected_answer=='1'){
+                    $temp=$temp+(1*$value->poin);
+                    $benar=$benar+1;
+                }else{
+                    if($value->selected_answer==null){
+                        $tak_terjawab=$tak_terjawab+1;
+                    }else if($value->selected_answer!='1'){
+                        $salah=$salah+1;
+                    }
+                }
+            }
+            $item['nilai']=$temp;
+            $item['benar']=$benar;
+            $item['salah']=$salah;
+            $item['tak_terjawab']=$tak_terjawab;
+            $item['total']=$tak_terjawab+$benar+$salah;
+        });
+        
+        
+        // $date = strftime( "%A, %d %B %Y %H:%M", time());
+        // dd($examAca);
+        $pdf = PDF::loadview('theme::seleksi.exam_academic.laporan.laporan_tes_akademik',[
+            // 'poin_pernyataan'=>$poin_pernyataan,
+            'sign_date'=>$sign_date,
+            'gelombang'=>$examAca->nama_sesi,
+            'tanggal_ujian'=>$examAca->tanggal,
+            'waktu_ujian'=>self::left($examAca->waktu_mulai,5).' - '.self::left($examAca->waktu_selesai,5),
+            'sesi'=>'SESI I',
+            'ttd_nama'=>auth()->user()->name,
+            'ujian'=>$examAcaMem,
+            // 'prodi'=>$data_prodi,
+            // 'fakultas'=>$data_fakultas,
+            // 'jenjang'=>substr(json_decode($user->data_mahasiswa,true)['nama_program_studi'],0,2),
+            // 'prodi'=>substr(json_decode($user->data_mahasiswa,true)['nama_program_studi'],3),
+            // 'ta'=>$k.'/'.strval((int)$k+1),
+            // 'sm'=>$kk==1?"Ganjil":"Genap",
+            // 'pj'=>$ttd->nama_pejabat,
+            // 'ldate'=>CustomFormat::tgl_indo($keyy),
+        ])->setPaper(array(0,0,609.4488,935.433), 'portrait');
+        return $pdf->stream();
     }
 
     static function left($str, $length) 

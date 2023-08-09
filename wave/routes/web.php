@@ -170,6 +170,8 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('exam-academic-delete-member', '\Wave\Http\Controllers\ExamAcademicController@deleteMember')->name('wave.exam-academic-delete-member');	
 	Route::post('exam-academic-delete', '\Wave\Http\Controllers\ExamAcademicController@deleteExamAcademic')->name('wave.exam-academic-delete');	
 	Route::post('exam-academic-validate', '\Wave\Http\Controllers\ExamAcademicController@validateExamAcademic')->name('wave.exam-academic-validate');	
+	Route::get('exam-academic-laporan/{id}', '\Wave\Http\Controllers\ExamAcademicController@cetakHasilUjian')->name('wave.exam-academic-laporan');
+	
 	// ploting-ujian
 	Route::get('kelompok-ujian', '\Wave\Http\Controllers\KelompokUjianController@index')->name('wave.kelompok-ujian');	
 
