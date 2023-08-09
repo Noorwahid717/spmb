@@ -90,11 +90,11 @@ Route::group(['middleware' => 'wave'], function () {
 
 	// pengujian interview 
 	Route::get('examination-interview/{id}', '\Wave\Http\Controllers\ExaminationInterviewController@index')->name('wave.examination-interview');
-	Route::post('examination-interview-updatelist', '\Wave\Http\Controllers\ExaminationInterviewController@updateListQuestion')->name('wave.examination-interview-updatelist');
 	Route::post('examination-interview-updatelist-member', '\Wave\Http\Controllers\ExaminationInterviewController@updateListMember')->name('wave.examination-interview-updatelist-member');
 
 	// pengujian quran 
 	Route::get('examination-quran/{id}', '\Wave\Http\Controllers\ExaminationQuranController@index')->name('wave.examination-quran');
+	Route::post('examination-quran-updatelist-member', '\Wave\Http\Controllers\ExaminationQuranController@updateListMember')->name('wave.examination-quran-updatelist-member');
 
 	// pengujian shalawat 
 	Route::get('examination-shalawat/{id}', '\Wave\Http\Controllers\ExaminationShalawatController@index')->name('wave.examination-shalawat');

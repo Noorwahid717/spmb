@@ -304,3 +304,13 @@
       .cadetblue{
         background: #76bb8e ;
       }
+
+      .outlined-green{
+        outline: solid 2px green;
+        outline-offset: -2px;
+      }
+
+      .outlined-red{
+        outline: solid 2px red;
+        outline-offset: -2px;
+      }

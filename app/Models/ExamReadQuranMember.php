@@ -81,4 +81,9 @@ class ExamReadQuranMember extends Model
     {
         return $this->getNilaiMakhraj==null?"belum dirilis.":$this->getNilaiMakhraj->deskripsi;
     }
+
+    public function getCamabaDataPokok()
+    {
+        return $this->hasOne('App\Models\CamabaDataPokok','id_user', 'id_camaba');
+    }
 }
