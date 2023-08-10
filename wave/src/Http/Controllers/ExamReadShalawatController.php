@@ -76,7 +76,7 @@ class ExamReadShalawatController extends Controller
                         \''.$row->id.'\',
                         \''.$row->id_penguji.'\',
                         \''.$row->nama_sesi.'\',
-                        \''.$row->nama_penguji.'\',
+                        \''.str_replace("'","\'",$row->nama_penguji).'\',
                         \''.$req->ta_long.'\',
                         \''.$req->keterangan.'\');">'.  
                     '<img src="'.asset('/themes/tailwind/images/delete.png').'" class="w-6 rounded sm:mx-auto"> '.
@@ -96,7 +96,7 @@ class ExamReadShalawatController extends Controller
                     \''.$row->tanggal.'\',
                     \''.self::left($row->waktu,5).'\',
                     \''.$row->tempat.'\',
-                    \''.$row->nama_penguji.'\',
+                    \''.str_replace("'","\'",$row->nama_penguji).'\',
                     \''.$row->nama_sesi.'\')" style="display:flex;align-items: center;margin-top:1px" data-modal="#detailExamReadShalawatMemberModal" rel="modal:open" href="#detailExamReadShalawatMemberModal">'.$row->jumlah_peserta.
                     '<img title=" Detail Peserta "'.
                     'src="'.asset('/themes/tailwind/images/info.png').'" class="w-4 h-4 rounded ml-2"></a>';
@@ -338,7 +338,7 @@ class ExamReadShalawatController extends Controller
                     'onClick="resetHasilUjianReadShalawat(
                         \''.$row->id.'\',
                         \''.$row->id_camaba.'\',
-                        \''.$row->nama.'\',
+                        \''.str_replace("'","\'",$row->nama).'\',
                         \''.$row->prodi.'\',
                         \''.$req->ta_seleksi.'\');">'.  
                     '<img src="'.asset('/themes/tailwind/images/themes.png').'" class="w-6 rounded sm:mx-auto"> '.

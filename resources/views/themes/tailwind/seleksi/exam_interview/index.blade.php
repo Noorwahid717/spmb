@@ -328,7 +328,7 @@
             html: contents,
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, hapus sekarang!',
+            confirmButtonText: 'Ya, reset sekarang!',
             cancelButtonText: 'Batal',
             reverseButtons: true
             }).then((result) => {
