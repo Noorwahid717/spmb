@@ -368,7 +368,7 @@ class ExamAcademicController extends Controller
                     'onClick="resetHasilUjianAkademik(
                         \''.$row->id.'\',
                         \''.$row->id_camaba.'\',
-                        \''.$row->nama.'\',
+                        \''.str_replace("'","\'",$row->nama).'\',
                         \''.$row->prodi.'\',
                         \''.$req->ta_seleksi.'\');">'.  
                     '<img src="'.asset('/themes/tailwind/images/themes.png').'" class="w-6 rounded sm:mx-auto"> '.

@@ -47,7 +47,7 @@ class DaftarPengujiController extends Controller
                     'onClick="editModalClick(
                         \''.$row->id.'\',
                         \''.$row->role_name.'\',
-                        \''.$row->name.'\',
+                        \''.str_replace("'","\'",$row->name).'\',
                         \''.$row->email.'\',
                         \''.$row->username.'\',
                         \''.$row->status.'\');"'. 
@@ -59,7 +59,7 @@ class DaftarPengujiController extends Controller
                     'onClick="deleteModalClick(
                         \''.$row->id.'\',
                         \''.$row->role_name.'\',
-                        \''.$row->name.'\',
+                        \''.str_replace("'","\'",$row->name).'\',
                         \''.$row->email.'\',
                         \''.$row->username.'\',
                         \''.$row->status.'\');">'.  
