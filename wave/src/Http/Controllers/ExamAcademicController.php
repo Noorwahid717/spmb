@@ -362,9 +362,53 @@ class ExamAcademicController extends Controller
                     .'</span>'
                     ;
                 })
-                ->rawColumns(['act','custom_adm','custom_lunas'])
+                ->addColumn('reset',function($row)use(&$req){
+                    return '<button title="Reset Hasil Ujian"'.
+                    'class="inline-flex self-start items-center" '.
+                    'onClick="resetHasilUjianAkademik(
+                        \''.$row->id.'\',
+                        \''.$row->id_camaba.'\',
+                        \''.$row->nama.'\',
+                        \''.$row->prodi.'\',
+                        \''.$req->ta_seleksi.'\');">'.  
+                    '<img src="'.asset('/themes/tailwind/images/themes.png').'" class="w-6 rounded sm:mx-auto"> '.
+                    '</button>';
+                })
+                ->editColumn('status_lolos',function($row){
+                    return $row->status_lolos==0?'-':($row->status_lolos==1?'Lulus':'Tidak Lulus');
+                })
+                ->rawColumns(['act','custom_adm','custom_lunas','reset'])
                 ->make(true);
         }
+    }
+
+    public function resetHasilUjian(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $data = ExamAcademicMember::where('id',$req->id_exam_academic_member)->first();
+            $data->catatan=null;
+            $data->status_lolos=0;
+            if($data->save()){
+                $res['message']="Hasil ujian akademik peserta berhasil direset.";
+                $reset = ExamAcademicMemberResult::where('id_exam_academic_member',$data->id)->get();
+                foreach ($reset as $key => $value) {
+                    $value->selected_answer=null;
+                    $value->save();
+                }
+            }else{
+                $res['error']=true;
+                $res['message']="Hasil ujian akademik peserta gagal direset!";
+            }                   
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
     }
 
     public function deleteMember(Request $req)
@@ -484,6 +528,7 @@ class ExamAcademicController extends Controller
     {
         $sign_date = \Carbon\Carbon::now();
         $examAca = ExamAcademic::where('id',$id)->first();
+        $schedule = ExamSchedules::where('id',$examAca->id_exam_schedule)->first();
         setlocale (LC_TIME, 'id_ID');
         date_default_timezone_set('Asia/Jakarta');
         $examAcaMem = ExamAcademicMember::where('id_exam_academic',$id)->get()->each(function($item){
@@ -516,26 +561,14 @@ class ExamAcademicController extends Controller
             $item['total']=$tak_terjawab+$benar+$salah;
         });
         
-        
-        // $date = strftime( "%A, %d %B %Y %H:%M", time());
-        // dd($examAca);
         $pdf = PDF::loadview('theme::seleksi.exam_academic.laporan.laporan_tes_akademik',[
-            // 'poin_pernyataan'=>$poin_pernyataan,
             'sign_date'=>$sign_date,
-            'gelombang'=>$examAca->nama_sesi,
+            'gelombang'=>$schedule->keterangan,
             'tanggal_ujian'=>$examAca->tanggal,
             'waktu_ujian'=>self::left($examAca->waktu_mulai,5).' - '.self::left($examAca->waktu_selesai,5),
-            'sesi'=>'SESI I',
+            'sesi'=>$examAca->nama_sesi,
             'ttd_nama'=>auth()->user()->name,
             'ujian'=>$examAcaMem,
-            // 'prodi'=>$data_prodi,
-            // 'fakultas'=>$data_fakultas,
-            // 'jenjang'=>substr(json_decode($user->data_mahasiswa,true)['nama_program_studi'],0,2),
-            // 'prodi'=>substr(json_decode($user->data_mahasiswa,true)['nama_program_studi'],3),
-            // 'ta'=>$k.'/'.strval((int)$k+1),
-            // 'sm'=>$kk==1?"Ganjil":"Genap",
-            // 'pj'=>$ttd->nama_pejabat,
-            // 'ldate'=>CustomFormat::tgl_indo($keyy),
         ])->setPaper(array(0,0,609.4488,935.433), 'portrait');
         return $pdf->stream();
     }

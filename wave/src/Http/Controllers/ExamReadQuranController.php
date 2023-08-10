@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Arr;
 use Str;
+use PDF;
 
 class ExamReadQuranController extends Controller
 {
@@ -52,6 +53,11 @@ class ExamReadQuranController extends Controller
                 ->addIndexColumn()                                 
                 ->addColumn('act', function($row)use(&$req){   
                     $actionBtn =                    
+                    '<a href="'.url('exam-read-quran-laporan'.'/'.$row->id).'" target="_blank"'.
+                    'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.                    
+                    '>'.
+                    '<img src="'.asset('/themes/tailwind/images/file.png').'" class="w-6 rounded sm:mx-auto"> '.                    
+                    '</a>'.
                     '<a '.
                     'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.
                     'onClick="editModalClick(
@@ -326,9 +332,51 @@ class ExamReadQuranController extends Controller
                     .'</span>'
                     ;
                 })
-                ->rawColumns(['act','custom_adm','custom_lunas'])
+                ->addColumn('reset',function($row)use(&$req){
+                    return '<button title="Reset Hasil Ujian"'.
+                    'class="inline-flex self-start items-center" '.
+                    'onClick="resetHasilUjianReadQuran(
+                        \''.$row->id.'\',
+                        \''.$row->id_camaba.'\',
+                        \''.$row->nama.'\',
+                        \''.$row->prodi.'\',
+                        \''.$req->ta_seleksi.'\');">'.  
+                    '<img src="'.asset('/themes/tailwind/images/themes.png').'" class="w-6 rounded sm:mx-auto"> '.
+                    '</button>';
+                })
+                ->editColumn('status_lolos',function($row){
+                    return $row->status_lolos==0?'-':($row->status_lolos==1?'Lulus':'Tidak Lulus');
+                })
+                ->rawColumns(['act','custom_adm','custom_lunas','reset'])
                 ->make(true);
         }
+    }
+
+    public function resetHasilUjian(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $data = ExamReadQuranMember::where('id',$req->id_exam_read_quran_member)->first();
+            $data->id_nilai_kelancaran=null;
+            $data->id_nilai_tajwid=null;
+            $data->id_nilai_makhraj=null;
+            $data->catatan_penguji=null;
+            $data->status_lolos=0;
+            if($data->save()){
+                $res['message']="Hasil ujian baca Al-Quran peserta berhasil direset.";
+            }else{
+                $res['error']=true;
+                $res['message']="Hasil ujian baca Al-Quran peserta gagal direset!";
+            }                   
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
     }
 
     public function deleteMember(Request $req)
@@ -390,6 +438,56 @@ class ExamReadQuranController extends Controller
           }
 
         return response()->json($res);
+    }
+
+    public function cetakHasilUjian($id)
+    {
+        $sign_date = \Carbon\Carbon::now();
+        $examRQ = ExamReadQuran::where('id',$id)->first();
+        $schedule = ExamSchedules::where('id',$examRQ->id_exam_schedule)->first();
+        setlocale (LC_TIME, 'id_ID');
+        date_default_timezone_set('Asia/Jakarta');
+        $examRQMem = ExamReadQuranMember::where('id_exam_read_quran',$id)->get()->each(function($item){
+            $item->makeHidden(['getUsers',
+            'getPilihanProdi',
+            'getInfoLunas',
+            'getInfoAdm']);
+            // $hasil = ExamInterviewMemberResult::where('id_exam_interview_member',$item->id)
+            // ->get();
+            // $temp=0;
+            // $benar=0;
+            // $salah=0;
+            // $tak_terjawab=0;
+            // foreach ($hasil as $key => $value) {
+            //     if($value->selected_answer=='1'){
+            //         $temp=$temp+(1*$value->poin);
+            //         $benar=$benar+1;
+            //     }else{
+            //         if($value->selected_answer==null){
+            //             $tak_terjawab=$tak_terjawab+1;
+            //         }else if($value->selected_answer!='1'){
+            //             $salah=$salah+1;
+            //         }
+            //     }
+            // }
+            // $item['nilai']=$temp;
+            // $item['benar']=$benar;
+            // $item['salah']=$salah;
+            // $item['tak_terjawab']=$tak_terjawab;
+            // $item['total']=$tak_terjawab+$benar+$salah;
+        });
+        // return $examRQMem;
+        $pdf = PDF::loadview('theme::seleksi.exam_read_quran.laporan.laporan_tes_quran',[
+            'sign_date'=>$sign_date,
+            'gelombang'=>$schedule->keterangan,
+            'tanggal_ujian'=>$examRQ->tanggal,
+            'tempat_ujian'=>$examRQ->tempat,
+            'waktu_ujian'=>self::left($examRQ->waktu,5),
+            'sesi'=>$examRQ->nama_sesi,
+            'ttd_nama'=>auth()->user()->name,
+            'ujian'=>$examRQMem,
+        ])->setPaper(array(0,0,609.4488,935.433), 'portrait');
+        return $pdf->stream();
     }
 
     static function left($str, $length) 

@@ -70,6 +70,9 @@
                 value="{{route('wave.exam-interview-getlist')}}">
             <input type="hidden" id="detele_exam_interview_url" class="detele_exam_interview_url"
                 name="detele_exam_interview_url" value="{{route('wave.exam-interview-delete')}}">
+            <input type="hidden" id="exam_interview_reset_url" class="exam_interview_reset_url"
+                name="exam_interview_reset_url" value="{{route('wave.exam-interview-reset')}}">
+
             @include('theme::seleksi.exam_interview.modal.add')
             @include('theme::seleksi.exam_interview.modal.edit')
             @include('theme::seleksi.exam_interview.modal.detail-mhs')
@@ -297,6 +300,8 @@
             $(cells[3]).addClass('text-sm')
             $(cells[4]).addClass('text-center text-sm ')
             $(cells[5]).addClass('text-sm text-center')                        
+            $(cells[6]).addClass('text-sm text-center')                        
+            $(cells[7]).addClass('text-sm text-center')                        
         },
         columns: [
             {data: 'act', name:'act'},               
@@ -305,6 +310,8 @@
             {data: 'prodi', name: 'prodi'},
             {data: 'custom_lunas', name: 'custom_lunas'},            
             {data: 'custom_adm', name: 'custom_adm'},
+            {data: 'status_lolos', name: 'status_lolos'},
+            {data: 'reset', name: 'reset'},
         ], 
     });
 
@@ -313,6 +320,63 @@
     }
 </script>
 <script>
+    function resetHasilUjianInterview(id_exam_interview_member,id_camaba,nama,prodi,ta_seleksi) {
+        const contents = `Anda akan mereset hasil ujian interview berikut: <strong>${nama} - ${prodi} - ${ta_seleksi}</strong>`;          
+        Swal.fire({
+            title: 'Apakah anda yakin!',
+            // text: teks,
+            html: contents,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, hapus sekarang!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {  
+                    doResetHasilUjianInterview(id_exam_interview_member,id_camaba,ta_seleksi);
+                } 
+        });
+    }
+
+    function doResetHasilUjianInterview(id_exam_interview_member,id_camaba,ta_seleksi){
+        $('.containerr').show();
+        let params = {id_exam_interview_member,id_camaba,ta_seleksi};
+        let header = {};
+        header['_method']='POST';
+        header['_token']=$('._token').data('token');
+        let datar = {...header,...params};
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#exam_interview_reset_url").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    // $('#close_modal').trigger("click");        
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    tableAvailable.ajax.reload();
+                    tableJoined.ajax.reload();
+                    table.ajax.reload();
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
+    
     function editModalClick(id,id_penguji,nama_sesi,tanggal,waktu,tempat){
         $('#edit_id_exam_interview').val(id);
         $("#edit_daftar_penguji").val(id_penguji);
