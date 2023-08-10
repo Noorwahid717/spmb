@@ -93,6 +93,8 @@
                             <th>PRODI</th>
                             <th>LUNAS</th>
                             <th>DOKUMEN</th>
+                            <th>STATUS</th>
+                            <th>RESET</th>
                         </tr>
                     </thead>
                     <tbody>

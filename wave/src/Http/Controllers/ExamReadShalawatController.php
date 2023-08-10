@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Arr;
 use Str;
+use PDF;
 
 class ExamReadShalawatController extends Controller
 {
@@ -51,7 +52,12 @@ class ExamReadShalawatController extends Controller
             return DataTables::of($read_shalawat)
                 ->addIndexColumn()                                 
                 ->addColumn('act', function($row)use(&$req){   
-                    $actionBtn =                    
+                    $actionBtn =               
+                    '<a href="'.url('exam-read-shalawat-laporan'.'/'.$row->id).'" target="_blank"'.
+                    'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.                    
+                    '>'.     
+                    '<img src="'.asset('/themes/tailwind/images/file.png').'" class="w-6 rounded sm:mx-auto"> '.                    
+                    '</a>'.
                     '<a '.
                     'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.
                     'onClick="editModalClick(
@@ -326,9 +332,51 @@ class ExamReadShalawatController extends Controller
                     .'</span>'
                     ;
                 })
-                ->rawColumns(['act','custom_adm','custom_lunas'])
+                ->addColumn('reset',function($row)use(&$req){
+                    return '<button title="Reset Hasil Ujian"'.
+                    'class="inline-flex self-start items-center" '.
+                    'onClick="resetHasilUjianReadShalawat(
+                        \''.$row->id.'\',
+                        \''.$row->id_camaba.'\',
+                        \''.$row->nama.'\',
+                        \''.$row->prodi.'\',
+                        \''.$req->ta_seleksi.'\');">'.  
+                    '<img src="'.asset('/themes/tailwind/images/themes.png').'" class="w-6 rounded sm:mx-auto"> '.
+                    '</button>';
+                })
+                ->editColumn('status_lolos',function($row){
+                    return $row->status_lolos==0?'-':($row->status_lolos==1?'Lulus':'Tidak Lulus');
+                })
+                ->rawColumns(['act','custom_adm','custom_lunas','reset'])
                 ->make(true);
         }
+    }
+
+    public function resetHasilUjian(Request $req)
+    {
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+
+        try {
+            $data = ExamReadShalawatMember::where('id',$req->id_exam_read_shalawat_member)->first();
+            $data->id_nilai_kelancaran=null;
+            $data->id_nilai_tajwid=null;
+            $data->id_nilai_makhraj=null;
+            $data->catatan_penguji=null;
+            $data->status_lolos=0;
+            if($data->save()){
+                $res['message']="Hasil ujian hafalan Shalawat Wahidiyah peserta berhasil direset.";
+            }else{
+                $res['error']=true;
+                $res['message']="Hasil ujian hafalan Shalawat Wahidiyah peserta gagal direset!";
+            }                   
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+          }
+
+        return response()->json($res);
     }
 
     public function deleteMember(Request $req)
@@ -392,6 +440,56 @@ class ExamReadShalawatController extends Controller
         return response()->json($res);
     }
 
+    public function cetakHasilUjian($id)
+    {
+        $sign_date = \Carbon\Carbon::now();
+        $examRS = ExamReadShalawat::where('id',$id)->first();
+        $schedule = ExamSchedules::where('id',$examRS->id_exam_schedule)->first();
+        setlocale (LC_TIME, 'id_ID');
+        date_default_timezone_set('Asia/Jakarta');
+        $examRSMem = ExamReadShalawatMember::where('id_exam_read_shalawat',$id)->get()->each(function($item){
+            $item->makeHidden(['getUsers',
+            'getPilihanProdi',
+            'getInfoLunas',
+            'getInfoAdm']);
+            // $hasil = ExamInterviewMemberResult::where('id_exam_interview_member',$item->id)
+            // ->get();
+            // $temp=0;
+            // $benar=0;
+            // $salah=0;
+            // $tak_terjawab=0;
+            // foreach ($hasil as $key => $value) {
+            //     if($value->selected_answer=='1'){
+            //         $temp=$temp+(1*$value->poin);
+            //         $benar=$benar+1;
+            //     }else{
+            //         if($value->selected_answer==null){
+            //             $tak_terjawab=$tak_terjawab+1;
+            //         }else if($value->selected_answer!='1'){
+            //             $salah=$salah+1;
+            //         }
+            //     }
+            // }
+            // $item['nilai']=$temp;
+            // $item['benar']=$benar;
+            // $item['salah']=$salah;
+            // $item['tak_terjawab']=$tak_terjawab;
+            // $item['total']=$tak_terjawab+$benar+$salah;
+        });
+        
+        $pdf = PDF::loadview('theme::seleksi.exam_read_shalawat.laporan.laporan_tes_shalawat',[
+            'sign_date'=>$sign_date,
+            'gelombang'=>$schedule->keterangan,
+            'tanggal_ujian'=>$examRS->tanggal,
+            'tempat_ujian'=>$examRS->tempat,
+            'waktu_ujian'=>self::left($examRS->waktu,5),
+            'sesi'=>$examRS->nama_sesi,
+            'ttd_nama'=>auth()->user()->name,
+            'ujian'=>$examRSMem,
+        ])->setPaper(array(0,0,609.4488,935.433), 'portrait');
+        return $pdf->stream();
+    }
+    
     static function left($str, $length) 
     {
         return substr($str, 0, $length);

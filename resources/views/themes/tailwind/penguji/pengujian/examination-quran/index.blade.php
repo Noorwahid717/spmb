@@ -40,7 +40,7 @@
                     <div
                         class="flex flex-col justify-start flex-1 overflow-hidden cadetblue border rounded-lg border-gray-150">
                         <div class="relative p-3" id="body-member">
-                            <h3>Peserta Wawancara No.
+                            <h3>Peserta Ujian Baca Al-Quran No.
                                 <span id="no_peserta"
                                     class="p-1 bg-blue-500 text-white text-sm font-bold rounded-md">1</span>
                             </h3>
@@ -170,7 +170,7 @@
                     <div
                         class="flex flex-col justify-start flex-1 overflow-hidden cadetblue border rounded-lg lg:ml-3 border-gray-150  mt-3 lg:mt-0">
                         <div class="relative p-3">
-                            <h3>Nomor Peserta Wawancara</h3>
+                            <h3>Nomor Peserta Ujian Baca Al-Quran</h3>
                             <hr class="mb-3 mt-1">
                             <div class="grid grid-cols-5 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 gap-4"
                                 id="navigation-answer-member">

@@ -139,6 +139,8 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('exam-interview-add-member', '\Wave\Http\Controllers\ExamInterviewController@addMember')->name('wave.exam-interview-add-member');	
 	Route::post('exam-interview-delete-member', '\Wave\Http\Controllers\ExamInterviewController@deleteMember')->name('wave.exam-interview-delete-member');	
 	Route::post('exam-interview-delete', '\Wave\Http\Controllers\ExamInterviewController@deleteExamInterview')->name('wave.exam-interview-delete');	
+	Route::get('exam-interview-laporan/{id}', '\Wave\Http\Controllers\ExamInterviewController@cetakHasilUjian')->name('wave.exam-interview-laporan');
+	Route::post('exam-interview-reset', '\Wave\Http\Controllers\ExamInterviewController@resetHasilUjian')->name('wave.exam-interview-reset');	
 	// ujian-baca-quran	
 	Route::get('exam-read-quran/{id}', '\Wave\Http\Controllers\ExamReadQuranController@index')->name('wave.exam-read-quran');	
 	Route::post('exam-read-quran-getlist', '\Wave\Http\Controllers\ExamReadQuranController@getList')->name('wave.exam-read-quran-getlist');	
@@ -149,6 +151,8 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('exam-read-quran-add-member', '\Wave\Http\Controllers\ExamReadQuranController@addMember')->name('wave.exam-read-quran-add-member');	
 	Route::post('exam-read-quran-delete-member', '\Wave\Http\Controllers\ExamReadQuranController@deleteMember')->name('wave.exam-read-quran-delete-member');	
 	Route::post('exam-read-quran-delete', '\Wave\Http\Controllers\ExamReadQuranController@deleteExamReadQuran')->name('wave.exam-read-quran-delete');	
+	Route::get('exam-read-quran-laporan/{id}', '\Wave\Http\Controllers\ExamReadQuranController@cetakHasilUjian')->name('wave.exam-read-quran-laporan');
+	Route::post('exam-read-quran-reset', '\Wave\Http\Controllers\ExamReadQuranController@resetHasilUjian')->name('wave.exam-read-quran-reset');	
 	// ujian-hafalan-shalawat-wahidiyah
 	Route::get('exam-read-shalawat/{id}', '\Wave\Http\Controllers\ExamReadShalawatController@index')->name('wave.exam-read-shalawat');	
 	Route::post('exam-read-shalawat-getlist', '\Wave\Http\Controllers\ExamReadShalawatController@getList')->name('wave.exam-read-shalawat-getlist');	
@@ -159,6 +163,8 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('exam-read-shalawat-add-member', '\Wave\Http\Controllers\ExamReadShalawatController@addMember')->name('wave.exam-read-shalawat-add-member');	
 	Route::post('exam-read-shalawat-delete-member', '\Wave\Http\Controllers\ExamReadShalawatController@deleteMember')->name('wave.exam-read-shalawat-delete-member');	
 	Route::post('exam-read-shalawat-delete', '\Wave\Http\Controllers\ExamReadShalawatController@deleteExamReadShalawat')->name('wave.exam-read-shalawat-delete');	
+	Route::get('exam-read-shalawat-laporan/{id}', '\Wave\Http\Controllers\ExamReadShalawatController@cetakHasilUjian')->name('wave.exam-read-shalawat-laporan');
+	Route::post('exam-read-shalawat-reset', '\Wave\Http\Controllers\ExamReadShalawatController@resetHasilUjian')->name('wave.exam-read-shalawat-reset');	
 	// ujian-akademik
 	Route::get('exam-academic/{id}', '\Wave\Http\Controllers\ExamAcademicController@index')->name('wave.exam-academic');	
 	Route::post('exam-academic-getlist', '\Wave\Http\Controllers\ExamAcademicController@getList')->name('wave.exam-academic-getlist');	
@@ -171,6 +177,7 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::post('exam-academic-delete', '\Wave\Http\Controllers\ExamAcademicController@deleteExamAcademic')->name('wave.exam-academic-delete');	
 	Route::post('exam-academic-validate', '\Wave\Http\Controllers\ExamAcademicController@validateExamAcademic')->name('wave.exam-academic-validate');	
 	Route::get('exam-academic-laporan/{id}', '\Wave\Http\Controllers\ExamAcademicController@cetakHasilUjian')->name('wave.exam-academic-laporan');
+	Route::post('exam-academic-reset', '\Wave\Http\Controllers\ExamAcademicController@resetHasilUjian')->name('wave.exam-academic-reset');	
 	
 	// ploting-ujian
 	Route::get('kelompok-ujian', '\Wave\Http\Controllers\KelompokUjianController@index')->name('wave.kelompok-ujian');	

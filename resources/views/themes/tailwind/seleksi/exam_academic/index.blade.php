@@ -72,6 +72,8 @@
                 name="detele_exam_academic_url" value="{{route('wave.exam-academic-delete')}}">
             <input type="hidden" id="validate_exam_academic_url" class="validate_exam_academic_url"
                 name="validate_exam_academic_url" value="{{route('wave.exam-academic-validate')}}">
+            <input type="hidden" id="exam_academic_reset_url" class="exam_academic_reset_url"
+                name="exam_academic_reset_url" value="{{route('wave.exam-academic-reset')}}">
 
 
             @include('theme::seleksi.exam_academic.modal.add')
@@ -351,6 +353,8 @@
             $(cells[3]).addClass('text-sm')
             $(cells[4]).addClass('text-center text-sm ')
             $(cells[5]).addClass('text-sm text-center')                        
+            $(cells[6]).addClass('text-sm text-center')                        
+            $(cells[7]).addClass('text-sm text-center')                        
         },
         columns: [
             {data: 'act', name:'act'},               
@@ -359,6 +363,8 @@
             {data: 'prodi', name: 'prodi'},
             {data: 'custom_lunas', name: 'custom_lunas'},            
             {data: 'custom_adm', name: 'custom_adm'},
+            {data: 'status_lolos', name: 'status_lolos'},
+            {data: 'reset', name: 'reset'},
         ], 
     });
 
@@ -367,6 +373,63 @@
     }
 </script>
 <script>
+    function resetHasilUjianAkademik(id_exam_academic_member,id_camaba,nama,prodi,ta_seleksi) {
+        const contents = `Anda akan mereset hasil ujian akademik berikut: <strong>${nama} - ${prodi} - ${ta_seleksi}</strong>`;          
+        Swal.fire({
+            title: 'Apakah anda yakin!',
+            // text: teks,
+            html: contents,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, hapus sekarang!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {  
+                    doResetHasilUjianAkademik(id_exam_academic_member,id_camaba,ta_seleksi);
+                } 
+        });
+    }
+
+    function doResetHasilUjianAkademik(id_exam_academic_member,id_camaba,ta_seleksi){
+        $('.containerr').show();
+        let params = {id_exam_academic_member,id_camaba,ta_seleksi};
+        let header = {};
+        header['_method']='POST';
+        header['_token']=$('._token').data('token');
+        let datar = {...header,...params};
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#exam_academic_reset_url").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    // $('#close_modal').trigger("click");        
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    tableAvailable.ajax.reload();
+                    tableJoined.ajax.reload();
+                    table.ajax.reload();
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
+    }
+
     function editModalClick(id,nama_sesi,tanggal,waktu_mulai,waktu_selesai){
         $('#edit_id_exam_academic').val(id);
         $("#old_session_name").val(nama_sesi);
