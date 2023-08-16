@@ -1303,6 +1303,7 @@ class ValidasiPendaftaranController extends Controller
             $data = $response->json();
             if($data['error_code']==0){
                 $dataAwal->neo_id_mahasiswa = $data['data']['id_mahasiswa']; 
+                $dataAwal->save(); 
                 $res['message']="Berhasil melakukan input biodata mahasiswa baru.";    
             }else{
                 $res['error']=true;
