@@ -1289,15 +1289,15 @@ class ValidasiPendaftaranController extends Controller
                 "nik_ayah"=> $dataOrtu->nik_ayah,
                 "nama_ayah"=> $dataOrtu->nama_ayah,
                 "tanggal_lahir_ayah"=> $dataOrtu->tanggal_lahir_ayah,
-                "id_pendidikan_ayah"=> $dataOrtu->id_jenjang_pendidikan_ayah,
-                "id_pekerjaan_ayah"=> $dataOrtu->id_pekerjaan_ayah,
-                "id_penghasilan_ayah"=> $dataOrtu->id_penghasilan_ayah,
+                "id_pendidikan_ayah"=> $dataOrtu->id_jenjang_pendidikan_ayah==null?null:$dataOrtu->id_jenjang_pendidikan_ayah,
+                "id_pekerjaan_ayah"=> $dataOrtu->id_pekerjaan_ayah==null?null:$dataOrtu->id_pekerjaan_ayah,
+                "id_penghasilan_ayah"=> $dataOrtu->id_penghasilan_ayah==null?null:$dataOrtu->id_penghasilan_ayah,
                 "nik_ibu"=> $dataOrtu->nik_ibu,
                 "nama_ibu_kandung"=> $dataOrtu->nama_ibu,
                 "tanggal_lahir_ibu"=> $dataOrtu->tanggal_lahir_ibu,
-                "id_pendidikan_ibu"=> $dataOrtu->id_jenjang_pendidikan_ibu,
-                "id_pekerjaan_ibu"=> $dataOrtu->id_pekerjaan_ibu,
-                "id_penghasilan_ibu"=> $dataOrtu->id_penghasilan_ibu,
+                "id_pendidikan_ibu"=> $dataOrtu->id_jenjang_pendidikan_ibu==null?null:$dataOrtu->id_jenjang_pendidikan_ibu,
+                "id_pekerjaan_ibu"=> $dataOrtu->id_pekerjaan_ibu==null?null:$dataOrtu->id_pekerjaan_ibu,
+                "id_penghasilan_ibu"=> $dataOrtu->id_penghasilan_ibu==null?null:$dataOrtu->id_penghasilan_ibu,
                 "key"=>$req->key
             ]);
             $data = $response->json();
