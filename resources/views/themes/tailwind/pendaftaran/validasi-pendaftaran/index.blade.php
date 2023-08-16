@@ -80,6 +80,7 @@
                         <th>VAL.BIAYA.DAFTAR</th>
                         <th>STATUS BIODATA</th>
                         <th>UPDATED</th>
+                        <th>NEO.IDMHS</th>
                         <th>ACT</th>
                     </tr>
                 </thead>
@@ -88,6 +89,9 @@
             </table>
             <input type="hidden" id="val_pendaftaran_url" class="val_pendaftaran_url" name="val_pendaftaran_url"
                 value="{{route('wave.validasi-pendaftaran-getlist')}}">
+            <input type="hidden" id="insert_biodata_to_neo_url" class="insert_biodata_to_neo_url"
+                name="insert_biodata_to_neo_url" value="{{route('wave.validasi-pendaftaran-insert-mhs')}}">
+
             {{-- @include('theme::bendahara.registrasi_awal.modal.edit') --}}
         </div>
     </div>
@@ -153,7 +157,12 @@
             
             $(cells[6]).addClass('text-sm text-center')                        
             $(cells[7]).addClass('text-center text-sm')
-            $(cells[8]).addClass('text-center text-sm')
+            if(data.cust_neo_id=="Registered"){
+                $(cells[8]).addClass('text-center text-green-600 text-sm')
+            }else if(data.cust_neo_id=="Unregistered"){
+                $(cells[8]).addClass('text-center text-red-600 text-sm')            
+            }
+            $(cells[9]).addClass('text-center text-sm')
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -164,12 +173,75 @@
             {data: 'is_lunas', name: 'is_lunas'},
             {data: 'status_bio', name: 'status_bio'},
             {data: 'get_user_spmb_step.updated_at', name: 'get_user_spmb_step.updated_at'},
+            {data: 'cust_neo_id', name:'cust_neo_id'},               
             {data: 'act', name:'act'},               
         ], 
     });
 
     function execFil() {    
         table.ajax.reload();
+    }
+
+    function insertBiodataMahasiswaToNeo(id,nama,tempat,tanggal){        
+        const contents = `Anda akan menginput data calon mahasiswa ke neo-feeder berikut: <br> <strong>${nama} : ${tempat},${tanggal}</strong><br><input type="password" id="feeder_key" class="swal2-input rounded-md" placeholder="Feeder Key">`;          
+        Swal.fire({
+            title: 'Apakah anda yakin!',
+            // text: teks,
+            html: contents,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, input ke neo-feeder sekarang!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                const feeder_key = Swal.getPopup().querySelector('#feeder_key').value
+                if (!feeder_key) {
+                Swal.showValidationMessage(`Please enter feeder key`)
+                }
+                return { feeder_key: feeder_key }
+            }
+            }).then((result) => {
+                if (result.isConfirmed) {  
+                    goInsertBiodataMahasiswaToNeo(id,result.value.feeder_key);
+                } 
+        });
+    }
+
+    function goInsertBiodataMahasiswaToNeo(id,key) {
+        $('.containerr').show();
+        let datar = {};
+        datar['_method']='POST';
+        datar['_token']=$('._token').data('token');
+        datar['id']=id;
+        datar['key']=key;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'post',
+            url: $("#insert_biodata_to_neo_url").val(),
+            data:datar,
+            success: function(data) {
+                if (data.error==false) {
+                    $('.containerr').hide();                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                    table.ajax.reload();
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                    });
+                    $('.containerr').hide();
+                }
+            },
+        }); 
     }
 </script>
 @endsection

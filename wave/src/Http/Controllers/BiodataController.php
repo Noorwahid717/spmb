@@ -31,13 +31,13 @@ class BiodataController extends Controller
     {
         $ta = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
         $ta = self::left($ta,4)."/".((int)self::left($ta,4)+1).(self::right($ta,1)=="1"?" Ganjil":" Genap");
-        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-agama');
+        $response = Http::get(env('feeder_url').'/api/cari-agama');
         $agama = $response->json();
-        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-pendidikan');
+        $response = Http::get(env('feeder_url').'/api/cari-pendidikan');
         $pendidikan = $response->json();
-        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-pekerjaan');
+        $response = Http::get(env('feeder_url').'/api/cari-pekerjaan');
         $pekerjaan = $response->json();
-        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-penghasilan');
+        $response = Http::get(env('feeder_url').'/api/cari-penghasilan');
         $penghasilan = $response->json();
         $prodi = ProdiFakultas::all();
 
