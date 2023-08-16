@@ -154,14 +154,23 @@ class ValidasiPendaftaranController extends Controller
                     $keterangan = str_replace("'","\'",$row->keterangan);
                     $actionBtn =
                     '<a href="https://wa.me/'.$hp_camaba.'" id="link_wa_da" target="_blank" '.
-                    'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md"> '.
+                    'class="my-1 mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md"> '.
                     '<img src="'.asset('/themes/tailwind/images/whatsapp.png').'" class="w-6 rounded sm:mx-auto"> '.
                     '</a>'.
                     '<a target="_blank" href="'.route('wave.validasi-pendaftaran-detail',[$row->id_user,$row->tahun_akademik_registrasi]).'" '.
-                    'class="mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md"'.                    
+                    'class="my-1 mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md"'.                    
                     '>'.
                     '<img src="'.asset('/themes/tailwind/images/pen.png').'" class="w-6 rounded sm:mx-auto"> '.
-                    '</a>';
+                    '</a>'.
+                    '<button title="Register Mahasiswa"'.
+                    'class="my-1 mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.
+                    'onClick="insertBiodataMahasiswaToNeo(
+                        \''.$row->id_user.'\',
+                        \''.$row->nama.'\',
+                        \''.($row->getCamabaDataPokok==null?"null":(str_replace("'","\'",$row->getCamabaDataPokok->tempat_lahir))).'\',
+                        \''.($row->getCamabaDataPokok==null?"null":$row->getCamabaDataPokok->tanggal_lahir).'\');">'.  
+                    '<img src="'.asset('/themes/tailwind/images/rewind-right.png').'" class="w-6 rounded sm:mx-auto"> '.
+                    '</button>';
                     return $actionBtn;
                 })         
                 ->editColumn('get_user.no_hp_camaba',function($row){
@@ -241,7 +250,10 @@ class ValidasiPendaftaranController extends Controller
                     '</div>';
                     return $circle;
                 })
-                ->rawColumns(['act','is_lunas','status_bio'])
+                ->addColumn('cust_neo_id', function($row){
+                    return $row->neo_id_mahasiswa==null?'Unregistered':'Registered';
+                })
+                ->rawColumns(['act','is_lunas','status_bio','cust_neo_id'])
                 ->make(true);
         }
     }
@@ -258,13 +270,13 @@ class ValidasiPendaftaranController extends Controller
     {
         // $ta = SpmbConfig::where('id',1)->first()->tahun_ajaran_aktif;
         $ta = self::left($ta,4)."/".((int)self::left($ta,4)+1).(self::right($ta,1)=="1"?" Ganjil":" Genap");
-        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-agama');
+        $response = Http::get(env('feeder_url').'/api/cari-agama');
         $agama = $response->json();
-        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-pendidikan');
+        $response = Http::get(env('feeder_url').'/api/cari-pendidikan');
         $pendidikan = $response->json();
-        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-pekerjaan');
+        $response = Http::get(env('feeder_url').'/api/cari-pekerjaan');
         $pekerjaan = $response->json();
-        $response = Http::get('sia-uniwa.ddns.net:3000/api/cari-penghasilan');
+        $response = Http::get(env('feeder_url').'/api/cari-penghasilan');
         $penghasilan = $response->json();
         $prodi = ProdiFakultas::all();
 
@@ -1239,5 +1251,67 @@ class ValidasiPendaftaranController extends Controller
             $data->step_6 = 0;
         }
         $data->save();
+    }
+
+    public function insertBiodataMahasiswaToNeo(Request $req){
+        $res['error']=false;
+        $res['data']=array();
+        $res['message']="";
+        $dataAwal = RegistrasiAwalUser::where('id_user',$req->id)->first();
+        $dataPokok = CamabaDataPokok::where('id_user',$req->id)->first();
+        $dataAlamat = CamabaDataAlamat::where('id_user',$req->id)->first();
+        $dataOrtu = CamabaDataOrtu::where('id_user',$req->id)->first();
+        $dataWali = CamabaDataWaliPs::where('id_user',$req->id)->first();
+        $dataRP = CamabaDataRiwayatPendidikan::where('id_user',$req->id)->first();
+        try {
+            $response = Http::asJson()->withHeaders([
+                'Content-Type'=>'application/json'
+            ])->post(env('feeder_url').'/api/insert-biodata-camaba', [
+                "nama_mahasiswa"=> $dataPokok->nama,
+                "jenis_kelamin"=> strtoupper($dataPokok->gender),
+                "tempat_lahir"=> $dataPokok->tempat_lahir,
+                "tanggal_lahir"=> $dataPokok->tanggal_lahir,
+                "id_agama"=> $dataPokok->id_agama,
+                "nik"=> $dataPokok->nik,
+                "nisn"=> $dataRP->nisn,
+                "kewarganegaraan"=> $dataPokok->id_negara,
+                "jalan"=> $dataAlamat->jalan,
+                "dusun"=> $dataAlamat->dusun,
+                "rt"=> $dataAlamat->rt,
+                "rw"=> $dataAlamat->rw,
+                "kelurahan"=> $dataAlamat->kelurahan,
+                "kode_pos"=> $dataAlamat->kodepos,
+                "id_wilayah"=> $dataAlamat->id_wilayah,
+                "handphone"=> $dataAlamat->no_hp_camaba,
+                "email"=> $dataAlamat->email,
+                "penerima_kps"=> $dataWali->is_kps,
+                "nomor_kps"=> $dataWali->no_kps,
+                "nik_ayah"=> $dataOrtu->nik_ayah,
+                "nama_ayah"=> $dataOrtu->nama_ayah,
+                "tanggal_lahir_ayah"=> $dataOrtu->tanggal_lahir_ayah,
+                "id_pendidikan_ayah"=> $dataOrtu->id_jenjang_pendidikan_ayah,
+                "id_pekerjaan_ayah"=> $dataOrtu->id_pekerjaan_ayah,
+                "id_penghasilan_ayah"=> $dataOrtu->id_penghasilan_ayah,
+                "nik_ibu"=> $dataOrtu->nik_ibu,
+                "nama_ibu_kandung"=> $dataOrtu->nama_ibu,
+                "tanggal_lahir_ibu"=> $dataOrtu->tanggal_lahir_ibu,
+                "id_pendidikan_ibu"=> $dataOrtu->id_jenjang_pendidikan_ibu,
+                "id_pekerjaan_ibu"=> $dataOrtu->id_pekerjaan_ibu,
+                "id_penghasilan_ibu"=> $dataOrtu->id_penghasilan_ibu,
+                "key"=>$req->key
+            ]);
+            $data = $response->json();
+            if($data['error_code']==0){
+                $dataAwal->neo_id_mahasiswa = $data['data']['id_mahasiswa']; 
+                $res['message']="Berhasil melakukan input biodata mahasiswa baru.";    
+            }else{
+                $res['error']=true;
+                $res['message']=$data['error_desc'];    
+            }
+        } catch (\Exception $e) {
+            $res['error']=true;
+            $res['message']=$e->getMessage();
+        }
+        return response()->json($res);
     }
 }
