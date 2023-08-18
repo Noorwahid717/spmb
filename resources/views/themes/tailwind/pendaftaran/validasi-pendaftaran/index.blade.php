@@ -76,9 +76,9 @@
                         <th>NAMA</th>
                         <th>TAHUN</th>
                         <th>PRODI1</th>
-                        <th>PRODI2</th>
-                        <th>VAL.BIAYA.DAFTAR</th>
+                        <th>DAFTAR</th>
                         <th>STATUS BIODATA</th>
+                        <th>STATUS SELEKSI</th>
                         <th>UPDATED</th>
                         <th>NEO.IDMHS</th>
                         <th>ACT</th>
@@ -146,16 +146,16 @@
             $(cells[1]).addClass('text-sm')
             $(cells[2]).addClass('text-sm')
             $(cells[3]).addClass('text-sm')
-            $(cells[4]).addClass('text-sm')
             if(data['get_user_spmb_step'].step_2=="0"){
-            $(cells[5]).addClass('text-sm gold text-center')        
+            $(cells[4]).addClass('text-sm gold text-center')        
             }else if(data['get_user_spmb_step'].step_2=="1"){
-            $(cells[5]).addClass('text-sm greenYellow text-center')                        
+            $(cells[4]).addClass('text-sm greenYellow text-center')                        
             }else if(data['get_user_spmb_step'].step_2=="-1"){
-            $(cells[5]).addClass('text-sm redHeart text-center')                        
+            $(cells[4]).addClass('text-sm redHeart text-center')                        
             }
             
-            $(cells[6]).addClass('text-sm text-center')                        
+            $(cells[5]).addClass('text-sm text-center')                        
+            $(cells[6]).addClass('text-center text-sm')
             $(cells[7]).addClass('text-center text-sm')
             if(data.cust_neo_id=="Registered"){
                 $(cells[8]).addClass('text-center text-green-600 text-sm')
@@ -169,9 +169,9 @@
             {data: 'get_user.name', name: 'get_user.name'},
             {data: 'tahun_akademik_registrasi', name: 'tahun_akademik_registrasi'},
             {data: 'get_camaba_data_program_studi.get_prodi_fakultas1.nama_program_studi', name: 'get_camaba_data_program_studi.get_prodi_fakultas1.nama_program_studi'},
-            {data: 'get_camaba_data_program_studi.get_prodi_fakultas2.nama_program_studi', name: 'get_camaba_data_program_studi.get_prodi_fakultas2.nama_program_studi'},
             {data: 'is_lunas', name: 'is_lunas'},
             {data: 'status_bio', name: 'status_bio'},
+            {data: 'is_lulus_ujian', name: 'is_lulus_ujian'},
             {data: 'get_user_spmb_step.updated_at', name: 'get_user_spmb_step.updated_at'},
             {data: 'cust_neo_id', name:'cust_neo_id'},               
             {data: 'act', name:'act'},               

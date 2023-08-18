@@ -18,6 +18,10 @@ use App\Models\CamabaDataDokumen;
 use App\Models\CamabaDataPernyataan;
 use App\Models\CamabaDataProgramStudi;
 use App\Models\CamabaDataRiwayatPendidikan;
+use App\Models\ExamAcademicMember;
+use App\Models\ExamInterviewMember;
+use App\Models\ExamReadQuranMember;
+use App\Models\ExamReadShalawatMember;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -253,7 +257,24 @@ class ValidasiPendaftaranController extends Controller
                 ->addColumn('cust_neo_id', function($row){
                     return $row->neo_id_mahasiswa==null?'Unregistered':'Registered';
                 })
-                ->rawColumns(['act','is_lunas','status_bio','cust_neo_id'])
+                ->addColumn('is_lulus_ujian', function($row){                    
+                    $academic = ExamAcademicMember::where('id_camaba',$row->id_user)->first();
+                    $interview = ExamInterviewMember::where('id_camaba',$row->id_user)->first();
+                    $RQ = ExamReadQuranMember::where('id_camaba',$row->id_user)->first();
+                    $RS = ExamReadShalawatMember::where('id_camaba',$row->id_user)->first();
+                        $aca_s = $academic==null?'grey_1':($academic->status_lolos==1?'green_1':($academic->status_lolos==0?'yellow_1':'red_1'));
+                        $int_s = $interview==null?'grey_2':($interview->status_lolos==1?'green_2':($interview->status_lolos==0?'yellow_2':'red_2'));
+                        $rq_s = $RQ==null?'grey_3':($RQ->status_lolos==1?'green_3':($RQ->status_lolos==0?'yellow_3':'red_3'));
+                        $rs_s = $RS==null?'grey_4':($RS->status_lolos==1?'green_4':($RS->status_lolos==0?'yellow_4':'red_4'));
+                        $circle = '<div class="flex justify-center">'.
+                        '<img src="'.asset('/themes/tailwind/images/circle/'.$aca_s.'.png').'" class="w-5">'.
+                        '<img src="'.asset('/themes/tailwind/images/circle/'.$int_s.'.png').'" class="w-5">'.
+                        '<img src="'.asset('/themes/tailwind/images/circle/'.$rq_s.'.png').'" class="w-5">'.
+                        '<img src="'.asset('/themes/tailwind/images/circle/'.$rs_s.'.png').'" class="w-5">'.
+                        '</div>';
+                        return $circle;
+                })   
+                ->rawColumns(['act','is_lunas','status_bio','cust_neo_id','is_lulus_ujian'])
                 ->make(true);
         }
     }
