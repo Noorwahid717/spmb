@@ -1263,43 +1263,45 @@ class ValidasiPendaftaranController extends Controller
         $dataOrtu = CamabaDataOrtu::where('id_user',$req->id)->first();
         $dataWali = CamabaDataWaliPs::where('id_user',$req->id)->first();
         $dataRP = CamabaDataRiwayatPendidikan::where('id_user',$req->id)->first();
+        $dataMaba = [
+            "nama_mahasiswa"=> $dataPokok->nama,
+            "jenis_kelamin"=> strtoupper($dataPokok->gender),
+            "tempat_lahir"=> $dataPokok->tempat_lahir,
+            "tanggal_lahir"=> $dataPokok->tanggal_lahir,
+            "id_agama"=> $dataPokok->id_agama,
+            "nik"=> $dataPokok->nik,
+            "nisn"=> $dataRP->nisn,
+            "kewarganegaraan"=> $dataPokok->id_negara,
+            "jalan"=> $dataAlamat->jalan,
+            "dusun"=> $dataAlamat->dusun,
+            "rt"=> $dataAlamat->rt,
+            "rw"=> $dataAlamat->rw,
+            "kelurahan"=> $dataAlamat->kelurahan,
+            "kode_pos"=> $dataAlamat->kodepos,
+            "id_wilayah"=> $dataAlamat->id_wilayah,
+            "handphone"=> $dataAlamat->no_hp_camaba,
+            "email"=> $dataAlamat->email,
+            "penerima_kps"=> $dataWali->is_kps,
+            "nomor_kps"=> $dataWali->no_kps,
+            "nik_ayah"=> $dataOrtu->nik_ayah,
+            "nama_ayah"=> $dataOrtu->nama_ayah==""?null:$dataOrtu->nama_ayah,
+            "tanggal_lahir_ayah"=> $dataOrtu->tanggal_lahir_ayah,
+            "id_pendidikan_ayah"=> $dataOrtu->id_jenjang_pendidikan_ayah==-1?null:$dataOrtu->id_jenjang_pendidikan_ayah,
+            "id_pekerjaan_ayah"=> $dataOrtu->id_pekerjaan_ayah==-1?null:$dataOrtu->id_pekerjaan_ayah,
+            "id_penghasilan_ayah"=> $dataOrtu->id_penghasilan_ayah==-1?null:$dataOrtu->id_penghasilan_ayah,
+            "nik_ibu"=> $dataOrtu->nik_ibu,
+            "nama_ibu_kandung"=> $dataOrtu->nama_ibu,
+            "tanggal_lahir_ibu"=> $dataOrtu->tanggal_lahir_ibu,
+            "id_pendidikan_ibu"=> $dataOrtu->id_jenjang_pendidikan_ibu==-1?null:$dataOrtu->id_jenjang_pendidikan_ibu,
+            "id_pekerjaan_ibu"=> $dataOrtu->id_pekerjaan_ibu==-1?null:$dataOrtu->id_pekerjaan_ibu,
+            "id_penghasilan_ibu"=> $dataOrtu->id_penghasilan_ibu==-1?null:$dataOrtu->id_penghasilan_ibu,
+            "key"=>$req->key
+        ];
+        return $dataMaba;
         try {
             $response = Http::asJson()->withHeaders([
                 'Content-Type'=>'application/json'
-            ])->post(env('feeder_url').'/api/insert-biodata-camaba', [
-                "nama_mahasiswa"=> $dataPokok->nama,
-                "jenis_kelamin"=> strtoupper($dataPokok->gender),
-                "tempat_lahir"=> $dataPokok->tempat_lahir,
-                "tanggal_lahir"=> $dataPokok->tanggal_lahir,
-                "id_agama"=> $dataPokok->id_agama,
-                "nik"=> $dataPokok->nik,
-                "nisn"=> $dataRP->nisn,
-                "kewarganegaraan"=> $dataPokok->id_negara,
-                "jalan"=> $dataAlamat->jalan,
-                "dusun"=> $dataAlamat->dusun,
-                "rt"=> $dataAlamat->rt,
-                "rw"=> $dataAlamat->rw,
-                "kelurahan"=> $dataAlamat->kelurahan,
-                "kode_pos"=> $dataAlamat->kodepos,
-                "id_wilayah"=> $dataAlamat->id_wilayah,
-                "handphone"=> $dataAlamat->no_hp_camaba,
-                "email"=> $dataAlamat->email,
-                "penerima_kps"=> $dataWali->is_kps,
-                "nomor_kps"=> $dataWali->no_kps,
-                "nik_ayah"=> $dataOrtu->nik_ayah,
-                "nama_ayah"=> $dataOrtu->nama_ayah,
-                "tanggal_lahir_ayah"=> $dataOrtu->tanggal_lahir_ayah,
-                "id_pendidikan_ayah"=> $dataOrtu->id_jenjang_pendidikan_ayah==null?null:$dataOrtu->id_jenjang_pendidikan_ayah,
-                "id_pekerjaan_ayah"=> $dataOrtu->id_pekerjaan_ayah==null?null:$dataOrtu->id_pekerjaan_ayah,
-                "id_penghasilan_ayah"=> $dataOrtu->id_penghasilan_ayah==null?null:$dataOrtu->id_penghasilan_ayah,
-                "nik_ibu"=> $dataOrtu->nik_ibu,
-                "nama_ibu_kandung"=> $dataOrtu->nama_ibu,
-                "tanggal_lahir_ibu"=> $dataOrtu->tanggal_lahir_ibu,
-                "id_pendidikan_ibu"=> $dataOrtu->id_jenjang_pendidikan_ibu==null?null:$dataOrtu->id_jenjang_pendidikan_ibu,
-                "id_pekerjaan_ibu"=> $dataOrtu->id_pekerjaan_ibu==null?null:$dataOrtu->id_pekerjaan_ibu,
-                "id_penghasilan_ibu"=> $dataOrtu->id_penghasilan_ibu==null?null:$dataOrtu->id_penghasilan_ibu,
-                "key"=>$req->key
-            ]);
+            ])->post(env('feeder_url').'/api/insert-biodata-camaba', $dataMaba);
             $data = $response->json();
             if($data['error_code']==0){
                 $dataAwal->neo_id_mahasiswa = $data['data']['id_mahasiswa']; 
