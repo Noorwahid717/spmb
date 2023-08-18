@@ -18,6 +18,10 @@ use App\Models\CamabaDataDokumen;
 use App\Models\CamabaDataPernyataan;
 use App\Models\CamabaDataProgramStudi;
 use App\Models\CamabaDataRiwayatPendidikan;
+use App\Models\ExamAcademicMember;
+use App\Models\ExamInterviewMember;
+use App\Models\ExamReadQuranMember;
+use App\Models\ExamReadShalawatMember;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -253,7 +257,24 @@ class ValidasiPendaftaranController extends Controller
                 ->addColumn('cust_neo_id', function($row){
                     return $row->neo_id_mahasiswa==null?'Unregistered':'Registered';
                 })
-                ->rawColumns(['act','is_lunas','status_bio','cust_neo_id'])
+                ->addColumn('is_lulus_ujian', function($row){                    
+                    $academic = ExamAcademicMember::where('id_camaba',$row->id_user)->first();
+                    $interview = ExamInterviewMember::where('id_camaba',$row->id_user)->first();
+                    $RQ = ExamReadQuranMember::where('id_camaba',$row->id_user)->first();
+                    $RS = ExamReadShalawatMember::where('id_camaba',$row->id_user)->first();
+                        $aca_s = $academic==null?'grey_1':($academic->status_lolos==1?'green_1':($academic->status_lolos==0?'yellow_1':'red_1'));
+                        $int_s = $interview==null?'grey_2':($interview->status_lolos==1?'green_2':($interview->status_lolos==0?'yellow_2':'red_2'));
+                        $rq_s = $RQ==null?'grey_3':($RQ->status_lolos==1?'green_3':($RQ->status_lolos==0?'yellow_3':'red_3'));
+                        $rs_s = $RS==null?'grey_4':($RS->status_lolos==1?'green_4':($RS->status_lolos==0?'yellow_4':'red_4'));
+                        $circle = '<div class="flex justify-center">'.
+                        '<img src="'.asset('/themes/tailwind/images/circle/'.$aca_s.'.png').'" class="w-5">'.
+                        '<img src="'.asset('/themes/tailwind/images/circle/'.$int_s.'.png').'" class="w-5">'.
+                        '<img src="'.asset('/themes/tailwind/images/circle/'.$rq_s.'.png').'" class="w-5">'.
+                        '<img src="'.asset('/themes/tailwind/images/circle/'.$rs_s.'.png').'" class="w-5">'.
+                        '</div>';
+                        return $circle;
+                })   
+                ->rawColumns(['act','is_lunas','status_bio','cust_neo_id','is_lulus_ujian'])
                 ->make(true);
         }
     }
@@ -1263,43 +1284,45 @@ class ValidasiPendaftaranController extends Controller
         $dataOrtu = CamabaDataOrtu::where('id_user',$req->id)->first();
         $dataWali = CamabaDataWaliPs::where('id_user',$req->id)->first();
         $dataRP = CamabaDataRiwayatPendidikan::where('id_user',$req->id)->first();
+        $dataMaba = [
+            "nama_mahasiswa"=> $dataPokok->nama,
+            "jenis_kelamin"=> strtoupper($dataPokok->gender),
+            "tempat_lahir"=> $dataPokok->tempat_lahir,
+            "tanggal_lahir"=> $dataPokok->tanggal_lahir,
+            "id_agama"=> $dataPokok->id_agama,
+            "nik"=> $dataPokok->nik,
+            "nisn"=> $dataRP->nisn,
+            "kewarganegaraan"=> $dataPokok->id_negara,
+            "jalan"=> $dataAlamat->jalan,
+            "dusun"=> $dataAlamat->dusun,
+            "rt"=> $dataAlamat->rt,
+            "rw"=> $dataAlamat->rw,
+            "kelurahan"=> $dataAlamat->kelurahan,
+            "kode_pos"=> $dataAlamat->kodepos,
+            "id_wilayah"=> $dataAlamat->id_wilayah,
+            "handphone"=> $dataAlamat->no_hp_camaba,
+            "email"=> $dataAlamat->email,
+            "penerima_kps"=> $dataWali->is_kps,
+            "nomor_kps"=> $dataWali->no_kps,
+            "nik_ayah"=> $dataOrtu->nik_ayah,
+            "nama_ayah"=> $dataOrtu->nama_ayah==""?null:$dataOrtu->nama_ayah,
+            "tanggal_lahir_ayah"=> $dataOrtu->tanggal_lahir_ayah,
+            "id_pendidikan_ayah"=> $dataOrtu->id_jenjang_pendidikan_ayah==-1?null:$dataOrtu->id_jenjang_pendidikan_ayah,
+            "id_pekerjaan_ayah"=> $dataOrtu->id_pekerjaan_ayah==-1?null:$dataOrtu->id_pekerjaan_ayah,
+            "id_penghasilan_ayah"=> $dataOrtu->id_penghasilan_ayah==-1?null:$dataOrtu->id_penghasilan_ayah,
+            "nik_ibu"=> $dataOrtu->nik_ibu,
+            "nama_ibu_kandung"=> $dataOrtu->nama_ibu,
+            "tanggal_lahir_ibu"=> $dataOrtu->tanggal_lahir_ibu,
+            "id_pendidikan_ibu"=> $dataOrtu->id_jenjang_pendidikan_ibu==-1?null:$dataOrtu->id_jenjang_pendidikan_ibu,
+            "id_pekerjaan_ibu"=> $dataOrtu->id_pekerjaan_ibu==-1?null:$dataOrtu->id_pekerjaan_ibu,
+            "id_penghasilan_ibu"=> $dataOrtu->id_penghasilan_ibu==-1?null:$dataOrtu->id_penghasilan_ibu,
+            "key"=>$req->key
+        ];
+        return $dataMaba;
         try {
             $response = Http::asJson()->withHeaders([
                 'Content-Type'=>'application/json'
-            ])->post(env('feeder_url').'/api/insert-biodata-camaba', [
-                "nama_mahasiswa"=> $dataPokok->nama,
-                "jenis_kelamin"=> strtoupper($dataPokok->gender),
-                "tempat_lahir"=> $dataPokok->tempat_lahir,
-                "tanggal_lahir"=> $dataPokok->tanggal_lahir,
-                "id_agama"=> $dataPokok->id_agama,
-                "nik"=> $dataPokok->nik,
-                "nisn"=> $dataRP->nisn,
-                "kewarganegaraan"=> $dataPokok->id_negara,
-                "jalan"=> $dataAlamat->jalan,
-                "dusun"=> $dataAlamat->dusun,
-                "rt"=> $dataAlamat->rt,
-                "rw"=> $dataAlamat->rw,
-                "kelurahan"=> $dataAlamat->kelurahan,
-                "kode_pos"=> $dataAlamat->kodepos,
-                "id_wilayah"=> $dataAlamat->id_wilayah,
-                "handphone"=> $dataAlamat->no_hp_camaba,
-                "email"=> $dataAlamat->email,
-                "penerima_kps"=> $dataWali->is_kps,
-                "nomor_kps"=> $dataWali->no_kps,
-                "nik_ayah"=> $dataOrtu->nik_ayah,
-                "nama_ayah"=> $dataOrtu->nama_ayah,
-                "tanggal_lahir_ayah"=> $dataOrtu->tanggal_lahir_ayah,
-                "id_pendidikan_ayah"=> $dataOrtu->id_jenjang_pendidikan_ayah==null?null:$dataOrtu->id_jenjang_pendidikan_ayah,
-                "id_pekerjaan_ayah"=> $dataOrtu->id_pekerjaan_ayah==null?null:$dataOrtu->id_pekerjaan_ayah,
-                "id_penghasilan_ayah"=> $dataOrtu->id_penghasilan_ayah==null?null:$dataOrtu->id_penghasilan_ayah,
-                "nik_ibu"=> $dataOrtu->nik_ibu,
-                "nama_ibu_kandung"=> $dataOrtu->nama_ibu,
-                "tanggal_lahir_ibu"=> $dataOrtu->tanggal_lahir_ibu,
-                "id_pendidikan_ibu"=> $dataOrtu->id_jenjang_pendidikan_ibu==null?null:$dataOrtu->id_jenjang_pendidikan_ibu,
-                "id_pekerjaan_ibu"=> $dataOrtu->id_pekerjaan_ibu==null?null:$dataOrtu->id_pekerjaan_ibu,
-                "id_penghasilan_ibu"=> $dataOrtu->id_penghasilan_ibu==null?null:$dataOrtu->id_penghasilan_ibu,
-                "key"=>$req->key
-            ]);
+            ])->post(env('feeder_url').'/api/insert-biodata-camaba', $dataMaba);
             $data = $response->json();
             if($data['error_code']==0){
                 $dataAwal->neo_id_mahasiswa = $data['data']['id_mahasiswa']; 
