@@ -1318,7 +1318,7 @@ class ValidasiPendaftaranController extends Controller
             "id_penghasilan_ibu"=> $dataOrtu->id_penghasilan_ibu==-1?null:$dataOrtu->id_penghasilan_ibu,
             "key"=>$req->key
         ];
-        return $dataMaba;
+        
         try {
             $response = Http::asJson()->withHeaders([
                 'Content-Type'=>'application/json'
