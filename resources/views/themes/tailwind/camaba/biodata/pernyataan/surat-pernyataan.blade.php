@@ -211,7 +211,7 @@
 
     <p style="font-size:14px;line-height: 1.5rem;text-align: justify;text-indent:5%">
         Dengan taufik hidayah Allah SWT, syafa’at Rosululloh SAW, barokah
-        nadzroh Ghoutsu Hadzaz Zaman RA, serta do’a restu Hadrotul Mukarrom Kanjeng Kyai Abdul Majid Ali Fikri RA,
+        nadzroh Ghoutsu Hadzaz Zaman RA, serta do’a restu Hadrotul Mukarrom Kanjeng Romo Kyai Abdul Majid Ali Fikri RA,
         Pengasuh Perjuangan Wahidiyah dan Pondok Pesantren Kedunglo Al-Munadhdhoroh.
         Yang bertanda tangan di bawah ini :
     </p>
@@ -346,7 +346,7 @@
             <br><br>
             <br><br>
             <br><br>
-            <span style="text-align: right">Kanjeng Kyai Abdul Majid Ali Fikri RA.</span>
+            <span style="text-align: right">Kanjeng Romo Kyai Abdul Majid Ali Fikri RA.</span>
         </div>
     </div>
 
@@ -402,7 +402,7 @@
 
     <p style="font-size:14px;line-height: 1.5rem;text-align: justify;text-indent:5%">
         Dengan taufik hidayah Allah SWT, syafa’at Rosululloh SAW, barokah
-        nadzroh Ghoutsu Hadzaz Zaman RA, serta do’a restu Hadrotul Mukarrom Kanjeng Kyai Abdul Majid Ali Fikri RA,
+        nadzroh Ghoutsu Hadzaz Zaman RA, serta do’a restu Hadrotul Mukarrom Kanjeng Romo Kyai Abdul Majid Ali Fikri RA,
         Pengasuh Perjuangan Wahidiyah dan Pondok Pesantren Kedunglo Al-Munadhdhoroh.
         Yang bertanda tangan di bawah ini :
     </p>
