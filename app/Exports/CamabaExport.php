@@ -25,6 +25,7 @@ class CamabaExport implements FromCollection, WithHeadings
     public function collection()
     {
         $camaba = RegistrasiAwalUser::where('tahun_akademik_registrasi',$this->ta_reg)
+        ->where('is_lunas','1')
         ->with([
             'getCamabaDataPokok','getCamabaDataAlamat','getCamabaDataOrtu','getCamabaDataWaliPs',
             'getCamabaDataRiwayatPendidikan','getCamabaDataPernyataan','getExamAcademicMember',
