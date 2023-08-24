@@ -253,7 +253,8 @@
     }
 
     function exportToExcelCamaba(){
-        window.open($('#linkExportCamaba').val()+'?ta_reg=20231');
+        let ta ='20231';
+        window.open($('#linkExportCamaba').val()+`?ta_reg=${ta}`);
     }
 </script>
 @endsection
