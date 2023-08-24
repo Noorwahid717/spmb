@@ -12,6 +12,7 @@
         "ext-exif": "*",
         "ext-gd": "*",
         "ext-redis": "*",
+        "barryvdh/laravel-dompdf": "*",
         "devdojo/app": "0.11.0",
         "devdojo/themes": "0.0.7",
         "guzzlehttp/guzzle": "^7.2",
@@ -21,10 +22,10 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.4",
+        "maatwebsite/excel": "^3.1",
         "tcg/voyager": "1.5.x-dev",
         "tymon/jwt-auth": "@dev",
-        "yajra/laravel-datatables-oracle": "^9.18",
-        "barryvdh/laravel-dompdf": "*"
+        "yajra/laravel-datatables-oracle": "^9.18"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

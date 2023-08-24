@@ -68,6 +68,14 @@
                         onclick="execFil()">
                         <i class="fa fa-search"></i> Tampilkan Data</button>
                 </div>
+                <div>
+                    <button
+                        class="inline-flex self-start items-center ml-3 px-4 py-3 bg-wave-400 hover:bg-wave-600 text-white text-sm font-medium rounded-md"
+                        onclick="exportToExcelCamaba()">
+                        <i class="fa fa-search"></i> Export Camaba Lunas</button>
+                    <input type="hidden" class="linkExportCamaba" id="linkExportCamaba" name="linkExportCamaba"
+                        value="{{route('wave.validasi-pendaftaran-export-camaba')}}">
+                </div>
             </div>
             <table id="validasi_pendaftaran" class="display validasi_pendaftaran" style="width:100%;">
                 <thead style="font-size: 12px">
@@ -242,6 +250,10 @@
                 }
             },
         }); 
+    }
+
+    function exportToExcelCamaba(){
+        window.open($('#linkExportCamaba').val()+'?ta_reg=20231');
     }
 </script>
 @endsection

@@ -25,6 +25,9 @@ use App\Models\ExamReadShalawatMember;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
+use App\Exports\CamabaExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use DataTables;
 use Illuminate\Support\Arr;
 use Str;
@@ -1337,5 +1340,10 @@ class ValidasiPendaftaranController extends Controller
             $res['message']=$e->getMessage();
         }
         return response()->json($res);
+    }
+
+    public function exportToExcellCamaba(Request $req)
+    {        
+        return Excel::download(new CamabaExport($req->ta_reg), 'camaba.xlsx');
     }
 }
