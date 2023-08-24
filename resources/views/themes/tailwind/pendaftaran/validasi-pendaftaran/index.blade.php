@@ -253,8 +253,30 @@
     }
 
     function exportToExcelCamaba(){
-        let ta ='20231';
-        window.open($('#linkExportCamaba').val()+`?ta_reg=${ta}`);
+        const contents = `Anda akan mengeskpor data calon mahasiswa baru.<br><input type="text" id="periode_export" class="swal2-input rounded-md" placeholder="Periode PMB ex.(20231)">`;          
+        Swal.fire({
+            title: 'Apakah anda yakin!',
+            // text: teks,
+            html: contents,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, ekspor data camaba sekarang!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                const periode_export = Swal.getPopup().querySelector('#periode_export').value
+                if (!periode_export) {
+                Swal.showValidationMessage(`Masukkan periode PMB yang akan diekspor!`)
+                }
+                return { periode_export: periode_export }
+            }
+            }).then((result) => {
+                if (result.isConfirmed) {                      
+                    let ta =result.value.periode_export;
+                    window.open($('#linkExportCamaba').val()+`?ta_reg=${ta}`);
+                } 
+        });
     }
 </script>
 @endsection
