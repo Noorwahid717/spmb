@@ -51,7 +51,21 @@ class RegistrasiAwalUser extends Model
         return $this->belongsTo('App\Models\UserSpmbStep','id_user', 'user_id');    
     }
 
+    public function getExamAcademicMember(){
+        return $this->belongsTo('App\Models\ExamAcademicMember','id_user', 'id_camaba');    
+    }
 
+    public function getExamInterviewMember(){
+        return $this->belongsTo('App\Models\ExamInterviewMember','id_user', 'id_camaba');    
+    }
+
+    public function getExamReadQuranMember(){
+        return $this->belongsTo('App\Models\ExamReadQuranMember','id_user', 'id_camaba');    
+    }
+
+    public function getExamReadShalawatMember(){
+        return $this->belongsTo('App\Models\ExamReadShalawatMember','id_user', 'id_camaba');    
+    }
 
     // available-member
     protected $appends = ['nama','prodi','lunas','adm'];

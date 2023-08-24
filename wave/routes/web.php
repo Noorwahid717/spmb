@@ -83,7 +83,7 @@ Route::group(['middleware' => 'wave'], function () {
 	Route::get('validasi-pendaftaran-download-surat-pernyataan', '\Wave\Http\Controllers\ValidasiPendaftaranController@downloadSuratPernyataan')->name('wave.validasi-pendaftaran-download-surat-pernyataan');
 	Route::post('validasi-pendaftaran-rotate-image', '\Wave\Http\Controllers\ValidasiPendaftaranController@rotateImage')->name('wave.validasi-pendaftaran-rotate-image');	
 	Route::post('validasi-pendaftaran-insert-mhs', '\Wave\Http\Controllers\ValidasiPendaftaranController@insertBiodataMahasiswaToNeo')->name('wave.validasi-pendaftaran-insert-mhs');	
-	
+	Route::get('validasi-pendaftaran-export-camaba','\Wave\Http\Controllers\ValidasiPendaftaranController@exportToExcellCamaba')->name('wave.validasi-pendaftaran-export-camaba');
 
 	// route penguji seleksi
 	// pengujian
