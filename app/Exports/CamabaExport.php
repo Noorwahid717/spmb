@@ -112,6 +112,7 @@ class CamabaExport implements FromCollection, WithHeadings
             'status_administrasi',
             'status_surat_pernyataan',
             'neo_id_mahasiswa',
+            'program_studi',
             'nkk',
             'nik',
             'nama',

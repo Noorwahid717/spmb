@@ -23,6 +23,7 @@ class CamabaResource extends JsonResource
             'status_administrasi' => $this->adm,
             'status_surat_pernyataan' =>$this->getCamabaDataPernyataan==null?null:$this->getCamabaDataPernyataan->status_step,
             'neo_id_mahasiswa' => $this->neo_id_mahasiswa,
+            'program_studi' => $this->prodi,
 
             'nkk'=>$this->getCamabaDataPokok==null?null:$this->getCamabaDataPokok->nkk,
             'nik'=>$this->getCamabaDataPokok==null?null:$this->getCamabaDataPokok->nik,
