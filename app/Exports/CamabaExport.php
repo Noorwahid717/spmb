@@ -34,7 +34,7 @@ class CamabaExport implements FromCollection, WithHeadings
         ->get()
         ->each(function($row){
             $row->makeHidden([
-                'url_bukti_bayar','created_at','updated_at','getUser','is_lunas','id_user_admin','keterangan',
+                'url_bukti_bayar','created_at','updated_at','is_lunas','id_user_admin','keterangan',
                 'id','id_user'                
             ]);
             if($row->getCamabaDataProgramStudi != null){
@@ -105,6 +105,10 @@ class CamabaExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [            
+            'id_user',
+            'nama_daftar',
+            'email_daftar',
+            'telp_daftar',
             'tahun_akademik_registrasi',
             'nominal_pembayaran_registrasi',
             'tanggal_bayar_registrasi',
@@ -115,7 +119,7 @@ class CamabaExport implements FromCollection, WithHeadings
             'program_studi',
             'nkk',
             'nik',
-            'nama',
+            'nama_tervalidasi',
             'gender',
             'tempat_lahir',
             'tanggal_lahir',
