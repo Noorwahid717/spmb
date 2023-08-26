@@ -16,6 +16,10 @@ class CamabaResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
+            'id_user'=>$this->getUser->id,
+            'nama_daftar'=>$this->getUser->name,
+            'email_daftar'=>$this->getUser->email,
+            'telp_daftar'=>$this->getUser->no_hp_camaba,
             'tahun_akademik_registrasi'=>$this->tahun_akademik_registrasi,
             'nominal_pembayaran_registrasi'=>$this->nominal,
             'tanggal_bayar_registrasi'=>$this->tanggal_bayar,
