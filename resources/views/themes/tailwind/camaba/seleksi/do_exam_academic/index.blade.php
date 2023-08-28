@@ -93,7 +93,7 @@
                                                         c0.306,0.307,0.801,0.307,1.107,0c0.306-0.305,0.306-0.801,0-1.105l-4.184-4.185h14.656c0.436,0,0.788-0.353,0.788-0.788
                                                         S18.707,9.212,18.271,9.212z" />
                                                 </svg>
-                                                Back
+                                                Back & Save
                                             </button>
                                         </div>
                                         <div
@@ -105,7 +105,7 @@
                                             class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
                                             <button onclick="refresh_navigation_answer()"
                                                 class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
-                                                Next &nbsp;
+                                                Next & Save &nbsp;
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -294,7 +294,7 @@
                                 c0.306,0.307,0.801,0.307,1.107,0c0.306-0.305,0.306-0.801,0-1.105l-4.184-4.185h14.656c0.436,0,0.788-0.353,0.788-0.788
                                 S18.707,9.212,18.271,9.212z" />
                         </svg>
-                        Back
+                        Back & Save
                     </button>
                 </div>
                 <div
@@ -306,7 +306,7 @@
                     class="flex flex-col justify-start flex-1 mb-5 px-5 overflow-hidden bg-white">
                     <button onclick="refresh_navigation_answer('next',${idx},${is_editable})"
                         class="inline-flex xl:self-end self-center items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md">
-                        ${idx+1==data.length?'Save':'Next'} &nbsp;
+                        ${idx+1==data.length?'Save':'Next & Save'} &nbsp;
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
