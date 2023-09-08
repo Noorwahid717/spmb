@@ -173,7 +173,7 @@ class ValidasiPendaftaranController extends Controller
                     'class="my-1 mr-2 inline-flex self-start items-center px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" '.
                     'onClick="insertBiodataMahasiswaToNeo(
                         \''.$row->id_user.'\',
-                        \''.$row->nama.'\',
+                        \''.str_replace("'","\'",$row->nama). '\',
                         \''.($row->getCamabaDataPokok==null?"null":(str_replace("'","\'",$row->getCamabaDataPokok->tempat_lahir))).'\',
                         \''.($row->getCamabaDataPokok==null?"null":$row->getCamabaDataPokok->tanggal_lahir).'\');">'.  
                     '<img src="'.asset('/themes/tailwind/images/rewind-right.png').'" class="w-6 rounded sm:mx-auto"> '.
